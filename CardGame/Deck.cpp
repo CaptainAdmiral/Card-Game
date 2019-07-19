@@ -9,7 +9,7 @@ void Deck::card_in(CardPtr) {}
 
 CardPtr Deck::card_out() {
 	CardPtr card = std::make_unique<Card>(Card());
-	card->properties.setAtk(10).setDef(10).setSpeed(1).setRange(1);
+	card->properties.setAtk(10).setCtr(12).setDef(8).setSpeed(1).setRange(1);
 	return std::move(card);
 }
 

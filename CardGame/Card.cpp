@@ -8,6 +8,11 @@ Card::Card(Card::Properties props) {
 
 Card::~Card() {}
 
+AbstractRender &Card::getRender() {
+	static RenderCard render;
+	return render;
+}
+
 Card::Properties &Card::Properties::setAtk(int i) {
 	atk = i;
 	return *this;
@@ -15,6 +20,11 @@ Card::Properties &Card::Properties::setAtk(int i) {
 
 Card::Properties &Card::Properties::setDef(int i) {
 	def = i;
+	return *this;
+}
+
+Card::Properties &Card::Properties::setCtr(int i) {
+	ctr = i;
 	return *this;
 }
 

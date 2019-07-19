@@ -1,15 +1,26 @@
 #pragma once
 #include "EnumGamePhase.h"
+#include "GameComponents.h"
 
 class AbstractGamePhase {
 public:
+	GameComponents &gameComponents;
 	const GamePhase name;
 
-	virtual ~AbstractGamePhase() {};
+	virtual ~AbstractGamePhase();
 
-	virtual void doPhase() = 0;
+	virtual void update();
+
+	void setFinished();
+
+	bool isFinished();
 
 protected:
-	AbstractGamePhase(GamePhase phase) : name(phase) {}
+	AbstractGamePhase(GamePhase phase, GameComponents&);
+
+private:
+	bool finished = false;
+
+	virtual void doPhase() = 0;
 };
 

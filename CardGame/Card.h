@@ -1,8 +1,10 @@
 #pragma once
+#include "IRenderable.h"
+#include "RenderCard.h"
 
 class Slot;
 
-class Card {
+class Card : public IRenderable {
 public:
 	const Slot *slot = nullptr;
 
@@ -10,9 +12,9 @@ public:
 	~Card();
 
 	//TODO replace with one of the following hashmaps:
-	//std::map<std::String, unsigned short>
-	//std::map<std::String, BoolShortUnion union>
-	//std::map<std::String, std::any>
+	//std::unordered_map<std::String, unsigned short>
+	//std::unordered_map<std::String, BoolShortUnion union>
+	//std::unordered_map<std::String, std::any>
 	struct Properties {
 	public:
 		Properties() {};
@@ -21,11 +23,14 @@ public:
 		enum type{Unit, Spell};
 
 		unsigned int atk=0;
+		unsigned int ctr = 0; //TODO make sure counter is never lower than defense
 		unsigned int def=0;
 		unsigned int speed=1;
 		unsigned int range=1;
 
 		Properties &setAtk(int);
+
+		Properties &setCtr(int);
 
 		Properties &setDef(int);
 
@@ -37,4 +42,6 @@ public:
 	Properties properties;
 
 	Card(Properties props);
+
+	virtual AbstractRender &getRender() override;
 };

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractGamePhase.h" />
+    <ClInclude Include="AbstractRender.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="AbstractCardContainer.h" />
     <ClInclude Include="Effect.h" />
@@ -35,8 +36,12 @@
     <ClInclude Include="EnumGamePhase.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="Hand.h" />
+    <ClInclude Include="IRenderable.h" />
     <ClInclude Include="Opponent.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RenderCard.h" />
+    <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="SkinRegistry.h" />
     <ClInclude Include="RulesManager.h" />
     <ClInclude Include="Slot.h" />
     <ClInclude Include="Source.h" />
@@ -44,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractCardContainer.cpp" />
+    <ClCompile Include="AbstractGamePhase.cpp" />
+    <ClCompile Include="AbstractRender.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardGame.cpp" />
     <ClCompile Include="Deck.cpp" />
@@ -55,8 +62,12 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="ICardContainer.cpp" />
+    <ClCompile Include="IRenderable.cpp" />
     <ClCompile Include="Opponent.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RenderCard.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="SkinRegistry.cpp" />
     <ClCompile Include="RulesManager.cpp" />
     <ClCompile Include="Slot.cpp" />
     <ClCompile Include="Source.cpp" />

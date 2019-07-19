@@ -1,6 +1,10 @@
 #include "GameStateManager.h"
 
-GameStateManager::GameStateManager(GameComponents &gameComponents) {}
+GameStateManager::GameStateManager(GameComponents &components) : gameComponents(components) {
+	turnCycle.push_back(std::make_unique<StandardGamePhases::GamePhase_Draw>(StandardGamePhases::GamePhase_Draw(gameComponents))); //Add draw phase to turn cycle
+	turnCycle.push_back(std::make_unique<StandardGamePhases::GamePhase_Planning>(StandardGamePhases::GamePhase_Planning(gameComponents))); //Add planning phase to turn cycle
+	turnCycle.push_back(std::make_unique<StandardGamePhases::GamePhase_Action>(StandardGamePhases::GamePhase_Action(gameComponents))); //Add action phase to turn cycle
+}
 
 GameStateManager::~GameStateManager() {}
 
@@ -8,18 +12,25 @@ void GameStateManager::reset() {
 }
 
 void GameStateManager::newGame() {
-}
-
-void GameStateManager::updatePhaseState() {
 	
 }
 
-void GameStateManager::doPhase() {
-	state->doPhase();
+void GameStateManager::updatePhase() {
+	(**currentPhase).update();
 }
 
 void GameStateManager::nextPhase() {
-	static_cast<GamePhase>(static_cast<int>(phase)+1); //TODO implement method that respects the non contiguousness and descreteness of enum
+	if (currentPhase != turnCycle.end()) {
+		++currentPhase;
+	}
+	else {
+		currentPhase = turnCycle.begin();
+	}
 }
 
-void GameStateManager::update() {}
+void GameStateManager::update() {
+	if ((**currentPhase).isFinished()) {
+		nextPhase();
+	}
+	updatePhase();
+}

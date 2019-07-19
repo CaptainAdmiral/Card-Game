@@ -115,6 +115,18 @@
     <Filter Include="Source Files\Com\Game\Event">
       <UniqueIdentifier>{2dfa05ec-85a3-4691-9068-5f7590ffd957}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Com\Client\Graphics\Render">
+      <UniqueIdentifier>{ad28474b-21dd-4bfa-9e1e-2ecd04fd05a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Com\Client\Graphics\Render">
+      <UniqueIdentifier>{527623c6-dcc3-4507-bdc6-aec7e7d1f25f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Com\Client\Graphics\Render\Renders">
+      <UniqueIdentifier>{da7801a5-8c56-43c5-92f7-f1a8959259e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Com\Client\Graphics\Render\Renders">
+      <UniqueIdentifier>{1ce91d70-c6d3-44e2-816b-adc4e0efdd36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CardGame.h">
@@ -183,6 +195,21 @@
     <ClInclude Include="GameComponents.h">
       <Filter>Header Files\Com\Game</Filter>
     </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Header Files\Com\Client\Graphics\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderable.h">
+      <Filter>Header Files\Com\Client\Graphics\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinRegistry.h">
+      <Filter>Header Files\Com\Client\Graphics\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractRender.h">
+      <Filter>Header Files\Com\Client\Graphics\Render\Renders</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderCard.h">
+      <Filter>Header Files\Com\Client\Graphics\Render\Renders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp">
@@ -238,6 +265,24 @@
     </ClCompile>
     <ClCompile Include="GameStateManager.cpp">
       <Filter>Source Files\Com\Game\Game Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractGamePhase.cpp">
+      <Filter>Source Files\Com\Game\Game Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Source Files\Com\Client\Graphics\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderable.cpp">
+      <Filter>Source Files\Com\Client\Graphics\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinRegistry.cpp">
+      <Filter>Source Files\Com\Client\Graphics\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractRender.cpp">
+      <Filter>Source Files\Com\Client\Graphics\Render\Renders</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderCard.cpp">
+      <Filter>Source Files\Com\Client\Graphics\Render\Renders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

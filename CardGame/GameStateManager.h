@@ -4,9 +4,9 @@
 
 class GameStateManager {
 public:
-	GamePhase phase = GamePhase::BEGIN;
+	GameComponents &gameComponents;
 
-	GameStateManager(GameComponents&);
+	GameStateManager(GameComponents& components);
 	~GameStateManager();
 
 	//Resets the game engine for a new game
@@ -15,18 +15,19 @@ public:
 	//Updates the game logic
 	void update();
 
+	//void addPhase(AbstractGamePhase &phase, AbstractGamePhase &after)
+
 private:
-	std::unique_ptr<AbstractGamePhase> state;
+	std::vector<std::unique_ptr<AbstractGamePhase>>::iterator currentPhase;
 
+	std::vector<std::unique_ptr<AbstractGamePhase>> turnCycle;
+	
 	void reset();
-
-	//Updates the engine state to reflect the current phase
-	void updatePhaseState();
-
-	//Performs the game logic for the current phase
-	void doPhase();
 
 	//Progresses the game to the next phase
 	void nextPhase();
+
+	//Performs the game logic for the current phase
+	void updatePhase();
 };
 
