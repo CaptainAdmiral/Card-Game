@@ -12,4 +12,7 @@ public:
 
 	GameStateManager gameStateManager{gameComponents};
 	RulesManager rulesManager{gameComponents};
+
+	//Updates the GameEngine 
+	void update();
 };

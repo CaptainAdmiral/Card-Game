@@ -1,14 +1,19 @@
 #include "Card.h"
 
 
-Card::Card() {}
+Card::Card() {
+	
+}
 Card::Card(Card::Properties props) {
+	Card();
 	properties = props;
 }
 
-Card::~Card() {}
+Card::~Card() {
+	
+}
 
-AbstractRender &Card::getRender() {
+AbstractRender & Card::getRender() {
 	static RenderCard render;
 	return render;
 }

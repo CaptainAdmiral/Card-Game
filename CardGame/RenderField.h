@@ -1,11 +1,11 @@
 #pragma once
 #include "AbstractRender.h"
-class Card;
+class Field;
 
-class RenderCard : public AbstractRender {
+class RenderField : public AbstractRender {
 public:
-	RenderCard();
-	~RenderCard();
+	RenderField();
+	~RenderField();
 
 	virtual void render(IRenderable &renderable, RenderWrapper rw) override;
 };

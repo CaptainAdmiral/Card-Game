@@ -127,6 +127,12 @@
     <Filter Include="Source Files\Com\Client\Graphics\Render\Renders">
       <UniqueIdentifier>{1ce91d70-c6d3-44e2-816b-adc4e0efdd36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Com\Game\Polygon">
+      <UniqueIdentifier>{37c5f375-743f-45ed-be55-da1b8173841b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Com\Game\Polygon">
+      <UniqueIdentifier>{e3c131b7-a51f-4e06-a3af-2fe8adfde2c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CardGame.h">
@@ -210,6 +216,18 @@
     <ClInclude Include="RenderCard.h">
       <Filter>Header Files\Com\Client\Graphics\Render\Renders</Filter>
     </ClInclude>
+    <ClInclude Include="RenderField.h">
+      <Filter>Header Files\Com\Client\Graphics\Render\Renders</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingBox.h">
+      <Filter>Header Files\Com\Game\Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderWrapper.h">
+      <Filter>Header Files\Com\Client\Graphics\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSlot.h">
+      <Filter>Header Files\Com\Client\Graphics\Render\Renders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp">
@@ -282,6 +300,15 @@
       <Filter>Source Files\Com\Client\Graphics\Render\Renders</Filter>
     </ClCompile>
     <ClCompile Include="RenderCard.cpp">
+      <Filter>Source Files\Com\Client\Graphics\Render\Renders</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderField.cpp">
+      <Filter>Source Files\Com\Client\Graphics\Render\Renders</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingBox.cpp">
+      <Filter>Source Files\Com\Game\Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSlot.cpp">
       <Filter>Source Files\Com\Client\Graphics\Render\Renders</Filter>
     </ClCompile>
   </ItemGroup>

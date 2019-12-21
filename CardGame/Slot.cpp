@@ -2,6 +2,7 @@
 
 Slot::Slot() {
 }
+
 Slot::~Slot() {
 }
 
@@ -32,4 +33,9 @@ bool Slot::isEmpty() {
 
 bool Slot::contains(Card& card) {
 	return contents.get() == &card;
+}
+
+AbstractRender &Slot::getRender() {
+	static RenderSlot render;
+	return render;
 }

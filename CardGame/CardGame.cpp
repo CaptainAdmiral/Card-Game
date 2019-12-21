@@ -1,11 +1,10 @@
 #include "CardGame.h"
-//TODO remove platfrom dependancy
-#include <windows.h>
-#include <SFML/Window.hpp>
 
 CardGame::CardGame() {
 	setRunning(true);
 }
+
+CardGame::~CardGame() {}
 
 CardGame &CardGame::instance() {
 	static CardGame instance;
@@ -24,7 +23,7 @@ void CardGame::close() {
 	setRunning(false);
 }
 
-sf::Window &CardGame::getMainWindow() {
+sf::RenderWindow &CardGame::getMainWindow() {
 	return windowHandle;
 }
 
@@ -32,32 +31,54 @@ void CardGame::initializeMainWindow() {
 	return getMainWindow().create(sf::VideoMode(500, 500), "Card Game");
 }
 
+void CardGame::initializeGraphics() {
+	RenderManager::instance().setWindow(windowHandle);
+}
+
 void CardGame::updateWindow() {
-	// check all the window's events that were triggered since the last iteration of the loop
 	sf::Event event;
-	sf::Window &window = getMainWindow();
+	sf::RenderWindow &window = getMainWindow();
 	while (window.pollEvent(event)) {
-		// "close requested" event: we close the window
 		if (event.type == sf::Event::Closed) {
 			getMainWindow().close();
 			CardGame::close();
 		}
+		window.clear();
+		updateGraphics();
 		window.display();
 	}
 }
 
-void CardGame::initialize() {
-	CardGame &instance = CardGame::instance();
-	ShowWindow(GetConsoleWindow(), 0);
+void CardGame::updateGame() {
+	gameEngine.update();
+}
 
-	instance.initializeMainWindow();
-	instance.getMainWindow().setVerticalSyncEnabled(true);
+void CardGame::updateGraphics() {
+	RenderManager::instance().doRender();
+}
+
+void CardGame::initialize() {
+	if(DEBUG) ShowWindow(GetConsoleWindow(), 0);
+
+	initializeMainWindow();
+	getMainWindow().setVerticalSyncEnabled(true);
+
+	initializeGraphics();
 }
 
 void CardGame::update() {
-	CardGame::instance().updateWindow();
+	updateWindow();
+	updateGame();
 }
 
+
+
+
+
+
+
+
+//Main Program Loop
 int main() {
 	CardGame &instance = CardGame::instance();
 	
@@ -71,5 +92,3 @@ int main() {
 
 	return 0;
 }
-
-CardGame::~CardGame() {}

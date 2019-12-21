@@ -3,3 +3,7 @@
 GameEngine::GameEngine() {}
 
 GameEngine::~GameEngine() {}
+
+void GameEngine::update() {
+	gameStateManager.update();
+}

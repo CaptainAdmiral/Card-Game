@@ -1,7 +1,8 @@
 #pragma once
 #include "ICardContainer.h"
+#include "RenderSlot.h"
 
-class Slot : ICardContainer {
+class Slot : ICardContainer, public IRenderable {
 public:
 	Slot();
 	~Slot();
@@ -15,4 +16,6 @@ public:
 	virtual bool hasSpace() override;
 	virtual bool isEmpty() override;
 	virtual bool contains(Card&) override;
+
+	virtual AbstractRender& getRender() override;
 };

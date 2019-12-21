@@ -1,10 +1,19 @@
 #pragma once
-#include <SFML/Window.hpp>
+//TODO remove platform dependancy
+#include <SFML/Graphics.hpp>
+#include <windows.h>
+
+#include "RenderManager.h"
+#include "GameEngine.h"
 
 class CardGame
 {
 
 public:
+	static const bool DEBUG = true;
+
+	GameEngine gameEngine;
+
 	~CardGame();
 
 	//Returns CardGame's singleton instance
@@ -30,17 +39,26 @@ private:
 
 	bool isRunning;
 
-	sf::Window windowHandle;
+	sf::RenderWindow windowHandle;
 	
 	//Passing false will close the program via breaking of the main program loop
 	void setRunning(bool running);
 
 	//Returns a handle for the main program window.
-	sf::Window &getMainWindow();
+	sf::RenderWindow &getMainWindow();
 
 	//Creates and initializs the main program window.
 	void initializeMainWindow();
 
+	//Initializes the graphics engine
+	void initializeGraphics();
+
 	//Updates the main program window
 	void updateWindow();
+
+	//Temp function in place of broader logic update
+	void updateGame();
+
+	//Iterates through the render manager render list
+	void updateGraphics();
 };

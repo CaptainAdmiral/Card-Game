@@ -1,6 +1,6 @@
 #pragma once
-#include "IRenderable.h"
 #include "RenderCard.h"
+#include "IRenderable.h"
 
 class Slot;
 
@@ -10,6 +10,8 @@ public:
 
 	Card();
 	~Card();
+
+	AbstractRender &getRender() override;
 
 	//TODO replace with one of the following hashmaps:
 	//std::unordered_map<std::String, unsigned short>
@@ -42,6 +44,4 @@ public:
 	Properties properties;
 
 	Card(Properties props);
-
-	virtual AbstractRender &getRender() override;
 };
