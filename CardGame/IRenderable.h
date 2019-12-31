@@ -1,15 +1,15 @@
 #pragma once
 #include "AbstractRender.h"
-#include "BoundingBox.h"
+#include <boost/geometry.hpp>
+#include <boost/geometry/geometries/geometries.hpp>
 
-class RenderManager;
+namespace bg = boost::geometry;
+typedef bg::model::point<double, 2, bg::cs::cartesian> point_t;
+typedef bg::model::polygon<point_t> BoundingBox;
+
 
 class IRenderable {
 public:
-	int posX = 0;
-	int posY = 0;
-	BoundingBox boundingBox;
-
 	IRenderable();
 	virtual ~IRenderable();
 
@@ -29,4 +29,48 @@ public:
 	
 	//On mouse release
 	virtual void onMouseRelease() {};
+
+	virtual float getPosX() {
+		return posX;
+	}
+
+	virtual float getPosY() {
+		return posY;
+	}
+
+	virtual void setPos(float x, float y) {
+		posX = x;
+		posY = y;
+		updateBoundingBox();
+	}
+
+	virtual void move(float x, float y) {
+		posX += x;
+		posY += y;
+		updateBoundingBox();
+	}
+
+	//Immutable getter for IRenderable bounding box
+	virtual const BoundingBox &getBoundingBox() {
+		return boundingBox;
+	}
+
+protected:
+	float posX = 0;
+	float posY = 0;
+
+	//Used to define the IRenderable bounding box
+	virtual BoundingBox calculateBoundingBox() {
+		BoundingBox box;
+		return box;
+	};
+
+	//Used to recalculate the IRenderable bounding box
+	//Called by every function that changes position
+	virtual void updateBoundingBox() {
+		boundingBox = calculateBoundingBox();
+	}
+
+private:
+	BoundingBox boundingBox;
 };

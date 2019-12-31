@@ -7,6 +7,5 @@ public:
 	RenderField();
 	~RenderField();
 
-	virtual void render(IRenderable &renderable, RenderWrapper rw) override;
+	virtual void render(IRenderable &renderable, RenderWrapper &rw) override;
 };
-

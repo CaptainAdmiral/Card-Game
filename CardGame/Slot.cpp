@@ -1,10 +1,18 @@
 #include "Slot.h"
 
 Slot::Slot() {
+	updateBoundingBox();
 }
 
-Slot::~Slot() {
+Slot::Slot(float x, float y) {
+	setPos(x, y);
 }
+
+Slot::Slot(float x, float y, float size) : size(size) {
+	setPos(x, y);
+}
+
+Slot::~Slot() {}
 
 void Slot::card_in(CardPtr card) {
 	assert(isEmpty());
@@ -38,4 +46,14 @@ bool Slot::contains(Card& card) {
 AbstractRender &Slot::getRender() {
 	static RenderSlot render;
 	return render;
+}
+
+BoundingBox Slot::calculateBoundingBox() {
+	BoundingBox BB;
+	bg::append(BB.outer(), point_t(posX - size/2, posY));
+	bg::append(BB.outer(), point_t(posX, posY + size));
+	bg::append(BB.outer(), point_t(posX + size/2, posY));
+	bg::append(BB.outer(), point_t(posX, posY - size));
+
+	return BB;
 }

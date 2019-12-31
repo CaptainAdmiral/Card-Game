@@ -1,7 +1,5 @@
 #include "Field.h"
 
-
-
 Field::Field() {
 	buildField();
 }
@@ -18,7 +16,8 @@ AbstractRender &Field::getRender() {
 void Field::buildField() {
 	for(size_t i = 0; i < std::size(slotArray); i++) {
 		for(size_t j = 0; j < std::size(slotArray[i]); j++) {
-			slotArray[i][j] = std::make_unique<Slot>();
+			if(i%2 == 0 && j == 0) continue;
+			slotArray[i][j] = std::make_unique<Slot>((j + 0.5f*(i%2))*100, (i + 1)*100, 98);
 		}
 	}
 }

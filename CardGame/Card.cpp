@@ -13,7 +13,7 @@ Card::~Card() {
 	
 }
 
-AbstractRender & Card::getRender() {
+AbstractRender &Card::getRender() {
 	static RenderCard render;
 	return render;
 }

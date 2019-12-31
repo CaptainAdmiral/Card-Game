@@ -28,7 +28,6 @@
     <ClInclude Include="EnumPriority.h" />
     <ClInclude Include="GameComponents.h" />
     <ClInclude Include="GameEngine.h" />
-    <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="RenderField.h" />
     <ClInclude Include="ICardContainer.h" />
     <ClInclude Include="CardGame.h" />
@@ -45,6 +44,7 @@
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="RenderSlot.h" />
     <ClInclude Include="RenderWrapper.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="SkinRegistry.h" />
     <ClInclude Include="RulesManager.h" />
     <ClInclude Include="Slot.h" />
@@ -69,11 +69,11 @@
     <ClCompile Include="IRenderable.cpp" />
     <ClCompile Include="Opponent.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="BoundingBox.cpp" />
     <ClCompile Include="RenderCard.cpp" />
     <ClCompile Include="RenderField.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RenderSlot.cpp" />
+    <ClCompile Include="Settings.cpp" />
     <ClCompile Include="SkinRegistry.cpp" />
     <ClCompile Include="RulesManager.cpp" />
     <ClCompile Include="Slot.cpp" />
@@ -141,7 +141,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\My Dev\lib\SFML-2.5.1\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\My Dev\lib\SFML-2.5.1\include;C:\Program Files\boost\boost_1_72_0;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\My Dev\lib\SFML-2.5.1\lib</AdditionalLibraryDirectories>

@@ -8,7 +8,7 @@ public:
 	Field();
 	~Field();
 
-	std::unique_ptr<Slot> slotArray[6][5];
+	std::unique_ptr<Slot> slotArray[7][5];
 
 	AbstractRender &getRender() override;
 

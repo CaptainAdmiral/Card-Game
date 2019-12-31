@@ -5,9 +5,13 @@
 class Slot : ICardContainer, public IRenderable {
 public:
 	Slot();
+	Slot(float x, float y);
+	Slot(float x, float y, float size);
 	~Slot();
 
 	CardPtr contents;
+
+	float size = 0;
 
 	//Assert slot is empty (use isEmpty() or hasSpace() to check)
 	virtual void card_in(CardPtr) override;
@@ -18,4 +22,5 @@ public:
 	virtual bool contains(Card&) override;
 
 	virtual AbstractRender& getRender() override;
+	virtual BoundingBox calculateBoundingBox() override;
 };

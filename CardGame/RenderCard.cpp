@@ -5,6 +5,6 @@
 RenderCard::RenderCard() {}
 RenderCard::~RenderCard() {}
 
-void RenderCard::render(IRenderable &renderable, RenderWrapper rw) {
+void RenderCard::render(IRenderable &renderable, RenderWrapper &rw) {
 	Card &card = static_cast<Card&>(renderable);
 }

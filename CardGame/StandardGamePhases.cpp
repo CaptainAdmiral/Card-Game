@@ -17,6 +17,7 @@ StandardGamePhases::GamePhase_Draw::~GamePhase_Draw() {}
 
 void StandardGamePhases::GamePhase_Draw::doPhase() {
 	gameComponents.player.draw();
+	this->setFinished();
 }
 
 StandardGamePhases::GamePhase_Planning::GamePhase_Planning(GameComponents &components) : AbstractGamePhase(GamePhase::PLANNING, components) {}

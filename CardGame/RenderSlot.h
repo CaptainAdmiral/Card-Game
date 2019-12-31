@@ -7,6 +7,5 @@ public:
 	RenderSlot();
 	~RenderSlot();
 
-	virtual void render(IRenderable &renderable, RenderWrapper) override;
+	virtual void render(IRenderable &slot, RenderWrapper &wrapper) override;
 };
-

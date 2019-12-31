@@ -5,6 +5,7 @@
 
 #include "RenderManager.h"
 #include "GameEngine.h"
+#include "Settings.h"
 
 class CardGame
 {
