@@ -8,7 +8,7 @@ Slot::Slot(float x, float y) {
 	setPos(x, y);
 }
 
-Slot::Slot(float x, float y, float size) : size(size) {
+Slot::Slot(float x, float y, float width, float height) : width(width), height(height) {
 	setPos(x, y);
 }
 
@@ -50,10 +50,10 @@ AbstractRender &Slot::getRender() {
 
 BoundingBox Slot::calculateBoundingBox() {
 	BoundingBox BB;
-	bg::append(BB.outer(), point_t(posX - size/2, posY));
-	bg::append(BB.outer(), point_t(posX, posY + size));
-	bg::append(BB.outer(), point_t(posX + size/2, posY));
-	bg::append(BB.outer(), point_t(posX, posY - size));
+	bg::append(BB.outer(), point_t(posX - width/2, posY));
+	bg::append(BB.outer(), point_t(posX, posY + height/2));
+	bg::append(BB.outer(), point_t(posX + width/2, posY));
+	bg::append(BB.outer(), point_t(posX, posY - height/2));
 
 	return BB;
 }

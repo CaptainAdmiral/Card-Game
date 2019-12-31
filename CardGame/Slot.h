@@ -2,16 +2,14 @@
 #include "ICardContainer.h"
 #include "RenderSlot.h"
 
-class Slot : ICardContainer, public IRenderable {
+class Slot : public ICardContainer, public IRenderable {
 public:
 	Slot();
 	Slot(float x, float y);
-	Slot(float x, float y, float size);
+	Slot(float x, float y, float width, float height);
 	~Slot();
 
 	CardPtr contents;
-
-	float size = 0;
 
 	//Assert slot is empty (use isEmpty() or hasSpace() to check)
 	virtual void card_in(CardPtr) override;
@@ -22,5 +20,28 @@ public:
 	virtual bool contains(Card&) override;
 
 	virtual AbstractRender& getRender() override;
+
+	float getHeight() {
+		return height;
+	}
+
+	float getWidth() {
+		return width;
+	}
+
+	void setWidth(float w) {
+		width = w;
+		updateBoundingBox();
+	}
+
+	void setHeight(float h) {
+		height = h;
+		updateBoundingBox();
+	}
+
+protected:
+	float height = 0;
+	float width = 0;
+
 	virtual BoundingBox calculateBoundingBox() override;
 };

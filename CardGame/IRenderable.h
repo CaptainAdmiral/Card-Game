@@ -55,6 +55,12 @@ public:
 		return boundingBox;
 	}
 
+	//Used to recalculate the IRenderable bounding box
+	//Called by every function that changes position
+	virtual void updateBoundingBox() {
+		boundingBox = calculateBoundingBox();
+	}
+
 protected:
 	float posX = 0;
 	float posY = 0;
@@ -64,12 +70,6 @@ protected:
 		BoundingBox box;
 		return box;
 	};
-
-	//Used to recalculate the IRenderable bounding box
-	//Called by every function that changes position
-	virtual void updateBoundingBox() {
-		boundingBox = calculateBoundingBox();
-	}
 
 private:
 	BoundingBox boundingBox;
