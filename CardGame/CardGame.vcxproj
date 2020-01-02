@@ -21,13 +21,16 @@
   <ItemGroup>
     <ClInclude Include="AbstractGamePhase.h" />
     <ClInclude Include="AbstractRender.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="AbstractCardContainer.h" />
+    <ClInclude Include="DummyRender.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EffectParser.h" />
     <ClInclude Include="EnumPriority.h" />
     <ClInclude Include="GameComponents.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="RenderBB.h" />
     <ClInclude Include="RenderField.h" />
     <ClInclude Include="ICardContainer.h" />
     <ClInclude Include="CardGame.h" />
@@ -55,6 +58,7 @@
     <ClCompile Include="AbstractCardContainer.cpp" />
     <ClCompile Include="AbstractGamePhase.cpp" />
     <ClCompile Include="AbstractRender.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardGame.cpp" />
     <ClCompile Include="Deck.cpp" />
@@ -69,6 +73,7 @@
     <ClCompile Include="IRenderable.cpp" />
     <ClCompile Include="Opponent.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RenderBB.cpp" />
     <ClCompile Include="RenderCard.cpp" />
     <ClCompile Include="RenderField.cpp" />
     <ClCompile Include="RenderManager.cpp" />

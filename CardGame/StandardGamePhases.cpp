@@ -3,10 +3,8 @@
 StandardGamePhases::GamePhase_Start::GamePhase_Start(GameComponents &components) : AbstractGamePhase(GamePhase::GAME_START, components) {}
 
 StandardGamePhases::GamePhase_Start::~GamePhase_Start() {
-	for (int i = 0; i < 5; i++) {
-		//TODO decide whether to use the standard draw function which triggers draw events or not
-		gameComponents.player.draw();
-	}
+	//TODO decide whether to use the standard draw function which triggers draw events or not
+	gameComponents.player.draw(5);
 }
 
 void StandardGamePhases::GamePhase_Start::doPhase() {}

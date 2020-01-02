@@ -1,5 +1,6 @@
 #pragma once
 #include "RenderWrapper.h"
+#include "Camera.h"
 #include <string>
 #include <boost/geometry/geometries/geometries.hpp>
 

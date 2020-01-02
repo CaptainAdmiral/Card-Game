@@ -11,8 +11,6 @@ class CardGame
 {
 
 public:
-	static const bool DEBUG = true;
-
 	GameEngine gameEngine;
 
 	~CardGame();

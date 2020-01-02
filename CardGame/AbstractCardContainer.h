@@ -15,7 +15,7 @@ public:
 	//Return success
 	virtual void card_in(CardPtr) override;
 
-	virtual CardPtr card_out() override = 0;
+	virtual CardPtr card_out() override;
 
 	//Removes and returns a single specified card from the contents of the card container
 	//Return unique pointer to removed card

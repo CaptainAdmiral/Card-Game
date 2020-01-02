@@ -5,7 +5,7 @@
 class Player {
 public:
 	Deck deck;
-	Hand hand;
+	Hand hand{Settings::General::DEFAULT_WIDTH/2.0f, Settings::General::DEFAULT_HEIGHT - Settings::UI::handHeight/2};
 
 	Player();
 	virtual ~Player();

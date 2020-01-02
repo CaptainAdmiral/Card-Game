@@ -1,6 +1,6 @@
 #pragma once
 #include "ICardContainer.h"
-#include "RenderSlot.h"
+#include "RenderBB.h"
 
 class Slot : public ICardContainer, public IRenderable {
 public:

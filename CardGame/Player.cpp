@@ -1,10 +1,6 @@
 #include "Player.h"
 
-
-
 Player::Player() {}
-
-
 Player::~Player() {}
 
 void Player::draw() {
@@ -12,7 +8,7 @@ void Player::draw() {
 }
 
 void Player::draw(int amount) {
-	for (int i = 0; i <= amount; i++) {
+	for (int i = 0; i < amount; i++) {
 		draw();
 	}
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "IRenderable.h"
-#include "RenderCard.h"
+#include "RenderBB.h"
 
 class Slot;
 
@@ -12,6 +12,8 @@ public:
 	~Card();
 
 	AbstractRender &getRender() override;
+
+	virtual BoundingBox calculateBoundingBox() override;
 
 	//TODO replace with one of the following hashmaps:
 	//std::unordered_map<std::String, unsigned short>

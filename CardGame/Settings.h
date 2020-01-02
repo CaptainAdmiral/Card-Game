@@ -1,16 +1,16 @@
 #pragma once
 
-struct SettingsWrapper {
-	SettingsWrapper() {}
-	~SettingsWrapper() {}
+namespace Settings {
+	namespace Debug {
+		static const bool DEBUG = true;
+	}
 
-	const unsigned int DEFAULT_HEIGHT = 500;
-	const unsigned int DEFAULT_WIDTH = 275;
-};
+	namespace General {
+		static const unsigned int DEFAULT_HEIGHT = 500;
+		static const unsigned int DEFAULT_WIDTH = 300;
+	}
 
-class Settings {
-public:
-	static SettingsWrapper getSettings();
-	Settings();
-	virtual ~Settings();
+	namespace UI {
+		static float handHeight = 0.2f * General::DEFAULT_HEIGHT;
+	}
 };

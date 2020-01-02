@@ -1,12 +1,13 @@
 #include "Card.h"
-
+#include <iostream>
 
 Card::Card() {
-	
+	updateBoundingBox();
 }
 Card::Card(Card::Properties props) {
 	Card();
 	properties = props;
+	updateBoundingBox();
 }
 
 Card::~Card() {
@@ -14,8 +15,21 @@ Card::~Card() {
 }
 
 AbstractRender &Card::getRender() {
-	static RenderCard render;
+	static RenderBB render(sf::Color::Red);
 	return render;
+}
+
+BoundingBox Card::calculateBoundingBox() {
+	float height = Settings::UI::handHeight;
+	float width = height/2;
+
+	BoundingBox BB;
+	bg::append(BB.outer(), point_t(posX - width / 2, posY - height / 2));
+	bg::append(BB.outer(), point_t(posX + width / 2, posY - height / 2));
+	bg::append(BB.outer(), point_t(posX + width / 2, posY + height / 2));
+	bg::append(BB.outer(), point_t(posX - width / 2, posY + height / 2));
+
+	return BB;
 }
 
 Card::Properties &Card::Properties::setAtk(int i) {

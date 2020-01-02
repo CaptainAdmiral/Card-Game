@@ -28,7 +28,7 @@ sf::RenderWindow &CardGame::getMainWindow() {
 }
 
 void CardGame::initializeMainWindow() {
-	return getMainWindow().create(sf::VideoMode(Settings::getSettings().DEFAULT_WIDTH, Settings::getSettings().DEFAULT_HEIGHT), "Card Game");
+	return getMainWindow().create(sf::VideoMode(Settings::General::DEFAULT_WIDTH, Settings::General::DEFAULT_HEIGHT), "Card Game");
 }
 
 void CardGame::initializeGraphics() {
@@ -43,10 +43,11 @@ void CardGame::updateWindow() {
 			getMainWindow().close();
 			CardGame::close();
 		}
-		window.clear();
-		updateGraphics();
-		window.display();
 	}
+
+	window.clear();
+	updateGraphics();
+	window.display();
 }
 
 void CardGame::updateGame() {
@@ -58,7 +59,7 @@ void CardGame::updateGraphics() {
 }
 
 void CardGame::initialize() {
-	if(!DEBUG) ShowWindow(GetConsoleWindow(), 0);
+	if(!Settings::Debug::DEBUG) ShowWindow(GetConsoleWindow(), 0);
 
 	initializeMainWindow();
 	getMainWindow().setVerticalSyncEnabled(true);

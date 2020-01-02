@@ -133,6 +133,12 @@
     <Filter Include="Source Files\Com\Client\System\Settings">
       <UniqueIdentifier>{da16d86d-4c3c-434b-b3d1-2822c0607266}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Com\Client\Graphics\Render\Camera">
+      <UniqueIdentifier>{0838f309-f082-4acf-92bf-aef76d78fc62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Com\Client\Graphics\Render\Camera">
+      <UniqueIdentifier>{8dc0e60d-a52d-458c-9e5b-98795bc49eed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CardGame.h">
@@ -228,6 +234,15 @@
     <ClInclude Include="Settings.h">
       <Filter>Header Files\Com\Client\System\Settings</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Com\Client\Graphics\Render\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="DummyRender.h">
+      <Filter>Header Files\Com\Client\Graphics\Render\Renders</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderBB.h">
+      <Filter>Header Files\Com\Client\Graphics\Render\Renders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp">
@@ -310,6 +325,12 @@
     </ClCompile>
     <ClCompile Include="Settings.cpp">
       <Filter>Source Files\Com\Client\System\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Com\Client\Graphics\Render\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderBB.cpp">
+      <Filter>Source Files\Com\Client\Graphics\Render\Renders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

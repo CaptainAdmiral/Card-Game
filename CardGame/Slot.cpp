@@ -44,7 +44,7 @@ bool Slot::contains(Card& card) {
 }
 
 AbstractRender &Slot::getRender() {
-	static RenderSlot render;
+	static RenderBB render;
 	return render;
 }
 
