@@ -18,9 +18,9 @@ public:
 	//void addPhase(AbstractGamePhase &phase, AbstractGamePhase &after)
 
 private:
-	std::vector<std::unique_ptr<AbstractGamePhase>>::iterator currentPhase;
+	TurnCycle::iterator currentPhase;
 
-	std::vector<std::unique_ptr<AbstractGamePhase>> turnCycle;
+	TurnCycle turnCycle;
 	
 	void reset();
 

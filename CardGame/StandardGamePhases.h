@@ -4,7 +4,7 @@
 struct StandardGamePhases {
 	class GamePhase_Start : public AbstractGamePhase {
 	public:
-		GamePhase_Start(GameComponents&);
+		GamePhase_Start(GameComponents&, TurnCycle *turnCycle);
 		~GamePhase_Start();
 		void doPhase() override;
 	};

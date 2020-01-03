@@ -4,8 +4,9 @@
 
 class AbstractGamePhase {
 public:
-	GameComponents &gameComponents;
 	const GamePhase name;
+	GameComponents &gameComponents;
+	std::vector<std::unique_ptr<AbstractGamePhase>> *turnCycle;
 
 	virtual ~AbstractGamePhase();
 
@@ -17,6 +18,7 @@ public:
 
 protected:
 	AbstractGamePhase(GamePhase phase, GameComponents&);
+	AbstractGamePhase(GamePhase phase, GameComponents&, std::vector<std::unique_ptr<AbstractGamePhase>>*);
 
 private:
 	bool finished = false;
@@ -24,3 +26,4 @@ private:
 	virtual void doPhase() = 0;
 };
 
+typedef std::vector<std::unique_ptr<AbstractGamePhase>> TurnCycle;

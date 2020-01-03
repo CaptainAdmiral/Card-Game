@@ -1,7 +1,8 @@
 #include "GameStateManager.h"
 
 GameStateManager::GameStateManager(GameComponents &components) : gameComponents(components) {
-	turnCycle.push_back(std::make_unique<StandardGamePhases::GamePhase_Draw>(StandardGamePhases::GamePhase_Draw(gameComponents))); //Add draw phase to turn cycle
+	turnCycle.push_back(std::make_unique<StandardGamePhases::GamePhase_Start>(gameComponents, &turnCycle));
+	turnCycle.push_back(std::make_unique<StandardGamePhases::GamePhase_Draw>(gameComponents)); //Add draw phase to turn cycle
 	turnCycle.push_back(std::make_unique<StandardGamePhases::GamePhase_Planning>(StandardGamePhases::GamePhase_Planning(gameComponents))); //Add planning phase to turn cycle
 	turnCycle.push_back(std::make_unique<StandardGamePhases::GamePhase_Action>(StandardGamePhases::GamePhase_Action(gameComponents))); //Add action phase to turn cycle
 

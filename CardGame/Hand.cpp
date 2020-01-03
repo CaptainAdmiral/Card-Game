@@ -12,8 +12,23 @@ Hand::~Hand() {
 }
 
 void Hand::card_in(CardPtr card) {
-	card->setPos(posX, posY);
 	AbstractCardContainer::card_in(std::move(card));
+	updateCardPositions();
+}
+
+void Hand::updateCardPositions() {
+	size_t size = contents.size();
+	float width = Settings::UI::cardWidth;
+	if(Settings::General::DEFAULT_WIDTH >= width*size) {
+		for(size_t i=0; i != size; i++) {
+			contents[i]->setPos(posX-width*(size - 1)/2 + i*width, posY);
+		}
+	}
+	else {
+		for(size_t i=0; i != size; i++) {
+			contents[i]->setPos(width/2 + i*(Settings::General::DEFAULT_WIDTH - width) / (size - 1), posY);
+		}
+	}
 }
 
 AbstractRender &Hand::getRender() {

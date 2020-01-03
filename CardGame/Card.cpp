@@ -15,13 +15,13 @@ Card::~Card() {
 }
 
 AbstractRender &Card::getRender() {
-	static RenderBB render(sf::Color::Red);
+	static RenderCard render;
 	return render;
 }
 
 BoundingBox Card::calculateBoundingBox() {
-	float height = Settings::UI::handHeight;
-	float width = height/2;
+	float height = Settings::UI::handHeight*0.8f;
+	float width = Settings::UI::cardWidth;
 
 	BoundingBox BB;
 	bg::append(BB.outer(), point_t(posX - width / 2, posY - height / 2));
