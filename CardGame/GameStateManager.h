@@ -5,6 +5,7 @@
 class GameStateManager {
 public:
 	GameComponents &gameComponents;
+	PhaseCycle cycle;
 
 	GameStateManager(GameComponents& components);
 	~GameStateManager();
@@ -18,10 +19,6 @@ public:
 	//void addPhase(AbstractGamePhase &phase, AbstractGamePhase &after)
 
 private:
-	TurnCycle::iterator currentPhase;
-
-	TurnCycle turnCycle;
-	
 	void reset();
 
 	//Progresses the game to the next phase

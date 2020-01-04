@@ -53,6 +53,7 @@
     <ClInclude Include="Slot.h" />
     <ClInclude Include="Source.h" />
     <ClInclude Include="StandardGamePhases.h" />
+    <ClInclude Include="PhaseCycle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractCardContainer.cpp" />
@@ -84,6 +85,7 @@
     <ClCompile Include="Slot.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="StandardGamePhases.cpp" />
+    <ClCompile Include="PhaseCycle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CardGame.rc" />

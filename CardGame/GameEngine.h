@@ -10,8 +10,9 @@ public:
 
 	GameComponents gameComponents;
 
-	GameStateManager gameStateManager{gameComponents};
 	RulesManager rulesManager{gameComponents};
+
+	GameStateManager gameStateManager{gameComponents};
 
 	//Updates the GameEngine 
 	void update();

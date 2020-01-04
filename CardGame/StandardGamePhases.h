@@ -1,10 +1,11 @@
 #pragma once
 #include "AbstractGamePhase.h"
+#include "PhaseCycle.h"
 
 struct StandardGamePhases {
 	class GamePhase_Start : public AbstractGamePhase {
 	public:
-		GamePhase_Start(GameComponents&, TurnCycle *turnCycle);
+		GamePhase_Start(GameComponents&, PhaseCycle*);
 		~GamePhase_Start();
 		void doPhase() override;
 	};

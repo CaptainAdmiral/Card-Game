@@ -243,6 +243,9 @@
     <ClInclude Include="RenderBB.h">
       <Filter>Header Files\Com\Client\Graphics\Render\Renders</Filter>
     </ClInclude>
+    <ClInclude Include="PhaseCycle.h">
+      <Filter>Header Files\Com\Game\Game Phase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp">
@@ -331,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="RenderBB.cpp">
       <Filter>Source Files\Com\Client\Graphics\Render\Renders</Filter>
+    </ClCompile>
+    <ClCompile Include="PhaseCycle.cpp">
+      <Filter>Source Files\Com\Game\Game Phase</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 #include "AbstractGamePhase.h"
 
 AbstractGamePhase::AbstractGamePhase(GamePhase phase, GameComponents &components) : name(phase), gameComponents(components) {}
-AbstractGamePhase::AbstractGamePhase(GamePhase phase, GameComponents &components, std::vector<std::unique_ptr<AbstractGamePhase>> *turnCycle) : name(phase), gameComponents(components), turnCycle(turnCycle)  {}
+AbstractGamePhase::AbstractGamePhase(GamePhase phase, GameComponents &components, PhaseCycle *turnCycle) : name(phase), gameComponents(components), turnCycle(turnCycle) {}
 AbstractGamePhase::~AbstractGamePhase() {}
 
 void AbstractGamePhase::update() {

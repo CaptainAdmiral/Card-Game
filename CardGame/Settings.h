@@ -6,8 +6,8 @@ namespace Settings {
 	}
 
 	namespace General {
-		static const unsigned int DEFAULT_HEIGHT = 500;
-		static const unsigned int DEFAULT_WIDTH = 300;
+		static const unsigned int DEFAULT_HEIGHT = 550;
+		static const unsigned int DEFAULT_WIDTH = 275;
 	}
 
 	namespace UI {

@@ -2,11 +2,13 @@
 #include "EnumGamePhase.h"
 #include "GameComponents.h"
 
+class PhaseCycle;
+
 class AbstractGamePhase {
 public:
 	const GamePhase name;
 	GameComponents &gameComponents;
-	std::vector<std::unique_ptr<AbstractGamePhase>> *turnCycle;
+	PhaseCycle *turnCycle;
 
 	virtual ~AbstractGamePhase();
 
@@ -18,12 +20,10 @@ public:
 
 protected:
 	AbstractGamePhase(GamePhase phase, GameComponents&);
-	AbstractGamePhase(GamePhase phase, GameComponents&, std::vector<std::unique_ptr<AbstractGamePhase>>*);
+	AbstractGamePhase(GamePhase phase, GameComponents&, PhaseCycle*);
 
 private:
 	bool finished = false;
 
 	virtual void doPhase() = 0;
 };
-
-typedef std::vector<std::unique_ptr<AbstractGamePhase>> TurnCycle;
