@@ -18,7 +18,7 @@ void RenderCard::render(IRenderable &renderable, RenderWrapper &rw) {
 		i++;
 	});
 
-	convex.setFillColor(sf::Color::Red);
+	convex.setFillColor(sf::Color::Black);
 	rw.draw(convex);
 
 	namespace trans = boost::geometry::strategy::transform;
@@ -32,7 +32,7 @@ void RenderCard::render(IRenderable &renderable, RenderWrapper &rw) {
 
 	trans::translate_transformer<double, 2, 2> translateToZero(-x, -y);
 	trans::translate_transformer<double, 2, 2> translateBack(x, y);
-	trans::scale_transformer<double, 2, 2> scale(0.8);
+	trans::scale_transformer<double, 2, 2> scale(0.9);
 	
 	boost::geometry::transform(BB, bb, translateToZero);
 	boost::geometry::transform(bb, bb1, scale);
@@ -40,6 +40,20 @@ void RenderCard::render(IRenderable &renderable, RenderWrapper &rw) {
 
 	i = 0;
 	bg::for_each_point(bb, [&, i](point_t point) mutable {
+		convex.setPoint(i, sf::Vector2f(SCREEN_X(point.get<0>()), SCREEN_Y(point.get<1>())));
+		i++;
+	});
+
+	convex.setFillColor(sf::Color::Magenta);
+	rw.draw(convex);
+
+
+	boost::geometry::transform(bb, bb1, translateToZero);
+	boost::geometry::transform(bb1, bb, scale);
+	boost::geometry::transform(bb, bb1, translateBack);
+
+	i = 0;
+	bg::for_each_point(bb1, [&, i](point_t point) mutable {
 		convex.setPoint(i, sf::Vector2f(SCREEN_X(point.get<0>()), SCREEN_Y(point.get<1>())));
 		i++;
 	});
