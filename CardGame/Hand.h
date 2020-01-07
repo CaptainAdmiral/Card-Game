@@ -1,9 +1,6 @@
 #pragma once
 #include "AbstractCardContainer.h"
 #include "IRenderable.h"
-#include "DummyRender.h"
-#include "RenderBB.h"
-#include "Settings.h"
 
 class Hand : public AbstractCardContainer, public IRenderable {
 public:

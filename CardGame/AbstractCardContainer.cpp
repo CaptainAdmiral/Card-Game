@@ -1,4 +1,5 @@
 #include "AbstractCardContainer.h"
+#include <algorithm>
 
 void AbstractCardContainer::card_in(CardPtr card) {
 	contents.push_back(std::move(card));

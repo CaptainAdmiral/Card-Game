@@ -1,4 +1,5 @@
 #include "StandardGamePhases.h"
+#include "PhaseCycle.h"
 
 StandardGamePhases::GamePhase_Start::GamePhase_Start(GameComponents &components, PhaseCycle *turnCycle) : AbstractGamePhase(GamePhase::GAME_START, components, turnCycle) {}
 

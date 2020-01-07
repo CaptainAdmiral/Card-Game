@@ -1,8 +1,6 @@
 #pragma once
 #include "IRenderable.h"
-#include "RenderField.h"
 #include "Slot.h"
-#include "Settings.h"
 
 class Field : IRenderable {
 public:

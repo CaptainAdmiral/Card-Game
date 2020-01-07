@@ -1,5 +1,4 @@
 #pragma once
-#include "AbstractRender.h"
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/geometries.hpp>
 
@@ -7,6 +6,7 @@ namespace bg = boost::geometry;
 typedef bg::model::point<double, 2, bg::cs::cartesian> point_t;
 typedef bg::model::polygon<point_t> BoundingBox;
 
+class AbstractRender;
 
 class IRenderable {
 public:

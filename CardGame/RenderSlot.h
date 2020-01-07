@@ -1,6 +1,5 @@
 #pragma once
 #include "AbstractRender.h"
-#include "Slot.h"
 
 class RenderSlot : public AbstractRender {
 public:

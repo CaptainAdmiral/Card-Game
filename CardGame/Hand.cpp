@@ -1,4 +1,8 @@
 #include "Hand.h"
+#include "DummyRender.h"
+#include "RenderBB.h"
+#include "Settings.h"
+
 
 Hand::Hand() {
 	updateBoundingBox();

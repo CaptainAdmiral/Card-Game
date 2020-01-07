@@ -1,6 +1,7 @@
 #pragma once
 #include "AbstractGamePhase.h"
-#include "PhaseCycle.h"
+
+class PhaseCycle;
 
 struct StandardGamePhases {
 	class GamePhase_Start : public AbstractGamePhase {

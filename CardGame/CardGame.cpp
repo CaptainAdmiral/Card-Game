@@ -1,4 +1,7 @@
 #include "CardGame.h"
+#include "Settings.h"
+#include "RenderManager.h"
+#include <windows.h>
 
 CardGame::CardGame() {
 	setRunning(true);

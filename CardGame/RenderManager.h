@@ -1,6 +1,5 @@
 #pragma once
 #include "RenderWrapper.h"
-#include "AbstractRender.h"
 #include "IRenderable.h"
 #include <vector>
 

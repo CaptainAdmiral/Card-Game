@@ -139,6 +139,27 @@
     <Filter Include="Source Files\Com\Client\Graphics\Render\Camera">
       <UniqueIdentifier>{8dc0e60d-a52d-458c-9e5b-98795bc49eed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Com\Game\Event\Handling">
+      <UniqueIdentifier>{a4e98ea2-554e-46fb-8f3c-2ce0af5b8e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Com\Game\Event\Events">
+      <UniqueIdentifier>{7c6e6153-a6c6-4c00-968d-a080cc561ea5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Com\Game\Event\Handling">
+      <UniqueIdentifier>{1fa6e3fd-bc90-4c63-b748-59e567b9f788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Com\Game\Event\Events">
+      <UniqueIdentifier>{b48b721f-9f97-4044-9d23-a4712cd2e058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Com\Game\Event\Events\Interface">
+      <UniqueIdentifier>{9d2ea690-7512-42f2-ad2b-a6c5ef2903b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Com\Game\Event\Listener">
+      <UniqueIdentifier>{359b9a6a-546e-4005-90a0-656cd95505b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Com\Game\Event\Listener">
+      <UniqueIdentifier>{76e23a3d-aab6-4e6c-9cce-107ac49c98c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CardGame.h">
@@ -246,6 +267,24 @@
     <ClInclude Include="PhaseCycle.h">
       <Filter>Header Files\Com\Game\Game Phase</Filter>
     </ClInclude>
+    <ClInclude Include="EventID.h">
+      <Filter>Header Files\Com\Game\Event\Handling</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Header Files\Com\Game\Event\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ValidateMoveEvent.h">
+      <Filter>Header Files\Com\Game\Event\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="IValidationEvent.h">
+      <Filter>Header Files\Com\Game\Event\Events\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHandler.h">
+      <Filter>Header Files\Com\Game\Event\Handling</Filter>
+    </ClInclude>
+    <ClInclude Include="IEventListener.h">
+      <Filter>Header Files\Com\Game\Event\Listener</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp">
@@ -337,6 +376,12 @@
     </ClCompile>
     <ClCompile Include="PhaseCycle.cpp">
       <Filter>Source Files\Com\Game\Game Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Source Files\Com\Game\Event\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ValidateMoveEvent.cpp">
+      <Filter>Source Files\Com\Game\Event\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,6 @@
 #pragma once
 #include "ICardContainer.h"
 #include <vector>
-#include <algorithm>
 
 typedef std::vector<CardPtr> CardCollection;
 

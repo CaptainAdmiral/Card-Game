@@ -1,11 +1,7 @@
 #pragma once
 //TODO remove platform dependancy
 #include <SFML/Graphics.hpp>
-#include <windows.h>
-
-#include "RenderManager.h"
 #include "GameEngine.h"
-#include "Settings.h"
 
 class CardGame
 {

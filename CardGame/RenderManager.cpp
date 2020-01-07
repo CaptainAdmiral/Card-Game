@@ -1,5 +1,5 @@
 #include "RenderManager.h"
-
+#include "AbstractRender.h"
 
 RenderManager::RenderManager() {}
 

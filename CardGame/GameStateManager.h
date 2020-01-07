@@ -1,5 +1,6 @@
 #pragma once
 #include "StandardGamePhases.h"
+#include "PhaseCycle.h"
 #include <memory>
 
 class GameStateManager {

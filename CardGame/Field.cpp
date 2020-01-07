@@ -1,4 +1,6 @@
 #include "Field.h"
+#include "Settings.h"
+#include "RenderField.h"
 
 Field::Field() {
 	buildField();
