@@ -34,7 +34,9 @@
     <ClInclude Include="GameComponents.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="IEventListener.h" />
+    <ClInclude Include="IMouseListener.h" />
     <ClInclude Include="IValidationEvent.h" />
+    <ClInclude Include="MouseHandler.h" />
     <ClInclude Include="RenderBB.h" />
     <ClInclude Include="RenderField.h" />
     <ClInclude Include="ICardContainer.h" />
@@ -78,7 +80,9 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="ICardContainer.cpp" />
+    <ClCompile Include="IMouseListener.cpp" />
     <ClCompile Include="IRenderable.cpp" />
+    <ClCompile Include="MouseHandler.cpp" />
     <ClCompile Include="Opponent.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RenderBB.cpp" />

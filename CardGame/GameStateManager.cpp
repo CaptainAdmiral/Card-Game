@@ -33,6 +33,7 @@ void GameStateManager::nextPhase() {
 
 void GameStateManager::update() {
 	if ((**cycle.currentPhase).isFinished()) {
+		(**cycle.currentPhase).finished = false;
 		nextPhase();
 	}
 	updatePhase();

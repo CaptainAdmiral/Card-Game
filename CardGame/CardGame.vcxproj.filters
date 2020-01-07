@@ -285,6 +285,12 @@
     <ClInclude Include="IEventListener.h">
       <Filter>Header Files\Com\Game\Event\Listener</Filter>
     </ClInclude>
+    <ClInclude Include="IMouseListener.h">
+      <Filter>Header Files\Com\Game\Event\Listener</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseHandler.h">
+      <Filter>Header Files\Com\Game\Event\Handling</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp">
@@ -382,6 +388,12 @@
     </ClCompile>
     <ClCompile Include="ValidateMoveEvent.cpp">
       <Filter>Source Files\Com\Game\Event\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseHandler.cpp">
+      <Filter>Source Files\Com\Game\Event\Handling</Filter>
+    </ClCompile>
+    <ClCompile Include="IMouseListener.cpp">
+      <Filter>Source Files\Com\Game\Event\Listener</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

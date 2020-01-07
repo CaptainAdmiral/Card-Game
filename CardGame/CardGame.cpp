@@ -1,6 +1,7 @@
 #include "CardGame.h"
 #include "Settings.h"
 #include "RenderManager.h"
+#include "MouseHandler.h"
 #include <windows.h>
 
 CardGame::CardGame() {
@@ -39,12 +40,17 @@ void CardGame::initializeGraphics() {
 }
 
 void CardGame::updateWindow() {
-	sf::Event event;
 	sf::RenderWindow &window = getMainWindow();
+
+	sf::Event event;
 	while (window.pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
 			getMainWindow().close();
 			CardGame::close();
+		}
+
+		if(event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased) {
+			MouseHandler::postEvent(event);
 		}
 	}
 

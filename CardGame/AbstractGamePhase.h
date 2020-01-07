@@ -23,6 +23,7 @@ protected:
 	AbstractGamePhase(GamePhase phase, GameComponents&, PhaseCycle*);
 
 private:
+	friend class GameStateManager;
 	bool finished = false;
 
 	virtual void doPhase() = 0;

@@ -1,5 +1,6 @@
 #pragma once
 #include "AbstractGamePhase.h"
+#include "IMouseListener.h"
 
 class PhaseCycle;
 
@@ -18,11 +19,14 @@ struct StandardGamePhases {
 		void doPhase() override;
 	};
 
-	class GamePhase_Planning : public AbstractGamePhase {
+	class GamePhase_Planning : public AbstractGamePhase, IMouseListener {
 	public:
 		GamePhase_Planning(GameComponents&);
 		~GamePhase_Planning();
 		void doPhase() override;
+
+		virtual void onMouseReleased(int x, int y);
+		virtual void onMousePressed(int x, int y);
 	};
 
 	class GamePhase_Action : public AbstractGamePhase {

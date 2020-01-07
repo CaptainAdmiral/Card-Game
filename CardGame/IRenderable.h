@@ -21,6 +21,12 @@ public:
 	//Returns a reference to the render file to be used during the render pass
 	virtual AbstractRender& getRender() = 0;
 
+	//Whether or not to consider bounding box for mouse click hitscan
+	//Should be set to true if you want renderable to block mouse clicks
+	virtual bool isClickable() {
+		return isVisible();
+	}
+
 	//Mouse click and mouse release within TODO seconds
 	virtual void onClicked() {};
 

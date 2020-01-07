@@ -26,6 +26,10 @@ public:
 		if(T != 0) {
 			EventHandler<0>::postEvent(e);
 		}
+
+		for(IEventListener *observer : observers) {
+			observer->notify(e);
+		}
 	}
 };
 

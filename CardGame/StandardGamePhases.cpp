@@ -1,5 +1,7 @@
 #include "StandardGamePhases.h"
 #include "PhaseCycle.h"
+#include "iostream"
+#include "MouseHandler.h"
 
 StandardGamePhases::GamePhase_Start::GamePhase_Start(GameComponents &components, PhaseCycle *turnCycle) : AbstractGamePhase(GamePhase::GAME_START, components, turnCycle) {}
 
@@ -32,9 +34,21 @@ void StandardGamePhases::GamePhase_Draw::doPhase() {
 
 StandardGamePhases::GamePhase_Planning::GamePhase_Planning(GameComponents &components) : AbstractGamePhase(GamePhase::PLANNING, components) {}
 
-StandardGamePhases::GamePhase_Planning::~GamePhase_Planning() {}
+StandardGamePhases::GamePhase_Planning::~GamePhase_Planning() {
 
-void StandardGamePhases::GamePhase_Planning::doPhase() {}
+}
+
+void StandardGamePhases::GamePhase_Planning::doPhase() {
+	
+}
+
+void StandardGamePhases::GamePhase_Planning::onMouseReleased(int x, int y) {
+	
+}
+
+void StandardGamePhases::GamePhase_Planning::onMousePressed(int x, int y) {
+	
+}
 
 
 
