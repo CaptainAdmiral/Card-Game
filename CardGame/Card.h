@@ -1,12 +1,15 @@
 #pragma once
 #include "IRenderable.h"
-#include "RenderCard.h"
 
 class Slot;
 
 class Card : public IRenderable {
 public:
+	static const unsigned int TYPE;
+
 	const Slot *slot = nullptr;
+
+	bool isAfterimage = false;
 
 	Card();
 	~Card();
@@ -14,6 +17,8 @@ public:
 	AbstractRender &getRender() override;
 
 	virtual BoundingBox calculateBoundingBox() override;
+
+	virtual const unsigned int getType() override;
 
 	//TODO replace with one of the following hashmaps:
 	//std::unordered_map<std::String, unsigned short>

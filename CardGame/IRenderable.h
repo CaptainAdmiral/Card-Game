@@ -11,11 +11,22 @@ class AbstractRender;
 class IRenderable {
 public:
 	IRenderable();
+	IRenderable(const IRenderable&);
+	IRenderable &operator = (const IRenderable&);
+	IRenderable(IRenderable&&) = delete; //TODO you deleted these out of sheer lazieness. Come on.
+	IRenderable &operator = (IRenderable&&) = delete; //Don't be like that. Write out 6 lines of code.
+	//TODO and then do it for the other auto subscription interfaces as well
+	
 	virtual ~IRenderable();
 
 	//Returning false will cause the render manager to skip the render pass for this object if it is on the render list
 	virtual bool isVisible() {
-		return true;
+		return visible;
+	}
+
+	//Setting to false will cause the render manager to skip the render pass for this object if it is on the render list
+	virtual void setVisible(bool vis) {
+		visible = vis;
 	}
 
 	//Returns a reference to the render file to be used during the render pass
@@ -27,6 +38,10 @@ public:
 		return isVisible();
 	}
 
+	virtual const unsigned int getType() {
+		return 0;
+	}
+
 	//Mouse click and mouse release within TODO seconds
 	virtual void onClicked() {};
 
@@ -36,25 +51,13 @@ public:
 	//On mouse release
 	virtual void onMouseRelease() {};
 
-	virtual float getPosX() {
-		return posX;
-	}
+	virtual float getPosX() { return posX; }
 
-	virtual float getPosY() {
-		return posY;
-	}
+	virtual float getPosY() { return posY;  }
 
-	virtual void setPos(float x, float y) {
-		posX = x;
-		posY = y;
-		updateBoundingBox();
-	}
+	virtual void setPos(float x, float y);
 
-	virtual void move(float x, float y) {
-		posX += x;
-		posY += y;
-		updateBoundingBox();
-	}
+	virtual void move(float x, float y);
 
 	//Immutable getter for IRenderable bounding box
 	virtual const BoundingBox &getBoundingBox() {
@@ -79,4 +82,5 @@ protected:
 
 private:
 	BoundingBox boundingBox;
+	bool visible = true;
 };

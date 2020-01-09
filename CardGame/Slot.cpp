@@ -1,4 +1,8 @@
 #include "Slot.h"
+#include "RenderBB.h"
+#include "RenderID.h"
+
+const unsigned int Slot::TYPE = RenderID::getUniqueID();
 
 Slot::Slot() {
 	updateBoundingBox();
@@ -13,6 +17,10 @@ Slot::Slot(float x, float y, float width, float height) : width(width), height(h
 }
 
 Slot::~Slot() {}
+
+const unsigned int Slot::getType() {
+	return TYPE;
+}
 
 void Slot::card_in(CardPtr card) {
 	assert(isEmpty());

@@ -12,8 +12,13 @@ public:
 
 	virtual ~AbstractGamePhase();
 
+	//Called when the current phase switches over to this phase
+	virtual void onPhaseStart() {}
+
+	//Update the phase, called every tick
 	virtual void update();
 
+	//Calling will cause the turn cycle to move onto the next phase after the current phase update, or skip the phase next time it is due if it is not the current phase
 	void setFinished();
 
 	bool isFinished();

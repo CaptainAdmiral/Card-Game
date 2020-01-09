@@ -267,9 +267,6 @@
     <ClInclude Include="PhaseCycle.h">
       <Filter>Header Files\Com\Game\Game Phase</Filter>
     </ClInclude>
-    <ClInclude Include="EventID.h">
-      <Filter>Header Files\Com\Game\Event\Handling</Filter>
-    </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Header Files\Com\Game\Event\Events</Filter>
     </ClInclude>

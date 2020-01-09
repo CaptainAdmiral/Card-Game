@@ -49,7 +49,7 @@ void CardGame::updateWindow() {
 			CardGame::close();
 		}
 
-		if(event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased) {
+		if(event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased || event.type == sf::Event::MouseMoved) {
 			MouseHandler::postEvent(event);
 		}
 	}

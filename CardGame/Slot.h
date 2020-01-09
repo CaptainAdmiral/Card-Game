@@ -1,6 +1,6 @@
 #pragma once
 #include "ICardContainer.h"
-#include "RenderBB.h"
+
 
 class Slot : public ICardContainer, public IRenderable {
 public:
@@ -8,6 +8,8 @@ public:
 	Slot(float x, float y);
 	Slot(float x, float y, float width, float height);
 	~Slot();
+
+	static const unsigned int TYPE;
 
 	CardPtr contents;
 
@@ -20,6 +22,8 @@ public:
 	virtual bool contains(Card&) override;
 
 	virtual AbstractRender& getRender() override;
+
+	virtual const unsigned int getType() override;
 
 	float getHeight() {
 		return height;

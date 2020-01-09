@@ -5,6 +5,8 @@
 class Field : IRenderable {
 public:
 	Field();
+	Field(const Field&);
+	Field &operator=(const Field&);
 	~Field();
 
 	std::unique_ptr<Slot> slotArray[5][5];
@@ -16,15 +18,6 @@ public:
 	//(The empty string is a possible differentiator between having a middle row and having no middle row)
 	void buildField();
 
-	//Creates and returns an array of all the cards on the field
-	//Card **getCardsOnField();
-
-	//bool isSlotEmpty(Slot&);
-
-	//Return success
-	//bool moveCard(Card&, Slot&);
-
-	//Return success
-	//bool moveCard(Slot&, Slot&);
+	void buildField(const Field&);
 };
 

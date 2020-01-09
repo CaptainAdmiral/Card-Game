@@ -25,6 +25,11 @@ public:
 
 	//Perform the render pass
 	void doRender();
+
+	//Mouse hitscan for last clickable renderable in the render list
+	//The thing on screen being clicked
+	//Return pointer to IRenderable or nullptr if nothing was hit
+	IRenderable *getClicked(int x, int y);
 	
 private:
 	std::unique_ptr<RenderWrapper> wrapper;

@@ -21,12 +21,21 @@ struct StandardGamePhases {
 
 	class GamePhase_Planning : public AbstractGamePhase, IMouseListener {
 	public:
-		GamePhase_Planning(GameComponents&);
+		GamePhase_Planning(GameComponents&, PhaseCycle*);
 		~GamePhase_Planning();
+
+		std::unique_ptr<Field> field;
+
+		Card *draggedCard = nullptr;
+		int draggedReturnX = 0;
+		int draggedReturnY = 0;
+
+		void onPhaseStart() override;
+
 		void doPhase() override;
 
-		virtual void onMouseReleased(int x, int y);
 		virtual void onMousePressed(int x, int y);
+		virtual void onMouseReleased(int x, int y);
 	};
 
 	class GamePhase_Action : public AbstractGamePhase {

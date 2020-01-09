@@ -18,7 +18,10 @@ void RenderCard::render(IRenderable &renderable, RenderWrapper &rw) {
 		i++;
 	});
 
-	convex.setFillColor(sf::Color::Black);
+	sf::Color color;
+	color = sf::Color::Black;
+	color.a = card.isAfterimage ? 170 : 255;
+	convex.setFillColor(color);
 	rw.draw(convex);
 
 	namespace trans = boost::geometry::strategy::transform;
@@ -44,7 +47,9 @@ void RenderCard::render(IRenderable &renderable, RenderWrapper &rw) {
 		i++;
 	});
 
-	convex.setFillColor(sf::Color::Magenta);
+	color = sf::Color::Magenta;
+	color.a = card.isAfterimage ? 170 : 255;
+	convex.setFillColor(color);
 	rw.draw(convex);
 
 
@@ -58,6 +63,8 @@ void RenderCard::render(IRenderable &renderable, RenderWrapper &rw) {
 		i++;
 	});
 
-	convex.setFillColor(sf::Color::White);
+	color = sf::Color::White;
+	color.a = card.isAfterimage ? 170 : 255;
+	convex.setFillColor(color);
 	rw.draw(convex);
 }
