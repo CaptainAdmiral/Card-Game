@@ -55,6 +55,7 @@ BoundingBox Hand::calculateBoundingBox() {
 	bg::append(BB.outer(), point_t(posX+width/2, posY-height/2));
 	bg::append(BB.outer(), point_t(posX+width/2, posY+height/2));
 	bg::append(BB.outer(), point_t(posX-width/2, posY+height/2));
+	bg::append(BB.outer(), point_t(posX-width/2, posY-height/2));
 
 	return BB;
 }

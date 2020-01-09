@@ -288,6 +288,9 @@
     <ClInclude Include="MouseHandler.h">
       <Filter>Header Files\Com\Game\Event\Handling</Filter>
     </ClInclude>
+    <ClInclude Include="RenderType.h">
+      <Filter>Header Files\Com\Client\Graphics\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp">
@@ -379,12 +382,6 @@
     </ClCompile>
     <ClCompile Include="PhaseCycle.cpp">
       <Filter>Source Files\Com\Game\Game Phase</Filter>
-    </ClCompile>
-    <ClCompile Include="Event.cpp">
-      <Filter>Source Files\Com\Game\Event\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="ValidateMoveEvent.cpp">
-      <Filter>Source Files\Com\Game\Event\Events</Filter>
     </ClCompile>
     <ClCompile Include="MouseHandler.cpp">
       <Filter>Source Files\Com\Game\Event\Handling</Filter>

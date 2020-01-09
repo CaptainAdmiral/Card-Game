@@ -2,7 +2,7 @@
 #include "PhaseCycle.h"
 #include "MouseHandler.h"
 #include "RenderManager.h"
-#include <iostream>
+#include "RenderType.h"
 
 StandardGamePhases::GamePhase_Start::GamePhase_Start(GameComponents &components, PhaseCycle *turnCycle) : AbstractGamePhase(GamePhase::GAME_START, components, turnCycle) {}
 
@@ -54,14 +54,10 @@ void StandardGamePhases::GamePhase_Planning::doPhase() {
 
 void StandardGamePhases::GamePhase_Planning::onMousePressed(int x, int y) {
 	if((*turnCycle->currentPhase).get() != this) return;
-	IRenderable *renderable = RenderManager::instance().getClicked(x, y);
-	if(renderable != nullptr) {
-		std::cout << renderable->getType();
-		std::cout << "\n";
-		std::cout << Slot::TYPE << " " << Card::TYPE << "\n";
-	}
-	if(renderable != nullptr && renderable->getType() == Card::TYPE) {
+	IRenderable *renderable = RenderManager::instance().getHit(x, y);
+	if(renderable != nullptr && renderable->getType() == RenderType::CARD) {
 		draggedCard = static_cast<Card*>(renderable);
+		RenderManager::instance().bringToFront(draggedCard);
 		draggedReturnX = draggedCard->getPosX();
 		draggedReturnY = draggedCard->getPosY();
 	}

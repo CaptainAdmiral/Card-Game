@@ -9,8 +9,6 @@ public:
 	Slot(float x, float y, float width, float height);
 	~Slot();
 
-	static const unsigned int TYPE;
-
 	CardPtr contents;
 
 	//Assert slot is empty (use isEmpty() or hasSpace() to check)
@@ -23,7 +21,7 @@ public:
 
 	virtual AbstractRender& getRender() override;
 
-	virtual const unsigned int getType() override;
+	virtual RenderType getType() override;
 
 	float getHeight() {
 		return height;

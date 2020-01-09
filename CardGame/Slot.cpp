@@ -1,8 +1,5 @@
 #include "Slot.h"
 #include "RenderBB.h"
-#include "RenderID.h"
-
-const unsigned int Slot::TYPE = RenderID::getUniqueID();
 
 Slot::Slot() {
 	updateBoundingBox();
@@ -18,8 +15,8 @@ Slot::Slot(float x, float y, float width, float height) : width(width), height(h
 
 Slot::~Slot() {}
 
-const unsigned int Slot::getType() {
-	return TYPE;
+RenderType Slot::getType() {
+	return RenderType::SLOT;
 }
 
 void Slot::card_in(CardPtr card) {
@@ -62,6 +59,7 @@ BoundingBox Slot::calculateBoundingBox() {
 	bg::append(BB.outer(), point_t(posX, posY + height/2));
 	bg::append(BB.outer(), point_t(posX + width/2, posY));
 	bg::append(BB.outer(), point_t(posX, posY - height/2));
+	bg::append(BB.outer(), point_t(posX - width / 2, posY));
 
 	return BB;
 }

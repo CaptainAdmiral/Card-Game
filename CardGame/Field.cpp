@@ -52,11 +52,21 @@ void Field::buildField(const Field& field) {
 				field.slotArray[i][j]->getWidth(),
 				field.slotArray[i][j]->getHeight()
 			);
-			slotArray[i][j]->setVisible(true);
-			
+			slotArray[i][j]->setVisible(false);
 			if(field.slotArray[i][j]->contents == nullptr) continue;
 			slotArray[i][j]->contents = std::make_unique<Card>(*(field.slotArray[i][j]->contents));
 			slotArray[i][j]->contents->slot = slotArray[i][j].get();
+		}
+	}
+}
+
+void Field::displayAsAfterimage(bool flag) {
+	for(size_t i = 0; i < std::size(slotArray); i++) {
+		for(size_t j = 0; j < std::size(slotArray[i]); j++) {
+			if(i % 2 == 0 && j == 0) continue;
+			slotArray[i][j]->setVisible(false);
+			if(slotArray[i][j]->contents == nullptr) continue;
+			slotArray[i][j]->contents->isAfterimage = flag;
 		}
 	}
 }

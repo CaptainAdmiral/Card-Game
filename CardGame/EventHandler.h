@@ -21,7 +21,7 @@ public:
 		observers.erase(std::remove(observers.begin(), observers.end(), listener), observers.end());
 	}
 	static void postEvent(Event &e) {
-		assert(e.getType() != 0 && "Event type was 0 on post, event ID was not requested or returned from virtual getType()");
+		assert(*e.getType() != '\0' && "Event type was empty on post, virtual getType() was not overrided for event");
 		
 		if(T != 0) {
 			EventHandler<0>::postEvent(e);

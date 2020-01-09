@@ -1,14 +1,15 @@
 #pragma once
-#include "EventID.h"
+
+typedef const char* EventType;
 
 class Event {
 public:
-	static const unsigned int TYPE;
+	static constexpr EventType TYPE = "";
 
 	Event() {}
 	~Event() {}
 
-	virtual const unsigned int getType() {
+	virtual EventType getType() {
 		return TYPE;
 	}
 };

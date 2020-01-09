@@ -7,14 +7,14 @@ class Slot;
 
 class ValidateMoveEvent : public Event, public IValidationEvent {
 public:
-	static const unsigned int TYPE;
+	static constexpr EventType TYPE = "Validate_Move";
 	Card &card;
 	Slot &slot;
 
 	ValidateMoveEvent(Card &card, Slot &slot) : card(card), slot(slot) {}
 	~ValidateMoveEvent() {}
 
-	virtual const unsigned int getType() {
+	virtual EventType getType() {
 		return TYPE;
 	}
 };

@@ -5,8 +5,6 @@ class Slot;
 
 class Card : public IRenderable {
 public:
-	static const unsigned int TYPE;
-
 	const Slot *slot = nullptr;
 
 	bool isAfterimage = false;
@@ -18,7 +16,7 @@ public:
 
 	virtual BoundingBox calculateBoundingBox() override;
 
-	virtual const unsigned int getType() override;
+	virtual RenderType getType() override;
 
 	//TODO replace with one of the following hashmaps:
 	//std::unordered_map<std::String, unsigned short>

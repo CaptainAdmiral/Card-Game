@@ -1,7 +1,8 @@
 #pragma once
 #include "RenderWrapper.h"
-#include "IRenderable.h"
 #include <vector>
+
+class IRenderable;
 
 class RenderManager {
 public:
@@ -17,19 +18,22 @@ public:
 
 	//Adds an IRenderable to the list of objects to be rendered
 	//Recommended Usage - RenderManager::instance().addToRenderList(this); in IRenderable constructor
-	void addToRenderList(IRenderable *);
+	void addToRenderList(IRenderable*);
 
 	//Removes an IRenderable from the list of objects to be rendered
 	//Recommended Usage - RenderManager::instance().removeFromRenderList(this); in IRenderable destructor
-	void removeFromRenderList(IRenderable *);
+	void removeFromRenderList(IRenderable*);
 
 	//Perform the render pass
 	void doRender();
 
+	//Sends the specified IRenderable to the back of the renderlist (front of screen)
+	void bringToFront(IRenderable*);
+
 	//Mouse hitscan for last clickable renderable in the render list
 	//The thing on screen being clicked
 	//Return pointer to IRenderable or nullptr if nothing was hit
-	IRenderable *getClicked(int x, int y);
+	IRenderable *getHit(int x, int y);
 	
 private:
 	std::unique_ptr<RenderWrapper> wrapper;

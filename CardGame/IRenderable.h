@@ -1,4 +1,5 @@
 #pragma once
+#include "RenderType.h"
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/geometries.hpp>
 
@@ -38,8 +39,8 @@ public:
 		return isVisible();
 	}
 
-	virtual const unsigned int getType() {
-		return 0;
+	virtual RenderType getType() {
+		return RenderType::INVALID;
 	}
 
 	//Mouse click and mouse release within TODO seconds

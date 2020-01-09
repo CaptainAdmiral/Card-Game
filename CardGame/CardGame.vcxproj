@@ -52,6 +52,7 @@
     <ClInclude Include="RenderCard.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="RenderSlot.h" />
+    <ClInclude Include="RenderType.h" />
     <ClInclude Include="RenderWrapper.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SkinRegistry.h" />
@@ -73,7 +74,6 @@
     <ClCompile Include="DeckList.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectParser.cpp" />
-    <ClCompile Include="Event.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
@@ -96,7 +96,6 @@
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="StandardGamePhases.cpp" />
     <ClCompile Include="PhaseCycle.cpp" />
-    <ClCompile Include="ValidateMoveEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CardGame.rc" />

@@ -1,5 +1,6 @@
 #include "RenderManager.h"
 #include "AbstractRender.h"
+#include "IRenderable.h"
 
 RenderManager::RenderManager() {}
 
@@ -27,7 +28,12 @@ void RenderManager::doRender() {
 	}
 }
 
-IRenderable *RenderManager::getClicked(int x, int y) {
+void RenderManager::bringToFront(IRenderable *renderable) {
+	removeFromRenderList(renderable);
+	addToRenderList(renderable);
+}
+
+IRenderable *RenderManager::getHit(int x, int y) {
 	for(auto it = renderList.rbegin(); it != renderList.rend(); it++) {
 		IRenderable *renderable = *it;
 		if(renderable->isClickable() && boost::geometry::within(point_t(x, y), renderable->getBoundingBox())) return renderable;

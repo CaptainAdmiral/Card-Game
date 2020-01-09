@@ -19,5 +19,7 @@ public:
 	void buildField();
 
 	void buildField(const Field&);
+
+	void displayAsAfterimage(bool flag);
 };
 

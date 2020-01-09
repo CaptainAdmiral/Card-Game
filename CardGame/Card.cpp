@@ -1,8 +1,6 @@
 #include "Card.h"
 #include "RenderCard.h"
-#include "RenderID.h"
 
-const unsigned int Card::TYPE = RenderID::getUniqueID();
 
 Card::Card() {
 	updateBoundingBox();
@@ -31,12 +29,13 @@ BoundingBox Card::calculateBoundingBox() {
 	bg::append(BB.outer(), point_t(posX + width / 2, posY - height / 2));
 	bg::append(BB.outer(), point_t(posX + width / 2, posY + height / 2));
 	bg::append(BB.outer(), point_t(posX - width / 2, posY + height / 2));
+	bg::append(BB.outer(), point_t(posX - width / 2, posY - height / 2));
 
 	return BB;
 }
 
-const unsigned int Card::getType() {
-	return TYPE;
+RenderType Card::getType() {
+	return RenderType::CARD;
 }
 
 Card::Properties &Card::Properties::setAtk(int i) {
