@@ -1,13 +1,14 @@
 #pragma once
 #include "IRenderable.h"
 
-class Slot;
+class ICardContainer;
 
 class Card : public IRenderable {
 public:
-	const Slot *slot = nullptr;
+	ICardContainer *container = nullptr;
 
 	bool isAfterimage = false;
+	bool isInSlot = false;
 
 	Card();
 	~Card();

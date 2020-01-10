@@ -20,6 +20,16 @@ void Hand::card_in(CardPtr card) {
 	updateCardPositions();
 }
 
+CardPtr Hand::card_out() {
+	updateCardPositions();
+	return AbstractCardContainer::card_out();
+}
+
+CardPtr Hand::card_out(Card &card) {
+	updateCardPositions();
+	return AbstractCardContainer::card_out(card);
+}
+
 void Hand::updateCardPositions() {
 	size_t size = contents.size();
 	float width = Settings::UI::cardWidth;

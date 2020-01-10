@@ -34,6 +34,12 @@ public:
 	//The thing on screen being clicked
 	//Return pointer to IRenderable or nullptr if nothing was hit
 	IRenderable *getHit(int x, int y);
+
+	//Mouse hitscan for last clickable renderable in the render list
+	//The thing on screen being clicked
+	//Return pointer to IRenderable or nullptr if nothing was hit
+	//Para ignore - IRenderable* parameter to be ignored during hitscan. Hitscan will continue through ignore if it is the first thing hit.
+	IRenderable *getHitWithIgnore(int x, int y, IRenderable *ignore);
 	
 private:
 	std::unique_ptr<RenderWrapper> wrapper;

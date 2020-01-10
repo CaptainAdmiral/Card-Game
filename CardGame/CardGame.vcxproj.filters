@@ -160,6 +160,30 @@
     <Filter Include="Header Files\Com\Game\Event\Listener">
       <UniqueIdentifier>{76e23a3d-aab6-4e6c-9cce-107ac49c98c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Com\Client\Interface">
+      <UniqueIdentifier>{26a87441-eac3-4d1f-a9a7-8eee7d65cabc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Com\Client\System\Input">
+      <UniqueIdentifier>{06a4f64a-5e68-4ccc-bd97-eb6078abd8b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Com\Client\System\Input">
+      <UniqueIdentifier>{28c95ceb-ab2c-4468-8767-76e12cbe564d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Com\Client\System\Interface">
+      <UniqueIdentifier>{d0b05632-8438-42e9-a68c-87d7cf6e938b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Com\Client\System\Input\Mouse">
+      <UniqueIdentifier>{858279ea-3e40-4b23-b66c-2b0e3480ec9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Com\Client\System\Input\Mouse">
+      <UniqueIdentifier>{1bc4fd54-0211-4c26-a89f-095d998ebc42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Com\Client\Interface\Button">
+      <UniqueIdentifier>{c2747a29-1b0f-41fc-90f7-c7498e595e77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Com\Client\System\Interface\Button">
+      <UniqueIdentifier>{515b1f23-12ab-4852-9168-8b80329dbfb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CardGame.h">
@@ -282,14 +306,17 @@
     <ClInclude Include="IEventListener.h">
       <Filter>Header Files\Com\Game\Event\Listener</Filter>
     </ClInclude>
-    <ClInclude Include="IMouseListener.h">
-      <Filter>Header Files\Com\Game\Event\Listener</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseHandler.h">
-      <Filter>Header Files\Com\Game\Event\Handling</Filter>
-    </ClInclude>
     <ClInclude Include="RenderType.h">
       <Filter>Header Files\Com\Client\Graphics\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseHandler.h">
+      <Filter>Header Files\Com\Client\System\Input\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="IMouseListener.h">
+      <Filter>Header Files\Com\Client\System\Input\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\Com\Client\Interface\Button</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -359,9 +386,6 @@
     <ClCompile Include="SkinRegistry.cpp">
       <Filter>Source Files\Com\Client\Graphics\Render</Filter>
     </ClCompile>
-    <ClCompile Include="AbstractRender.cpp">
-      <Filter>Source Files\Com\Client\Graphics\Render\Renders</Filter>
-    </ClCompile>
     <ClCompile Include="RenderCard.cpp">
       <Filter>Source Files\Com\Client\Graphics\Render\Renders</Filter>
     </ClCompile>
@@ -384,10 +408,13 @@
       <Filter>Source Files\Com\Game\Game Phase</Filter>
     </ClCompile>
     <ClCompile Include="MouseHandler.cpp">
-      <Filter>Source Files\Com\Game\Event\Handling</Filter>
+      <Filter>Source Files\Com\Client\System\Input\Mouse</Filter>
     </ClCompile>
     <ClCompile Include="IMouseListener.cpp">
-      <Filter>Source Files\Com\Game\Event\Listener</Filter>
+      <Filter>Source Files\Com\Client\System\Input\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Com\Client\System\Interface\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

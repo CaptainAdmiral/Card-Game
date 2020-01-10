@@ -4,7 +4,7 @@
 #include <boost/geometry/geometries/geometries.hpp>
 
 namespace bg = boost::geometry;
-typedef bg::model::point<double, 2, bg::cs::cartesian> point_t;
+typedef bg::model::point<float, 2, bg::cs::cartesian> point_t;
 typedef bg::model::polygon<point_t> BoundingBox;
 
 class AbstractRender;
@@ -43,6 +43,7 @@ public:
 		return RenderType::INVALID;
 	}
 
+	//As yet unimplemented
 	//Mouse click and mouse release within TODO seconds
 	virtual void onClicked() {};
 

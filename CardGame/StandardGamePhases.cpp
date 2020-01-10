@@ -44,6 +44,7 @@ StandardGamePhases::GamePhase_Planning::~GamePhase_Planning() {
 
 void StandardGamePhases::GamePhase_Planning::onPhaseStart() {
 	field = std::make_unique<Field>(gameComponents.field);
+	gameComponents.field.displayAsAfterimage(false);
 }
 
 void StandardGamePhases::GamePhase_Planning::doPhase() {
@@ -55,6 +56,7 @@ void StandardGamePhases::GamePhase_Planning::doPhase() {
 void StandardGamePhases::GamePhase_Planning::onMousePressed(int x, int y) {
 	if((*turnCycle->currentPhase).get() != this) return;
 	IRenderable *renderable = RenderManager::instance().getHit(x, y);
+
 	if(renderable != nullptr && renderable->getType() == RenderType::CARD) {
 		draggedCard = static_cast<Card*>(renderable);
 		RenderManager::instance().bringToFront(draggedCard);
@@ -66,6 +68,17 @@ void StandardGamePhases::GamePhase_Planning::onMousePressed(int x, int y) {
 void StandardGamePhases::GamePhase_Planning::onMouseReleased(int x, int y) {
 	if((*turnCycle->currentPhase).get() != this) return;
 	if(draggedCard == nullptr) return;
+	IRenderable *renderable = RenderManager::instance().getHitWithIgnore(x, y, draggedCard);
+
+	if(renderable != nullptr && renderable->getType() == RenderType::SLOT) {
+		Slot &slot = *static_cast<Slot*>(renderable);
+		if(draggedCard->container->giveCardTo(static_cast<ICardContainer&>(slot), *draggedCard)) {
+			draggedCard->setPos(slot.getPosX(), slot.getPosY());
+			draggedReturnX = draggedCard->getPosX();
+			draggedReturnY = draggedCard->getPosY();
+		}
+	}
+
 	draggedCard->setPos(draggedReturnX, draggedReturnY);
 	draggedCard = nullptr;
 }

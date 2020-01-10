@@ -1,5 +1,7 @@
 #include "MouseHandler.h"
 #include "IMouseListener.h"
+#include "RenderManager.h"
+#include "IRenderable.h"
 #include <algorithm>
 
 
@@ -14,6 +16,9 @@ void MouseHandler::unsubscribe(IMouseListener *listener) {
 void MouseHandler::postEvent(sf::Event &e) {
 	int x;
 	int y;
+
+	IRenderable *renderable;
+
 	switch(e.type) {
 	case sf::Event::MouseButtonPressed:
 		x = e.mouseButton.x;
@@ -21,12 +26,22 @@ void MouseHandler::postEvent(sf::Event &e) {
 		for(IMouseListener *observer : observers) {
 			observer->onMousePressed(x,y);
 		}
+
+		renderable = RenderManager::instance().getHit(x,y);
+		if(renderable) {
+			renderable->onMouseClick();
+		}
 		break;
 	case sf::Event::MouseButtonReleased:
 		x = e.mouseButton.x;
 		y = e.mouseButton.y;
 		for(IMouseListener *observer : observers) {
 			observer->onMouseReleased(x,y);
+		}
+
+		renderable = RenderManager::instance().getHit(x, y);
+		if(renderable) {
+			renderable->onMouseRelease();
 		}
 		break;
 	case sf::Event::MouseMoved:

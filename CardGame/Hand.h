@@ -9,6 +9,8 @@ public:
 	~Hand();
 
 	virtual void card_in(CardPtr) override;
+	virtual CardPtr card_out() override;
+	virtual CardPtr card_out(Card &card) override;
 
 	virtual AbstractRender& getRender() override;
 	virtual BoundingBox calculateBoundingBox() override;

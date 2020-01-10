@@ -21,14 +21,18 @@ RenderType Slot::getType() {
 
 void Slot::card_in(CardPtr card) {
 	assert(isEmpty());
+	card->container = this;
+	card->isInSlot = true;
 	contents=std::move(card);
-	card->slot = this;
 }
 
 CardPtr Slot::card_out() {
 	assert(!isEmpty());
-	contents->slot = nullptr;
-	return std::move(contents);
+	contents->container = nullptr;
+	contents->isInSlot = false;
+	CardPtr temp = std::move(contents);
+	contents = nullptr;
+	return std::move(temp);
 }
 
 CardPtr Slot::card_out(Card& card) {
@@ -41,7 +45,7 @@ bool Slot::hasSpace() {
 }
 
 bool Slot::isEmpty() {
-	return !contents;
+	return contents == nullptr;
 }
 
 bool Slot::contains(Card& card) {

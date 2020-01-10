@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractGamePhase.h" />
     <ClInclude Include="AbstractRender.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="AbstractCardContainer.h" />
@@ -66,7 +67,7 @@
   <ItemGroup>
     <ClCompile Include="AbstractCardContainer.cpp" />
     <ClCompile Include="AbstractGamePhase.cpp" />
-    <ClCompile Include="AbstractRender.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardGame.cpp" />

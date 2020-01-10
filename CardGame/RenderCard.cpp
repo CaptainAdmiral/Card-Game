@@ -25,7 +25,6 @@ void RenderCard::render(IRenderable &renderable, RenderWrapper &rw) {
 	rw.draw(convex);
 
 	namespace trans = boost::geometry::strategy::transform;
-	using boost::geometry::dsv;
 
 	BoundingBox bb;
 	BoundingBox bb1;
