@@ -1,6 +1,7 @@
 #pragma once
 #include "AbstractGamePhase.h"
 #include "IMouseListener.h"
+#include "Button.h"
 
 class PhaseCycle;
 
@@ -25,6 +26,7 @@ struct StandardGamePhases {
 		~GamePhase_Planning();
 
 		std::unique_ptr<Field> field;
+		Button<void(AbstractGamePhase::*)(), AbstractGamePhase> button;
 
 		Card *draggedCard = nullptr;
 		int draggedReturnX = 0;

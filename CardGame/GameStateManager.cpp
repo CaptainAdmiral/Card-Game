@@ -23,10 +23,8 @@ void GameStateManager::updatePhase() {
 }
 
 void GameStateManager::nextPhase() {
-	if (cycle.currentPhase != cycle.phaseVec.end()) {
-		++cycle.currentPhase;
-	}
-	else {
+	++cycle.currentPhase;
+	if (cycle.currentPhase == cycle.phaseVec.end()) {
 		cycle.currentPhase = cycle.phaseVec.begin();
 	}
 }

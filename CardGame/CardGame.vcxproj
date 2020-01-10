@@ -67,7 +67,6 @@
   <ItemGroup>
     <ClCompile Include="AbstractCardContainer.cpp" />
     <ClCompile Include="AbstractGamePhase.cpp" />
-    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardGame.cpp" />

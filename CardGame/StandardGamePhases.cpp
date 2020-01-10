@@ -3,6 +3,7 @@
 #include "MouseHandler.h"
 #include "RenderManager.h"
 #include "RenderType.h"
+#include "Settings.h"
 
 StandardGamePhases::GamePhase_Start::GamePhase_Start(GameComponents &components, PhaseCycle *turnCycle) : AbstractGamePhase(GamePhase::GAME_START, components, turnCycle) {}
 
@@ -35,6 +36,13 @@ void StandardGamePhases::GamePhase_Draw::doPhase() {
 
 
 StandardGamePhases::GamePhase_Planning::GamePhase_Planning(GameComponents &components, PhaseCycle *turnCycle) : AbstractGamePhase(GamePhase::PLANNING, components, turnCycle) {
+	button.setPos(Settings::General::DEFAULT_WIDTH / 2, Settings::General::DEFAULT_HEIGHT*0.04);
+	button.width = Settings::General::DEFAULT_WIDTH*0.4;
+	button.height = Settings::General::DEFAULT_HEIGHT*0.04;
+	button.func = &AbstractGamePhase::setFinished;
+	button.instance = this;
+	button.updateBoundingBox();
+
 	turnCycle->sharedInfo["planningField"] = field.get();
 }
 
@@ -93,7 +101,9 @@ StandardGamePhases::GamePhase_Action::GamePhase_Action(GameComponents &component
 
 StandardGamePhases::GamePhase_Action::~GamePhase_Action() {}
 
-void StandardGamePhases::GamePhase_Action::doPhase() {}
+void StandardGamePhases::GamePhase_Action::doPhase() {
+	setFinished();
+}
 
 
 

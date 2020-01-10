@@ -413,9 +413,6 @@
     <ClCompile Include="IMouseListener.cpp">
       <Filter>Source Files\Com\Client\System\Input\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source Files\Com\Client\System\Interface\Button</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CardGame.rc">
