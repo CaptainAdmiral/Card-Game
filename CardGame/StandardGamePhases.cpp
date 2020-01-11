@@ -46,6 +46,8 @@ StandardGamePhases::GamePhase_Planning::GamePhase_Planning(GameComponents &compo
 	button.updateBoundingBox();
 
 	turnCycle->sharedInfo["planningField"] = field.get();
+	turnCycle->sharedInfo["summons"] = &summons;
+	turnCycle->sharedInfo["cardMoves"] = &cardMoves;
 }
 
 StandardGamePhases::GamePhase_Planning::~GamePhase_Planning() {
@@ -56,10 +58,8 @@ void StandardGamePhases::GamePhase_Planning::onPhaseStart() {
 	field = std::make_unique<Field>(gameComponents.field);
 	gameComponents.field.displayAsAfterimage(false);
 
-	summons = 0;
-	for(auto const &move : cardMoves) {
-		cardMoves[move.first] = 0;
-	}
+	summons.clear();
+	cardMoves.clear();
 }
 
 void StandardGamePhases::GamePhase_Planning::doPhase() {
@@ -89,18 +89,17 @@ void StandardGamePhases::GamePhase_Planning::onMouseReleased(int x, int y) {
 		Slot &slot = *static_cast<Slot*>(renderable);
 
 		if(draggedCard->container->type() == Hand::TYPE) {
-			ValidateSummonEvent e(*draggedCard, slot, summons);
+			ValidateSummonEvent e(*draggedCard, slot);
 			EventHandler::postEvent(e);
 
 			if(e.isValid && draggedCard->container->giveCardTo(static_cast<ICardContainer&>(slot), *draggedCard)) {
 				draggedCard->setPos(slot.getPosX(), slot.getPosY());
 				draggedReturnX = draggedCard->getPosX();
 				draggedReturnY = draggedCard->getPosY();
-				cardMoves[draggedCard]++;
-				summons++;
+				summons.push_back(draggedCard);
 			}
 		} else if(draggedCard->container->type() == Slot::TYPE) {
-			ValidateMoveEvent e(*draggedCard, slot, cardMoves[draggedCard]);
+			ValidateMoveEvent e(*draggedCard, slot);
 			EventHandler::postEvent(e);
 
 			if(e.isValid && draggedCard->container->giveCardTo(static_cast<ICardContainer&>(slot), *draggedCard)) {

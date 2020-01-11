@@ -1,14 +1,15 @@
 #pragma once
 #include "StandardGamePhases.h"
-#include "PhaseCycle.h"
 #include <memory>
+
+class PhaseCycle;
 
 class GameStateManager {
 public:
 	GameComponents &gameComponents;
-	PhaseCycle cycle;
+	PhaseCycle &cycle;
 
-	GameStateManager(GameComponents& components);
+	GameStateManager(GameComponents& components, PhaseCycle &cycle);
 	~GameStateManager();
 
 	//Resets the game engine for a new game

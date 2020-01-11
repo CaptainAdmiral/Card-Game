@@ -1,6 +1,7 @@
 #include "GameStateManager.h"
+#include "PhaseCycle.h"
 
-GameStateManager::GameStateManager(GameComponents &components) : gameComponents(components) {
+GameStateManager::GameStateManager(GameComponents &components, PhaseCycle &cycle) : gameComponents(components), cycle(cycle) {
 	cycle.phaseVec.push_back(std::make_unique<StandardGamePhases::GamePhase_Start>(gameComponents, &cycle)); //Add setup and initial draw phase to the turn cycle
 	cycle.phaseVec.push_back(std::make_unique<StandardGamePhases::GamePhase_Draw>(gameComponents)); //Add draw phase to turn cycle
 	cycle.phaseVec.emplace_back(new StandardGamePhases::GamePhase_Planning(gameComponents, &cycle)); //Add planning phase to turn cycle
@@ -25,6 +26,7 @@ void GameStateManager::updatePhase() {
 void GameStateManager::nextPhase() {
 	++cycle.currentPhase;
 	if (cycle.currentPhase == cycle.phaseVec.end()) {
+		cycle.turnNumber++;
 		cycle.currentPhase = cycle.phaseVec.begin();
 	}
 }

@@ -1,7 +1,6 @@
 #pragma once
 #include "Card.h"
 #include <memory>
-#include <assert.h>
 
 typedef std::unique_ptr<Card> CardPtr;
 

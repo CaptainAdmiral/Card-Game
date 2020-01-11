@@ -1,4 +1,5 @@
 #include "PhaseCycle.h"
+#include "AbstractGamePhase.h"
 
 PhaseCycle::PhaseCycle() {}
 

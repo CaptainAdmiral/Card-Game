@@ -27,6 +27,8 @@ struct StandardGamePhases {
 		~GamePhase_Planning();
 
 		std::unique_ptr<Field> field;
+		std::map<Card*, int> cardMoves;
+		std::vector<Card*> summons;
 
 		Button<void(AbstractGamePhase::*)(), AbstractGamePhase> button;
 
@@ -40,9 +42,6 @@ struct StandardGamePhases {
 
 		virtual void onMousePressed(int x, int y);
 		virtual void onMouseReleased(int x, int y);
-	private:
-		unsigned int summons;
-		std::map<Card*, int> cardMoves;
 	};
 
 	class GamePhase_Action : public AbstractGamePhase {

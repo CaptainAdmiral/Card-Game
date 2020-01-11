@@ -3,8 +3,11 @@
 #include "ValidateSummonEvent.h"
 #include "ValidateMoveEvent.h"
 #include "EventHandler.h"
+#include "PhaseCycle.h"
+#include "AbstractGamePhase.h"
+#include "StandardGamePhases.h"
 
-RulesManager::RulesManager(GameComponents &components) : gameComponents(components) {
+RulesManager::RulesManager(GameComponents &components, PhaseCycle &cycle) : gameComponents(components), phaseCycle(cycle) {
 	EventHandler::subscribe(this);
 	addBaseRules();
 }
@@ -51,9 +54,10 @@ void RulesManager::addBaseRules() {
 
 	//Limit summons per turn
 	Rule LST(ValidateSummonEvent::TYPE);
-	LST.payload = [](Event &e) {
+	LST.payload = [&](Event &e) {
 		ValidateSummonEvent& summonEvent = static_cast<ValidateSummonEvent&>(e);
-		if(summonEvent.prevSummons != 0) summonEvent.invalidate();
+		if(summonEvent.validatePositionOnly) return;
+		if(static_cast<std::vector<Card*>*>(phaseCycle.sharedInfo["summons"])->size() != 0) summonEvent.invalidate();
 	};
 	LST.priority = Priority::BASE;
 	rules.push_back(LST);
@@ -71,10 +75,23 @@ void RulesManager::addBaseRules() {
 
 	//Limit moves per card per turn
 	Rule LMCT(ValidateMoveEvent::TYPE);
-	LMCT.payload = [](Event &e) {
+	LMCT.payload = [&](Event &e) {
 		ValidateMoveEvent& moveEvent = static_cast<ValidateMoveEvent&>(e);
-		if(moveEvent.prevMoves!=0) moveEvent.invalidate();
+		if(moveEvent.validatePositionOnly) return;
+		Card* card = &moveEvent.card;
+		if((*static_cast<std::map<Card*, int>*>(phaseCycle.sharedInfo["cardMoves"]))[&moveEvent.card]>0) moveEvent.invalidate();
 	};
 	LMCT.priority = Priority::BASE;
 	rules.push_back(LMCT);
+
+	//Stop movement on turn of summon
+	Rule SMTS(ValidateMoveEvent::TYPE);
+	SMTS.payload = [&](Event &e) {
+		ValidateMoveEvent& moveEvent = static_cast<ValidateMoveEvent&>(e);
+		if(moveEvent.validatePositionOnly) return;
+		std::vector<Card*> &vec = *static_cast<std::vector<Card*>*>(phaseCycle.sharedInfo["summons"]);
+		if(std::find(vec.begin(), vec.end(), &moveEvent.card) != vec.end()) moveEvent.invalidate();
+	};
+	SMTS.priority = Priority::BASE;
+	rules.push_back(SMTS);
 }

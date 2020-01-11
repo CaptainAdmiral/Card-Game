@@ -10,10 +10,10 @@ public:
 	static constexpr EventType TYPE = "Validate_Move";
 	Card &card;
 	Slot &slot;
-	int prevMoves;
+	bool validatePositionOnly = false;
 
-	ValidateMoveEvent(Card &card, Slot &slot, int moves) : card(card), slot(slot), prevMoves(moves) {}
-	~ValidateMoveEvent() {}
+	ValidateMoveEvent(Card &card, Slot &slot) : card(card), slot(slot) {}
+	virtual ~ValidateMoveEvent() {}
 
 	virtual EventType getType() {
 		return TYPE;

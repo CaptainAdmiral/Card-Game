@@ -1,8 +1,9 @@
 #pragma once
-#include "AbstractGamePhase.h"
 #include <vector>
 #include <map>
 #include <memory>
+
+class AbstractGamePhase;
 
 typedef std::unique_ptr<AbstractGamePhase> Phase_t;
 typedef std::vector<Phase_t> PhaseVec;
@@ -21,6 +22,8 @@ public:
 
 	//Iterator representing the current phase in the turn cycle
 	PhaseVec::iterator currentPhase;
+
+	unsigned int turnNumber = 0;
 
 	void addPhaseAtStart(Phase_t&);
 	void addPhaseAtEnd(Phase_t&);
