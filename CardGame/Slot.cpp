@@ -13,10 +13,14 @@ Slot::Slot(float x, float y, float width, float height) : width(width), height(h
 	setPos(x, y);
 }
 
+Slot::Slot(float x, float y, float width, float height, int row, int col) : width(width), height(height), row(row), col(col) {
+	setPos(x, y);
+}
+
 Slot::~Slot() {}
 
-RenderType Slot::getType() {
-	return RenderType::SLOT;
+GameObjectType Slot::getType() {
+	return GameObjectType::SLOT;
 }
 
 void Slot::card_in(CardPtr card) {

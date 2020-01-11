@@ -53,8 +53,9 @@
     <ClInclude Include="RenderCard.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="RenderSlot.h" />
-    <ClInclude Include="RenderType.h" />
+    <ClInclude Include="GameObjectType.h" />
     <ClInclude Include="RenderWrapper.h" />
+    <ClInclude Include="Rule.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SkinRegistry.h" />
     <ClInclude Include="RulesManager.h" />
@@ -63,6 +64,7 @@
     <ClInclude Include="StandardGamePhases.h" />
     <ClInclude Include="PhaseCycle.h" />
     <ClInclude Include="ValidateMoveEvent.h" />
+    <ClInclude Include="ValidateSummonEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractCardContainer.cpp" />
@@ -74,6 +76,7 @@
     <ClCompile Include="DeckList.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectParser.cpp" />
+    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
@@ -89,6 +92,7 @@
     <ClCompile Include="RenderField.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RenderSlot.cpp" />
+    <ClCompile Include="Rule.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="SkinRegistry.cpp" />
     <ClCompile Include="RulesManager.cpp" />

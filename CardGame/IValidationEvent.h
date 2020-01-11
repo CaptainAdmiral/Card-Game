@@ -2,9 +2,13 @@
 
 class IValidationEvent {
 public:
-	bool isValid;
+	bool isValid = true;
 
-	void setValid(bool valid) {
-		isValid = valid;
+	void validate() {
+		isValid = true;
+	}
+
+	void invalidate() {
+		isValid = false;
 	}
 };

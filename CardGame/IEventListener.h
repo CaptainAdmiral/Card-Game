@@ -6,5 +6,5 @@ public:
 	IEventListener() {}
 	virtual ~IEventListener() {}
 
-	virtual void notify(Event e) = 0;
+	virtual void notify(Event &e) = 0;
 };

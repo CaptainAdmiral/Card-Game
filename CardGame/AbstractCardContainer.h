@@ -25,5 +25,7 @@ public:
 	virtual bool isEmpty() override;
 
 	virtual bool contains(Card&) override;
+
+	virtual GameObjectType type() override = 0;
 };
 

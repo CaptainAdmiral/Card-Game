@@ -36,7 +36,9 @@ void Field::buildField() {
 				wBuffer + (j + 0.5f*(i%2))*((width - 2*wBuffer) / (std::size(slotArray[i]))),
 				hBuffer + i*((height - 2*hBuffer) / (std::size(slotArray))),
 				(width - 2*wBuffer) / (std::size(slotArray[i])) - 4,
-				(height - 2*hBuffer) / (std::size(slotArray)) * 2 - 4
+				(height - 2*hBuffer) / (std::size(slotArray)) * 2 - 4,
+				std::size(slotArray)-1-i,
+				std::size(slotArray[i])-1-j
 			);
 		}
 	}
@@ -50,7 +52,9 @@ void Field::buildField(const Field& field) {
 				field.slotArray[i][j]->getPosX(),
 				field.slotArray[i][j]->getPosY(),
 				field.slotArray[i][j]->getWidth(),
-				field.slotArray[i][j]->getHeight()
+				field.slotArray[i][j]->getHeight(),
+				field.slotArray[i][j]->row,
+				field.slotArray[i][j]->col
 			);
 			slotArray[i][j]->setVisible(false);
 			if(field.slotArray[i][j]->contents == nullptr) continue;

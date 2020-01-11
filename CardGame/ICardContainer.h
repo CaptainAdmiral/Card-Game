@@ -3,7 +3,6 @@
 #include <memory>
 #include <assert.h>
 
-
 typedef std::unique_ptr<Card> CardPtr;
 
 class ICardContainer {
@@ -40,4 +39,6 @@ public:
 	//Moves a specified card out of the container this method is called from into the specified container.
 	//Return true if anything was moved else false
 	virtual bool giveCardTo(ICardContainer&, Card&);
+
+	virtual GameObjectType type() = 0;
 };

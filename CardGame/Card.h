@@ -17,7 +17,7 @@ public:
 
 	virtual BoundingBox calculateBoundingBox() override;
 
-	virtual RenderType getType() override;
+	virtual GameObjectType getType() override;
 
 	//TODO replace with one of the following hashmaps:
 	//std::unordered_map<std::String, unsigned short>

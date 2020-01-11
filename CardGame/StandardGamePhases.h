@@ -2,6 +2,7 @@
 #include "AbstractGamePhase.h"
 #include "IMouseListener.h"
 #include "Button.h"
+#include <map>
 
 class PhaseCycle;
 
@@ -26,6 +27,7 @@ struct StandardGamePhases {
 		~GamePhase_Planning();
 
 		std::unique_ptr<Field> field;
+
 		Button<void(AbstractGamePhase::*)(), AbstractGamePhase> button;
 
 		Card *draggedCard = nullptr;
@@ -38,6 +40,9 @@ struct StandardGamePhases {
 
 		virtual void onMousePressed(int x, int y);
 		virtual void onMouseReleased(int x, int y);
+	private:
+		unsigned int summons;
+		std::map<Card*, int> cardMoves;
 	};
 
 	class GamePhase_Action : public AbstractGamePhase {

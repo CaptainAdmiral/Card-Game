@@ -2,8 +2,10 @@
 #include "PhaseCycle.h"
 #include "MouseHandler.h"
 #include "RenderManager.h"
-#include "RenderType.h"
 #include "Settings.h"
+#include "ValidateSummonEvent.h"
+#include "ValidateMoveEvent.h"
+#include "EventHandler.h"
 
 StandardGamePhases::GamePhase_Start::GamePhase_Start(GameComponents &components, PhaseCycle *turnCycle) : AbstractGamePhase(GamePhase::GAME_START, components, turnCycle) {}
 
@@ -53,6 +55,11 @@ StandardGamePhases::GamePhase_Planning::~GamePhase_Planning() {
 void StandardGamePhases::GamePhase_Planning::onPhaseStart() {
 	field = std::make_unique<Field>(gameComponents.field);
 	gameComponents.field.displayAsAfterimage(false);
+
+	summons = 0;
+	for(auto const &move : cardMoves) {
+		cardMoves[move.first] = 0;
+	}
 }
 
 void StandardGamePhases::GamePhase_Planning::doPhase() {
@@ -65,7 +72,7 @@ void StandardGamePhases::GamePhase_Planning::onMousePressed(int x, int y) {
 	if((*turnCycle->currentPhase).get() != this) return;
 	IRenderable *renderable = RenderManager::instance().getHit(x, y);
 
-	if(renderable != nullptr && renderable->getType() == RenderType::CARD) {
+	if(renderable != nullptr && renderable->getType() == GameObjectType::CARD) {
 		draggedCard = static_cast<Card*>(renderable);
 		RenderManager::instance().bringToFront(draggedCard);
 		draggedReturnX = draggedCard->getPosX();
@@ -78,12 +85,30 @@ void StandardGamePhases::GamePhase_Planning::onMouseReleased(int x, int y) {
 	if(draggedCard == nullptr) return;
 	IRenderable *renderable = RenderManager::instance().getHitWithIgnore(x, y, draggedCard);
 
-	if(renderable != nullptr && renderable->getType() == RenderType::SLOT) {
+	if(renderable != nullptr && renderable->getType() == GameObjectType::SLOT) {
 		Slot &slot = *static_cast<Slot*>(renderable);
-		if(draggedCard->container->giveCardTo(static_cast<ICardContainer&>(slot), *draggedCard)) {
-			draggedCard->setPos(slot.getPosX(), slot.getPosY());
-			draggedReturnX = draggedCard->getPosX();
-			draggedReturnY = draggedCard->getPosY();
+
+		if(draggedCard->container->type() == Hand::TYPE) {
+			ValidateSummonEvent e(*draggedCard, slot, summons);
+			EventHandler::postEvent(e);
+
+			if(e.isValid && draggedCard->container->giveCardTo(static_cast<ICardContainer&>(slot), *draggedCard)) {
+				draggedCard->setPos(slot.getPosX(), slot.getPosY());
+				draggedReturnX = draggedCard->getPosX();
+				draggedReturnY = draggedCard->getPosY();
+				cardMoves[draggedCard]++;
+				summons++;
+			}
+		} else if(draggedCard->container->type() == Slot::TYPE) {
+			ValidateMoveEvent e(*draggedCard, slot, cardMoves[draggedCard]);
+			EventHandler::postEvent(e);
+
+			if(e.isValid && draggedCard->container->giveCardTo(static_cast<ICardContainer&>(slot), *draggedCard)) {
+				draggedCard->setPos(slot.getPosX(), slot.getPosY());
+				draggedReturnX = draggedCard->getPosX();
+				draggedReturnY = draggedCard->getPosY();
+				cardMoves[draggedCard]++;
+			}
 		}
 	}
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "RenderType.h"
+#include "GameObjectType.h"
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/geometries.hpp>
 
@@ -39,8 +39,8 @@ public:
 		return isVisible();
 	}
 
-	virtual RenderType getType() {
-		return RenderType::INVALID;
+	virtual GameObjectType getType() {
+		return GameObjectType::INVALID;
 	}
 
 	//As yet unimplemented

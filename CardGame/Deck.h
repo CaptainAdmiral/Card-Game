@@ -18,5 +18,9 @@ public:
 	virtual bool contains(Card&) override;
 
 	virtual bool isEmpty() override;
+
+	virtual GameObjectType type() override {
+		return GameObjectType::DECK;
+	}
 };
 

@@ -6,7 +6,9 @@ class IMouseListener;
 class Event;
 
 namespace MouseHandler {
-	static std::vector<IMouseListener*> observers;
+	namespace {
+		std::vector<IMouseListener*> observers;
+	}
 
 	void subscribe(IMouseListener *listener);
 

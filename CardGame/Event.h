@@ -7,7 +7,7 @@ public:
 	static constexpr EventType TYPE = "";
 
 	Event() {}
-	~Event() {}
+	virtual ~Event() {}
 
 	virtual EventType getType() {
 		return TYPE;

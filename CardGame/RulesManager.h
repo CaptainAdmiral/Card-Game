@@ -1,25 +1,27 @@
 #pragma once
-#include "GameComponents.h"
-#include "source.h"
-#include "EnumPriority.h"
-#include "Effect.h"
+#include "rule.h"
+#include "IEventListener.h"
 #include <vector>
 
-class RulesManager {
+struct GameComponents;
+
+class RulesManager : IEventListener {
 public:
-	RulesManager(GameComponents&);
+	RulesManager(GameComponents &components);
+	RulesManager(const RulesManager&) = delete;
+	RulesManager &operator = (const RulesManager&) = delete;
+	RulesManager(RulesManager&&) = delete;
+	RulesManager &operator = (RulesManager&&) = delete;
+
 	~RulesManager();
 
-	
-
-private:
-	struct Rule {
-		Source source;
-		//Event trigger
-		Effect effect;	//Code to execute on trigger //Built from card effect text
-		Priority priority;
-	};
+	GameComponents &gameComponents;
 
 	std::vector<Rule> rules; //global passives
+
+	virtual void notify(Event &e) override;
+
+private:
+	void addBaseRules();
 };
 

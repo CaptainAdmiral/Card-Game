@@ -306,9 +306,6 @@
     <ClInclude Include="IEventListener.h">
       <Filter>Header Files\Com\Game\Event\Listener</Filter>
     </ClInclude>
-    <ClInclude Include="RenderType.h">
-      <Filter>Header Files\Com\Client\Graphics\Render</Filter>
-    </ClInclude>
     <ClInclude Include="MouseHandler.h">
       <Filter>Header Files\Com\Client\System\Input\Mouse</Filter>
     </ClInclude>
@@ -317,6 +314,15 @@
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>Header Files\Com\Client\Interface\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="ValidateSummonEvent.h">
+      <Filter>Header Files\Com\Game\Event\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectType.h">
+      <Filter>Header Files\Com\Client\Graphics\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Rule.h">
+      <Filter>Header Files\Com\Game\Rules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -412,6 +418,12 @@
     </ClCompile>
     <ClCompile Include="IMouseListener.cpp">
       <Filter>Source Files\Com\Client\System\Input\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="EventHandler.cpp">
+      <Filter>Source Files\Com\Game\Event\Handling</Filter>
+    </ClCompile>
+    <ClCompile Include="Rule.cpp">
+      <Filter>Source Files\Com\Game\Rules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

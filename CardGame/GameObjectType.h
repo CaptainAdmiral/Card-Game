@@ -1,7 +1,9 @@
 #pragma once
 
-enum RenderType {
+enum GameObjectType {
 	INVALID,
 	CARD,
 	SLOT,
+	HAND,
+	DECK,
 };

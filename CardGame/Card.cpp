@@ -62,8 +62,8 @@ BoundingBox Card::calculateBoundingBox() {
 	return BB;
 }
 
-RenderType Card::getType() {
-	return RenderType::CARD;
+GameObjectType Card::getType() {
+	return GameObjectType::CARD;
 }
 
 Card::Properties &Card::Properties::setAtk(int i) {
