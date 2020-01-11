@@ -8,7 +8,7 @@ public:
 	const char* trigger;
 	bool(*condition)(Event&);
 	void(*payload)(Event&);
-	Priority priority;
+	Priority priority = Priority::INVALID;
 	//Source source
 
 	Rule(const char *trigger);
