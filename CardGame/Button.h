@@ -49,7 +49,7 @@ public:
 	virtual ~Button() {}
 
 	virtual void onMouseClick() override {
-		func(); //TODO Untested semantics, not 100% sure one this one
+		(*func)();
 	}
 
 	virtual AbstractRender& getRender() override {
