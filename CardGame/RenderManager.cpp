@@ -17,7 +17,7 @@ void RenderManager::addToRenderList(IRenderable *renderable) {
 }
 
 void RenderManager::removeFromRenderList(IRenderable *renderable) {
-	renderList.erase(std::find(renderList.begin(), renderList.end(), renderable));
+	renderList.erase(std::remove(renderList.begin(), renderList.end(), renderable), renderList.end());
 	
 }
 

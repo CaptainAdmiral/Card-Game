@@ -50,5 +50,5 @@ private:
 	RenderManager &operator = (const RenderManager&) = delete;
 	RenderManager &operator = (RenderManager&&) = delete;
 
-	std::vector<IRenderable*> renderList;
+	std::vector<IRenderable*> renderList; //TODO this should be a set or have duplicate checking on insertion
 };

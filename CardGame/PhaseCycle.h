@@ -20,9 +20,6 @@ public:
 	//and delete is called when no longer needed.
 	std::map<std::string, void*> sharedInfo;
 
-	//Iterator representing the current phase in the turn cycle
-	PhaseVec::iterator currentPhase;
-
 	unsigned int turnNumber = 0;
 
 	void addPhaseAtStart(Phase_t&);
@@ -33,7 +30,15 @@ public:
 	void removePhase(AbstractGamePhase*);
 	void removePhase(Phase_t&);
 
+	Phase_t &getCurrentPhase();
+	void setCurrentPhase(Phase_t&);
+
+	void nextPhase();
+
 private:
+	//Iterator representing the current phase in the turn cycle
+	PhaseVec::iterator currentPhase;
+
 	friend class GameStateManager;
 	PhaseVec phaseVec;
 };

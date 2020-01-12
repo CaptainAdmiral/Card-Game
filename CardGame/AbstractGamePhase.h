@@ -15,6 +15,10 @@ public:
 	//Called when the current phase switches over to this phase
 	virtual void onPhaseStart() {}
 
+	//Called on the currently phase before the current phase changes
+	//Does not necessarily mean the phase has finished
+	virtual void onPhaseEnd() {}
+
 	//Update the phase, called every tick
 	virtual void update();
 

@@ -26,7 +26,7 @@ struct StandardGamePhases {
 		GamePhase_Planning(GameComponents&, PhaseCycle*);
 		~GamePhase_Planning();
 
-		std::unique_ptr<Field> field;
+		Field field;
 		std::map<Card*, int> cardMoves;
 		std::vector<Card*> summons;
 
@@ -37,6 +37,7 @@ struct StandardGamePhases {
 		int draggedReturnY = 0;
 
 		void onPhaseStart() override;
+		void onPhaseEnd() override;
 
 		void doPhase() override;
 

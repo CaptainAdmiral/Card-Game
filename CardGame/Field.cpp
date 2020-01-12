@@ -1,6 +1,7 @@
 #include "Field.h"
 #include "Settings.h"
 #include "RenderField.h"
+#include "RenderManager.h"
 
 Field::Field() {
 	buildField();
@@ -10,7 +11,7 @@ Field::Field(const Field &field) {
 	buildField(field);
 }
 
-Field & Field::operator=(const Field &field) {
+Field &Field::operator=(const Field &field) {
 	if(this != &field) {
 		buildField(field);
 	}
@@ -44,7 +45,7 @@ void Field::buildField() {
 	}
 }
 
-void Field::buildField(const Field& field) {
+void Field::buildField(const Field &field) {
 	for(size_t i = 0; i < std::size(slotArray); i++) {
 		for(size_t j = 0; j < std::size(slotArray[i]); j++) {
 			if(i%2 == 0 && j == 0) continue;
@@ -56,9 +57,11 @@ void Field::buildField(const Field& field) {
 				field.slotArray[i][j]->row,
 				field.slotArray[i][j]->col
 			);
-			slotArray[i][j]->setVisible(false);
+
 			if(field.slotArray[i][j]->contents == nullptr) continue;
+			
 			slotArray[i][j]->contents = std::make_unique<Card>(*(field.slotArray[i][j]->contents));
+			slotArray[i][j]->contents->updateBoundingBox();
 			slotArray[i][j]->contents->container = slotArray[i][j].get();
 		}
 	}
@@ -67,9 +70,21 @@ void Field::buildField(const Field& field) {
 void Field::displayAsAfterimage(bool flag) {
 	for(size_t i = 0; i < std::size(slotArray); i++) {
 		for(size_t j = 0; j < std::size(slotArray[i]); j++) {
-			if(i % 2 == 0 && j == 0) continue;
+			if(i%2 == 0 && j == 0) continue;
+			slotArray[i][j]->setVisible(!flag);
 			if(slotArray[i][j]->contents == nullptr) continue;
 			slotArray[i][j]->contents->isAfterimage = flag;
+			RenderManager::instance().bringToFront(slotArray[i][j]->contents.get());
+		}
+	}
+}
+
+void Field::bringCardsToFront() {
+	for(size_t i = 0; i < std::size(slotArray); i++) {
+		for(size_t j = 0; j < std::size(slotArray[i]); j++) {
+			if(i % 2 == 0 && j == 0) continue;
+			if(slotArray[i][j]->contents == nullptr) continue;
+			RenderManager::instance().bringToFront(slotArray[i][j]->contents.get());
 		}
 	}
 }

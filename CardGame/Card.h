@@ -19,6 +19,8 @@ public:
 
 	virtual GameObjectType getType() override;
 
+	virtual bool isClickable() override;
+
 	//TODO replace with one of the following hashmaps:
 	//std::unordered_map<std::String, unsigned short>
 	//std::unordered_map<std::String, BoolShortUnion union>

@@ -23,19 +23,10 @@ void GameStateManager::updatePhase() {
 	(**cycle.currentPhase).update();
 }
 
-void GameStateManager::nextPhase() {
-	++cycle.currentPhase;
-	if (cycle.currentPhase == cycle.phaseVec.end()) {
-		cycle.turnNumber++;
-		cycle.currentPhase = cycle.phaseVec.begin();
-	}
-}
-
 void GameStateManager::update() {
 	if ((**cycle.currentPhase).isFinished()) {
 		(**cycle.currentPhase).finished = false;
-		nextPhase();
-		(**cycle.currentPhase).onPhaseStart();
+		cycle.nextPhase();
 	}
 	updatePhase();
 }

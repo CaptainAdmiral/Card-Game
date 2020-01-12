@@ -18,8 +18,13 @@ public:
 	//(The empty string is a possible differentiator between having a middle row and having no middle row)
 	void buildField();
 
+	//Deep copies the contents of the supplied field
 	void buildField(const Field&);
 
+	//Causes the fields slots not to be rendered and the cards to be rendered semi-transparently
 	void displayAsAfterimage(bool flag);
+
+	//Brings all the cards on the field to the front of the render list;
+	void bringCardsToFront();
 };
 

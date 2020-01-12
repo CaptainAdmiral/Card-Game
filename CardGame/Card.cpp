@@ -66,6 +66,10 @@ GameObjectType Card::getType() {
 	return GameObjectType::CARD;
 }
 
+bool Card::isClickable() {
+	return isVisible() ? !isAfterimage : false;
+}
+
 Card::Properties &Card::Properties::setAtk(int i) {
 	atk = i;
 	return *this;

@@ -38,28 +38,37 @@ void StandardGamePhases::GamePhase_Draw::doPhase() {
 
 
 StandardGamePhases::GamePhase_Planning::GamePhase_Planning(GameComponents &components, PhaseCycle *turnCycle) : AbstractGamePhase(GamePhase::PLANNING, components, turnCycle) {
-	button.setPos(Settings::General::DEFAULT_WIDTH / 2, Settings::General::DEFAULT_HEIGHT*0.04);
 	button.width = Settings::General::DEFAULT_WIDTH*0.4;
 	button.height = Settings::General::DEFAULT_HEIGHT*0.04;
 	button.func = &AbstractGamePhase::setFinished;
 	button.instance = this;
-	button.updateBoundingBox();
+	button.setPos(Settings::General::DEFAULT_WIDTH / 2, Settings::General::DEFAULT_HEIGHT*0.04);
 
-	turnCycle->sharedInfo["planningField"] = field.get();
+	turnCycle->sharedInfo["planningField"] = &field;
 	turnCycle->sharedInfo["summons"] = &summons;
 	turnCycle->sharedInfo["cardMoves"] = &cardMoves;
 }
 
 StandardGamePhases::GamePhase_Planning::~GamePhase_Planning() {
 	turnCycle->sharedInfo.erase("planningField");
+	turnCycle->sharedInfo.erase("summons");
+	turnCycle->sharedInfo.erase("cardMoves");
 }
 
 void StandardGamePhases::GamePhase_Planning::onPhaseStart() {
-	field = std::make_unique<Field>(gameComponents.field);
-	gameComponents.field.displayAsAfterimage(false);
-
+	field = gameComponents.field;
 	summons.clear();
 	cardMoves.clear();
+
+	gameComponents.field.displayAsAfterimage(true);
+	field.bringCardsToFront();
+	button.setVisible(true);
+}
+
+void StandardGamePhases::GamePhase_Planning::onPhaseEnd() {
+	gameComponents.field = field;
+	gameComponents.field.displayAsAfterimage(false);
+	button.setVisible(false);
 }
 
 void StandardGamePhases::GamePhase_Planning::doPhase() {
@@ -69,7 +78,7 @@ void StandardGamePhases::GamePhase_Planning::doPhase() {
 }
 
 void StandardGamePhases::GamePhase_Planning::onMousePressed(int x, int y) {
-	if((*turnCycle->currentPhase).get() != this) return;
+	if(turnCycle->getCurrentPhase().get() != this) return;
 	IRenderable *renderable = RenderManager::instance().getHit(x, y);
 
 	if(renderable != nullptr && renderable->getType() == GameObjectType::CARD) {
@@ -81,7 +90,7 @@ void StandardGamePhases::GamePhase_Planning::onMousePressed(int x, int y) {
 }
 
 void StandardGamePhases::GamePhase_Planning::onMouseReleased(int x, int y) {
-	if((*turnCycle->currentPhase).get() != this) return;
+	if(turnCycle->getCurrentPhase().get() != this) return;
 	if(draggedCard == nullptr) return;
 	IRenderable *renderable = RenderManager::instance().getHitWithIgnore(x, y, draggedCard);
 
