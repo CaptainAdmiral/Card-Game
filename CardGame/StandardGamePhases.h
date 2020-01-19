@@ -2,35 +2,31 @@
 #include "AbstractGamePhase.h"
 #include "IMouseListener.h"
 #include "Button.h"
+#include "Action.h"
+#include <vector>
 #include <map>
 
 class PhaseCycle;
 
-struct StandardGamePhases {
-	class GamePhase_Start : public AbstractGamePhase {
+namespace StandardGamePhases {
+	class Start : public AbstractGamePhase {
 	public:
-		GamePhase_Start(GameComponents&, PhaseCycle*);
-		~GamePhase_Start();
+		Start(GameComponents&, Player*, PhaseCycle*);
+		~Start();
 		void doPhase() override;
 	};
 
-	class GamePhase_Draw : public AbstractGamePhase {
+	class Draw : public AbstractGamePhase {
 	public:
-		GamePhase_Draw(GameComponents&);
-		~GamePhase_Draw();
+		Draw(GameComponents&, Player*);
+		~Draw();
 		void doPhase() override;
 	};
 
-	class GamePhase_Planning : public AbstractGamePhase, IMouseListener {
+	class Planning : public AbstractGamePhase, IMouseListener {
 	public:
-		GamePhase_Planning(GameComponents&, PhaseCycle*);
-		~GamePhase_Planning();
-
-		Field field;
-		std::map<Card*, int> cardMoves;
-		std::vector<Card*> summons;
-
-		Button<void(AbstractGamePhase::*)(), AbstractGamePhase> button;
+		Planning(GameComponents&, Player*, PhaseCycle*);
+		~Planning();
 
 		Card *draggedCard = nullptr;
 		int draggedReturnX = 0;
@@ -41,28 +37,31 @@ struct StandardGamePhases {
 
 		void doPhase() override;
 
-		virtual void onMousePressed(int x, int y);
-		virtual void onMouseReleased(int x, int y);
+		virtual void onMousePressed(int x, int y) override;
+		virtual void onMouseReleased(int x, int y) override;
+
+	private:
+		Button<void(AbstractGamePhase::*)(), AbstractGamePhase> button;
 	};
 
-	class GamePhase_Action : public AbstractGamePhase {
+	class Resolution : public AbstractGamePhase {
 	public:
-		GamePhase_Action(GameComponents&);
-		~GamePhase_Action();
+		Resolution(GameComponents&);
+		~Resolution();
 		void doPhase() override;
 	};
 
-	class GamePhase_End : public AbstractGamePhase {
+	class End : public AbstractGamePhase {
 	public:
-		GamePhase_End(GameComponents&);
-		~GamePhase_End();
+		End(GameComponents&);
+		~End();
 		void doPhase() override;
 	};
 
-	class GamePhase_Finish : public AbstractGamePhase {
+	class Finish : public AbstractGamePhase {
 	public:
-		GamePhase_Finish(GameComponents&);
-		~GamePhase_Finish();
+		Finish(GameComponents&);
+		~Finish();
 		void doPhase() override;
 	};
 };

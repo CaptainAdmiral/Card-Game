@@ -12,3 +12,10 @@ void Player::draw(int amount) {
 		draw();
 	}
 }
+
+void Player::setVisible(bool vis) {
+	hand.setVisible(vis);
+	for(CardPtr& card : hand.contents) {
+		card->setVisible(vis);
+	}
+}

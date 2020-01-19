@@ -184,6 +184,12 @@
     <Filter Include="Source Files\Com\Client\System\Interface\Button">
       <UniqueIdentifier>{515b1f23-12ab-4852-9168-8b80329dbfb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Com\Game\Game Phase\Actions">
+      <UniqueIdentifier>{0a4df3d2-6794-4e2e-8f06-9c1ae18f2983}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Com\Game\Game Phase\Actions">
+      <UniqueIdentifier>{d6fa3379-c87c-4436-aa02-b6e72ca6a6b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CardGame.h">
@@ -324,6 +330,12 @@
     <ClInclude Include="Rule.h">
       <Filter>Header Files\Com\Game\Rules</Filter>
     </ClInclude>
+    <ClInclude Include="ResolutionPolicies.h">
+      <Filter>Header Files\Com\Game\Game Phase\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>Header Files\Com\Game\Game Phase\Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp">
@@ -424,6 +436,9 @@
     </ClCompile>
     <ClCompile Include="Rule.cpp">
       <Filter>Source Files\Com\Game\Rules</Filter>
+    </ClCompile>
+    <ClCompile Include="ResolutionPolicies.cpp">
+      <Filter>Source Files\Com\Game\Game Phase\Actions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

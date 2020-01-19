@@ -26,5 +26,8 @@ public:
 
 	//Brings all the cards on the field to the front of the render list;
 	void bringCardsToFront();
+
+	//Executes the function on each card on the field;
+	void for_each_card(void(*func)(Card&));
 };
 

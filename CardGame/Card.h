@@ -2,15 +2,23 @@
 #include "IRenderable.h"
 
 class ICardContainer;
+class Player;
 
 class Card : public IRenderable {
 public:
+	//Data to be represented by buffs
+	unsigned int moves = 0;
+	bool justSummoned = false;
+	/////////////////////////////////
+
 	ICardContainer *container = nullptr;
+	Player *owner = nullptr;
 
 	bool isAfterimage = false;
 	bool isInSlot = false;
 
 	Card();
+	Card(Player &player);
 	~Card();
 
 	AbstractRender &getRender() override;
@@ -33,7 +41,7 @@ public:
 		enum type{Unit, Spell};
 
 		unsigned int atk=0;
-		unsigned int ctr = 0; //TODO make sure counter is never lower than defense
+		unsigned int ctr=0; //TODO make sure counter is never lower than defense
 		unsigned int def=0;
 		unsigned int speed=1;
 		unsigned int range=1;

@@ -6,6 +6,7 @@
 #include "PhaseCycle.h"
 #include "AbstractGamePhase.h"
 #include "StandardGamePhases.h"
+#include "StandardGamePhaseData.h"
 
 RulesManager::RulesManager(GameComponents &components, PhaseCycle &cycle) : gameComponents(components), phaseCycle(cycle) {
 	EventHandler::subscribe(this);
@@ -57,7 +58,8 @@ void RulesManager::addBaseRules() {
 	LST.payload = [&](Event &e) {
 		ValidateSummonEvent& summonEvent = static_cast<ValidateSummonEvent&>(e);
 		if(summonEvent.validatePositionOnly) return;
-		if(static_cast<std::vector<Card*>*>(phaseCycle.sharedInfo["summons"])->size() != 0) summonEvent.invalidate();
+		if(summonEvent.card.owner == nullptr) return;
+		if(summonEvent.card.owner->summons > 0) summonEvent.invalidate(); //TODO swap out for buff
 	};
 	LST.priority = Priority::BASE;
 	rules.push_back(LST);
@@ -78,8 +80,7 @@ void RulesManager::addBaseRules() {
 	LMCT.payload = [&](Event &e) {
 		ValidateMoveEvent& moveEvent = static_cast<ValidateMoveEvent&>(e);
 		if(moveEvent.validatePositionOnly) return;
-		Card* card = &moveEvent.card;
-		if((*static_cast<std::map<Card*, int>*>(phaseCycle.sharedInfo["cardMoves"]))[&moveEvent.card]>0) moveEvent.invalidate();
+		if(moveEvent.card.moves>0) moveEvent.invalidate(); //TODO swap out for buff
 	};
 	LMCT.priority = Priority::BASE;
 	rules.push_back(LMCT);
@@ -89,8 +90,7 @@ void RulesManager::addBaseRules() {
 	SMTS.payload = [&](Event &e) {
 		ValidateMoveEvent& moveEvent = static_cast<ValidateMoveEvent&>(e);
 		if(moveEvent.validatePositionOnly) return;
-		std::vector<Card*> &vec = *static_cast<std::vector<Card*>*>(phaseCycle.sharedInfo["summons"]);
-		if(std::find(vec.begin(), vec.end(), &moveEvent.card) != vec.end()) moveEvent.invalidate();
+		if(moveEvent.card.justSummoned) moveEvent.invalidate(); //TODO swap out for buff
 	};
 	SMTS.priority = Priority::BASE;
 	rules.push_back(SMTS);

@@ -6,14 +6,15 @@
 #include "ValidateSummonEvent.h"
 #include "ValidateMoveEvent.h"
 #include "EventHandler.h"
+#include "StandardGamePhaseData.h"
 
-StandardGamePhases::GamePhase_Start::GamePhase_Start(GameComponents &components, PhaseCycle *turnCycle) : AbstractGamePhase(GamePhase::GAME_START, components, turnCycle) {}
+StandardGamePhases::Start::Start(GameComponents &components, Player *player, PhaseCycle *turnCycle) : AbstractGamePhase(GamePhase::GAME_START, components, player, turnCycle) {}
 
-StandardGamePhases::GamePhase_Start::~GamePhase_Start() {}
+StandardGamePhases::Start::~Start() {}
 
-void StandardGamePhases::GamePhase_Start::doPhase() {
+void StandardGamePhases::Start::doPhase() {
 	//TODO decide whether to use the standard draw function which triggers draw events or not
-	gameComponents.player.draw(5);
+	player->draw(5);
 
 	turnCycle->removePhase(this);
 }
@@ -23,11 +24,11 @@ void StandardGamePhases::GamePhase_Start::doPhase() {
 
 
 
-StandardGamePhases::GamePhase_Draw::GamePhase_Draw(GameComponents &components) : AbstractGamePhase(GamePhase::DRAW, components) {}
+StandardGamePhases::Draw::Draw(GameComponents &components, Player* player) : AbstractGamePhase(GamePhase::DRAW, components, player) {}
 
-StandardGamePhases::GamePhase_Draw::~GamePhase_Draw() {}
+StandardGamePhases::Draw::~Draw() {}
 
-void StandardGamePhases::GamePhase_Draw::doPhase() {
+void StandardGamePhases::Draw::doPhase() {
 	gameComponents.player.draw();
 	this->setFinished();
 }
@@ -37,47 +38,44 @@ void StandardGamePhases::GamePhase_Draw::doPhase() {
 
 
 
-StandardGamePhases::GamePhase_Planning::GamePhase_Planning(GameComponents &components, PhaseCycle *turnCycle) : AbstractGamePhase(GamePhase::PLANNING, components, turnCycle) {
+StandardGamePhases::Planning::Planning(GameComponents &components, Player* player, PhaseCycle *turnCycle) : AbstractGamePhase(GamePhase::PLANNING, components, player, turnCycle) {
 	button.width = Settings::General::DEFAULT_WIDTH*0.4;
 	button.height = Settings::General::DEFAULT_HEIGHT*0.04;
 	button.func = &AbstractGamePhase::setFinished;
 	button.instance = this;
 	button.setPos(Settings::General::DEFAULT_WIDTH / 2, Settings::General::DEFAULT_HEIGHT*0.04);
-
-	turnCycle->sharedInfo["planningField"] = &field;
-	turnCycle->sharedInfo["summons"] = &summons;
-	turnCycle->sharedInfo["cardMoves"] = &cardMoves;
 }
 
-StandardGamePhases::GamePhase_Planning::~GamePhase_Planning() {
-	turnCycle->sharedInfo.erase("planningField");
-	turnCycle->sharedInfo.erase("summons");
-	turnCycle->sharedInfo.erase("cardMoves");
-}
+StandardGamePhases::Planning::~Planning() {}
 
-void StandardGamePhases::GamePhase_Planning::onPhaseStart() {
-	field = gameComponents.field;
-	summons.clear();
-	cardMoves.clear();
+void StandardGamePhases::Planning::onPhaseStart() {
+	//TODO move begining of turn cleanup to new turn event in player class
+
+	player->planningField = gameComponents.field;
+	player->plannedActions.clear();
+	player->planningField.for_each_card([](Card& card) {card.justSummoned = false; });
+	player->planningField.for_each_card([](Card& card) {card.moves = 0; });
+	player->summons = 0;
+	player->moves = 0;
 
 	gameComponents.field.displayAsAfterimage(true);
-	field.bringCardsToFront();
+	player->planningField.bringCardsToFront();
 	button.setVisible(true);
 }
 
-void StandardGamePhases::GamePhase_Planning::onPhaseEnd() {
-	gameComponents.field = field;
+void StandardGamePhases::Planning::onPhaseEnd() {
+	gameComponents.field = player->planningField;
 	gameComponents.field.displayAsAfterimage(false);
 	button.setVisible(false);
 }
 
-void StandardGamePhases::GamePhase_Planning::doPhase() {
+void StandardGamePhases::Planning::doPhase() {
 	if(draggedCard != nullptr) {
 		draggedCard->setPos(mouseX, mouseY);
 	}
 }
 
-void StandardGamePhases::GamePhase_Planning::onMousePressed(int x, int y) {
+void StandardGamePhases::Planning::onMousePressed(int x, int y) {
 	if(turnCycle->getCurrentPhase().get() != this) return;
 	IRenderable *renderable = RenderManager::instance().getHit(x, y);
 
@@ -89,7 +87,7 @@ void StandardGamePhases::GamePhase_Planning::onMousePressed(int x, int y) {
 	}
 }
 
-void StandardGamePhases::GamePhase_Planning::onMouseReleased(int x, int y) {
+void StandardGamePhases::Planning::onMouseReleased(int x, int y) {
 	if(turnCycle->getCurrentPhase().get() != this) return;
 	if(draggedCard == nullptr) return;
 	IRenderable *renderable = RenderManager::instance().getHitWithIgnore(x, y, draggedCard);
@@ -105,7 +103,10 @@ void StandardGamePhases::GamePhase_Planning::onMouseReleased(int x, int y) {
 				draggedCard->setPos(slot.getPosX(), slot.getPosY());
 				draggedReturnX = draggedCard->getPosX();
 				draggedReturnY = draggedCard->getPosY();
-				summons.push_back(draggedCard);
+
+				player->plannedActions.emplace_back<Action>(Action::Summon(*draggedCard, slot));
+				player->summons++;
+				draggedCard->justSummoned = true;
 			}
 		} else if(draggedCard->container->type() == Slot::TYPE) {
 			ValidateMoveEvent e(*draggedCard, slot);
@@ -115,7 +116,10 @@ void StandardGamePhases::GamePhase_Planning::onMouseReleased(int x, int y) {
 				draggedCard->setPos(slot.getPosX(), slot.getPosY());
 				draggedReturnX = draggedCard->getPosX();
 				draggedReturnY = draggedCard->getPosY();
-				cardMoves[draggedCard]++;
+
+				player->plannedActions.emplace_back<Action>(Action::Move(*draggedCard, slot));
+				player->moves++;
+				draggedCard->moves++;
 			}
 		}
 	}
@@ -130,11 +134,11 @@ void StandardGamePhases::GamePhase_Planning::onMouseReleased(int x, int y) {
 
 
 
-StandardGamePhases::GamePhase_Action::GamePhase_Action(GameComponents &components) : AbstractGamePhase(GamePhase::ACTION, components){}
+StandardGamePhases::Resolution::Resolution(GameComponents &components) : AbstractGamePhase(GamePhase::ACTION, components){}
 
-StandardGamePhases::GamePhase_Action::~GamePhase_Action() {}
+StandardGamePhases::Resolution::~Resolution() {}
 
-void StandardGamePhases::GamePhase_Action::doPhase() {
+void StandardGamePhases::Resolution::doPhase() {
 	setFinished();
 }
 
@@ -144,11 +148,11 @@ void StandardGamePhases::GamePhase_Action::doPhase() {
 
 
 
-StandardGamePhases::GamePhase_End::GamePhase_End(GameComponents &components) : AbstractGamePhase(GamePhase::END, components) {}
+StandardGamePhases::End::End(GameComponents &components) : AbstractGamePhase(GamePhase::END, components) {}
 
-StandardGamePhases::GamePhase_End::~GamePhase_End() {}
+StandardGamePhases::End::~End() {}
 
-void StandardGamePhases::GamePhase_End::doPhase() {}
+void StandardGamePhases::End::doPhase() {}
 
 
 
@@ -156,8 +160,8 @@ void StandardGamePhases::GamePhase_End::doPhase() {}
 
 
 
-StandardGamePhases::GamePhase_Finish::GamePhase_Finish(GameComponents &components) : AbstractGamePhase(GamePhase::GAME_FINISH, components) {}
+StandardGamePhases::Finish::Finish(GameComponents &components) : AbstractGamePhase(GamePhase::GAME_FINISH, components) {}
 
-StandardGamePhases::GamePhase_Finish::~GamePhase_Finish() {}
+StandardGamePhases::Finish::~Finish() {}
 
-void StandardGamePhases::GamePhase_Finish::doPhase() {}
+void StandardGamePhases::Finish::doPhase() {}

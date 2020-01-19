@@ -2,9 +2,13 @@
 #include "ICardContainer.h"
 #include <vector>
 
+class Player;
+
 class Deck : public ICardContainer {
 public:
-	Deck();
+	Player &owner;
+
+	Deck(Player &player);
 	~Deck();
 
 	virtual void card_in(CardPtr) override;

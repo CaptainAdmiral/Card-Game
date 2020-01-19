@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractGamePhase.h" />
     <ClInclude Include="AbstractRender.h" />
+    <ClInclude Include="Action.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Card.h" />
@@ -55,6 +56,7 @@
     <ClInclude Include="RenderSlot.h" />
     <ClInclude Include="GameObjectType.h" />
     <ClInclude Include="RenderWrapper.h" />
+    <ClInclude Include="ResolutionPolicies.h" />
     <ClInclude Include="Rule.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SkinRegistry.h" />
@@ -92,6 +94,7 @@
     <ClCompile Include="RenderField.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RenderSlot.cpp" />
+    <ClCompile Include="ResolutionPolicies.cpp" />
     <ClCompile Include="Rule.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="SkinRegistry.cpp" />

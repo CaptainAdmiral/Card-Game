@@ -88,3 +88,13 @@ void Field::bringCardsToFront() {
 		}
 	}
 }
+
+void Field::for_each_card(void(*func)(Card &)) {
+	for(size_t i = 0; i < std::size(slotArray); i++) {
+		for(size_t j = 0; j < std::size(slotArray[i]); j++) {
+			if(i % 2 == 0 && j == 0) continue;
+			if(slotArray[i][j]->contents == nullptr) continue;
+			(*func)(*slotArray[i][j]->contents);
+		}
+	}
+}

@@ -6,6 +6,10 @@
 Card::Card() {
 	updateBoundingBox();
 }
+Card::Card(Player &owner) : owner(&owner) {
+	Card();
+}
+
 Card::Card(Card::Properties props) {
 	Card();
 	properties = props;

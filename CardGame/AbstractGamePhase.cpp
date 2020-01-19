@@ -1,8 +1,7 @@
 #pragma once
 #include "AbstractGamePhase.h"
 
-AbstractGamePhase::AbstractGamePhase(GamePhase phase, GameComponents &components) : name(phase), gameComponents(components) {}
-AbstractGamePhase::AbstractGamePhase(GamePhase phase, GameComponents &components, PhaseCycle *turnCycle) : name(phase), gameComponents(components), turnCycle(turnCycle) {}
+AbstractGamePhase::AbstractGamePhase(GamePhase phase, GameComponents &components, Player *player, PhaseCycle *turnCycle) : name(phase), gameComponents(components), player(player), turnCycle(turnCycle) {}
 AbstractGamePhase::~AbstractGamePhase() {}
 
 void AbstractGamePhase::update() {

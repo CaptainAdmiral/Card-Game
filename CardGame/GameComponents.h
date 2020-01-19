@@ -5,6 +5,7 @@
 
 struct GameComponents {
 	Player player;
+	Player player2;
 	Opponent opponent;
 	Field field;
 };

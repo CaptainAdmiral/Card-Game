@@ -8,7 +8,8 @@ class AbstractGamePhase {
 public:
 	const GamePhase name;
 	GameComponents &gameComponents;
-	PhaseCycle *turnCycle;
+	PhaseCycle *const turnCycle;
+	Player *const player;
 
 	virtual ~AbstractGamePhase();
 
@@ -28,8 +29,7 @@ public:
 	bool isFinished();
 
 protected:
-	AbstractGamePhase(GamePhase phase, GameComponents&);
-	AbstractGamePhase(GamePhase phase, GameComponents&, PhaseCycle*);
+	AbstractGamePhase(GamePhase phase, GameComponents&, Player* player = nullptr, PhaseCycle* phaseCycle = nullptr);
 
 private:
 	friend class GameStateManager;
