@@ -28,16 +28,16 @@ AbstractRender &Field::getRender() {
 void Field::buildField() {
 	for(size_t i = 0; i < std::size(slotArray); i++) {
 		for(size_t j = 0; j < std::size(slotArray[i]); j++) {
-			if(i%2 == 0 && j == 0) continue;
+			if(j%2 == 0 && i == 0) continue;
 			int height = Settings::General::DEFAULT_HEIGHT;
 			int width = Settings::General::DEFAULT_WIDTH;
-			float hBuffer = Settings::UI::handHeight;
+			float hBuffer = Settings::UI::handHeight + height*0.01f;
 			float wBuffer = width / 15.0f;
 			slotArray[i][j] = std::make_unique<Slot>(
-				wBuffer + (j + 0.5f*(i%2))*((width - 2*wBuffer) / (std::size(slotArray[i]))),
-				hBuffer + i*((height - 2*hBuffer) / (std::size(slotArray))),
+				1.5f*wBuffer + j*((width - 2*wBuffer) / (std::size(slotArray[i]))),
+				0.75f*hBuffer + (i + 0.5f*(j%2))*((height - 2*hBuffer) / (std::size(slotArray))),
 				(width - 2*wBuffer) / (std::size(slotArray[i])) - 4,
-				(height - 2*hBuffer) / (std::size(slotArray)) * 2 - 4,
+				(height - 2*hBuffer) / (std::size(slotArray)) - 4,
 				std::size(slotArray)-1-i,
 				std::size(slotArray[i])-1-j
 			);
@@ -48,7 +48,7 @@ void Field::buildField() {
 void Field::buildField(const Field &field) {
 	for(size_t i = 0; i < std::size(slotArray); i++) {
 		for(size_t j = 0; j < std::size(slotArray[i]); j++) {
-			if(i%2 == 0 && j == 0) continue;
+			if(j%2 == 0 && i == 0) continue;
 			slotArray[i][j] = std::make_unique<Slot>(
 				field.slotArray[i][j]->getPosX(),
 				field.slotArray[i][j]->getPosY(),
@@ -70,7 +70,7 @@ void Field::buildField(const Field &field) {
 void Field::displayAsAfterimage(bool flag) {
 	for(size_t i = 0; i < std::size(slotArray); i++) {
 		for(size_t j = 0; j < std::size(slotArray[i]); j++) {
-			if(i%2 == 0 && j == 0) continue;
+			if(j%2 == 0 && i == 0) continue;
 			slotArray[i][j]->setVisible(!flag);
 			if(slotArray[i][j]->contents == nullptr) continue;
 			slotArray[i][j]->contents->isAfterimage = flag;
@@ -82,7 +82,7 @@ void Field::displayAsAfterimage(bool flag) {
 void Field::bringCardsToFront() {
 	for(size_t i = 0; i < std::size(slotArray); i++) {
 		for(size_t j = 0; j < std::size(slotArray[i]); j++) {
-			if(i % 2 == 0 && j == 0) continue;
+			if(j % 2 == 0 && i == 0) continue;
 			if(slotArray[i][j]->contents == nullptr) continue;
 			RenderManager::instance().bringToFront(slotArray[i][j]->contents.get());
 		}
@@ -92,7 +92,7 @@ void Field::bringCardsToFront() {
 void Field::for_each_card(void(*func)(Card &)) {
 	for(size_t i = 0; i < std::size(slotArray); i++) {
 		for(size_t j = 0; j < std::size(slotArray[i]); j++) {
-			if(i % 2 == 0 && j == 0) continue;
+			if(j % 2 == 0 && i == 0) continue;
 			if(slotArray[i][j]->contents == nullptr) continue;
 			(*func)(*slotArray[i][j]->contents);
 		}

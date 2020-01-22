@@ -9,7 +9,7 @@ public:
 	Field &operator=(const Field&);
 	~Field();
 
-	std::unique_ptr<Slot> slotArray[5][5];
+	std::unique_ptr<Slot> slotArray[10][9];
 
 	AbstractRender &getRender() override;
 

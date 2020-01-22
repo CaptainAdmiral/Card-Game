@@ -63,19 +63,19 @@ AbstractRender &Slot::getRender() {
 
 BoundingBox Slot::calculateBoundingBox() {
 	BoundingBox BB;
-	bg::append(BB.outer(), point_t(posX + size / 4, posY - size / 2));
-	bg::append(BB.outer(), point_t(posX + size / 2, posY));
-	bg::append(BB.outer(), point_t(posX + size / 4, posY + size / 2));
-	bg::append(BB.outer(), point_t(posX - size / 4, posY + size / 2));
-	bg::append(BB.outer(), point_t(posX - size / 2, posY));
-	bg::append(BB.outer(), point_t(posX - size / 4, posY - size / 2));
-	bg::append(BB.outer(), point_t(posX + size / 4, posY - size / 2));
-
 	//bg::append(BB.outer(), point_t(posX - width/2, posY));
 	//bg::append(BB.outer(), point_t(posX, posY + height/2));
 	//bg::append(BB.outer(), point_t(posX + width/2, posY));
 	//bg::append(BB.outer(), point_t(posX, posY - height/2));
 	//bg::append(BB.outer(), point_t(posX - width / 2, posY));
+
+	bg::append(BB.outer(), point_t(posX + width / 4, posY - height / 2));
+	bg::append(BB.outer(), point_t(posX + width / 2, posY));
+	bg::append(BB.outer(), point_t(posX + width / 4, posY + height / 2));
+	bg::append(BB.outer(), point_t(posX - width / 4, posY + height / 2));
+	bg::append(BB.outer(), point_t(posX - width / 2, posY));
+	bg::append(BB.outer(), point_t(posX - width / 4, posY - height / 2));
+	bg::append(BB.outer(), point_t(posX + width / 4, posY - height / 2));
 
 	return BB;
 }

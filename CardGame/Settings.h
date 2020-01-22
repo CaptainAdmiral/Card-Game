@@ -6,8 +6,8 @@ namespace Settings {
 	}
 
 	namespace General {
-		static constexpr unsigned int DEFAULT_HEIGHT = 550;
-		static constexpr unsigned int DEFAULT_WIDTH = 275;
+		static constexpr unsigned int DEFAULT_HEIGHT = 800;
+		static constexpr unsigned int DEFAULT_WIDTH = 1000;
 	}
 
 	namespace UI {

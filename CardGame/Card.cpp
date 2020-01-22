@@ -57,11 +57,13 @@ BoundingBox Card::calculateBoundingBox() {
 
 	//return BB;
 
-	bg::append(BB.outer(), point_t(posX - slot.getWidth() / 2.4, posY));
-	bg::append(BB.outer(), point_t(posX, posY + slot.getHeight() / 2.4));
-	bg::append(BB.outer(), point_t(posX + slot.getWidth() / 2.4, posY));
-	bg::append(BB.outer(), point_t(posX, posY - slot.getHeight() / 2.4));
-	bg::append(BB.outer(), point_t(posX - slot.getWidth() / 2.4, posY));
+	bg::append(BB.outer(), point_t(posX + slot.getWidth() / 4, posY - slot.getHeight() / 2));
+	bg::append(BB.outer(), point_t(posX + slot.getWidth() / 2, posY));
+	bg::append(BB.outer(), point_t(posX + slot.getWidth()  / 4, posY + slot.getHeight() / 2));
+	bg::append(BB.outer(), point_t(posX - slot.getWidth() / 4, posY + slot.getHeight() / 2));
+	bg::append(BB.outer(), point_t(posX - slot.getWidth() / 2, posY));
+	bg::append(BB.outer(), point_t(posX - slot.getWidth() / 4, posY - slot.getHeight() / 2));
+	bg::append(BB.outer(), point_t(posX + slot.getWidth() / 4, posY - slot.getHeight() / 2));
 
 	return BB;
 }

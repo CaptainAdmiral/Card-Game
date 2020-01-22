@@ -46,14 +46,6 @@ public:
 		updateBoundingBox();
 	}
 
-	float getSize() {
-		return size;
-	}
-
-	void setSize(float f) {
-		size = f;
-	}
-
 	virtual GameObjectType type() override {
 		return TYPE;
 	}
@@ -61,7 +53,6 @@ public:
 protected:
 	float height = 0;
 	float width = 0;
-	float size = 40;
 
 	virtual BoundingBox calculateBoundingBox() override;
 };

@@ -6,10 +6,10 @@ GamePhaseAction::GamePhaseAction(GameComponents &components) : AbstractGamePhase
 GamePhaseAction::~GamePhaseAction() {}
 
 void GamePhaseAction::doPhase() {
-	Field playerField = getPredictedField(gameComponents.player.plannedActions);
-	Field player2Field = getPredictedField(gameComponents.player2.plannedActions);
+	//Field playerField = getPredictedField(gameComponents.player.plannedActions);
+	//Field player2Field = getPredictedField(gameComponents.player2.plannedActions);
 
-	gameComponents.field = mergeFields(playerField, player2Field);
+	//gameComponents.field = mergeFields(playerField, player2Field);
 
 	setFinished();
 }
