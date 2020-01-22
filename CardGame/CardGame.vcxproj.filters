@@ -336,6 +336,18 @@
     <ClInclude Include="Action.h">
       <Filter>Header Files\Com\Game\Game Phase\Actions</Filter>
     </ClInclude>
+    <ClInclude Include="Actions.h">
+      <Filter>Header Files\Com\Game\Game Phase\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePhasePlanning.h">
+      <Filter>Header Files\Com\Game\Game Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePhaseAction.h">
+      <Filter>Header Files\Com\Game\Game Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveEvent.h">
+      <Filter>Header Files\Com\Game\Event\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp">
@@ -439,6 +451,15 @@
     </ClCompile>
     <ClCompile Include="ResolutionPolicies.cpp">
       <Filter>Source Files\Com\Game\Game Phase\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions.cpp">
+      <Filter>Source Files\Com\Game\Game Phase\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePhasePlanning.cpp">
+      <Filter>Source Files\Com\Game\Game Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePhaseAction.cpp">
+      <Filter>Source Files\Com\Game\Game Phase</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

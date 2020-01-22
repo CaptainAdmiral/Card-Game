@@ -38,7 +38,7 @@ public:
 		Properties() {};
 		~Properties() {};
 
-		enum type{Unit, Spell};
+		enum type{UNIT, SPELL};
 
 		unsigned int atk=0;
 		unsigned int ctr=0; //TODO make sure counter is never lower than defense
@@ -58,6 +58,5 @@ public:
 	};
 
 	Properties properties;
-
 	Card(Properties props);
 };

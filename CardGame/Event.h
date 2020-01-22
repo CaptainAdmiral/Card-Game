@@ -1,4 +1,5 @@
 #pragma once
+#include <assert.h>
 
 typedef const char* EventType;
 
@@ -12,5 +13,21 @@ public:
 	virtual EventType getType() {
 		return TYPE;
 	}
+
+	virtual bool isCanceleable() {
+		return false;
+	}
+
+	bool isCanceled() {
+		return canceled;
+	}
+
+	void setCanceled() {
+		assert(isCanceleable());
+		canceled = true;
+	}
+
+private:
+	bool canceled = false;
 };
 

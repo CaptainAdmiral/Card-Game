@@ -22,6 +22,7 @@
     <ClInclude Include="AbstractGamePhase.h" />
     <ClInclude Include="AbstractRender.h" />
     <ClInclude Include="Action.h" />
+    <ClInclude Include="Actions.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Card.h" />
@@ -34,10 +35,13 @@
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="GameComponents.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="GamePhaseAction.h" />
+    <ClInclude Include="GamePhasePlanning.h" />
     <ClInclude Include="IEventListener.h" />
     <ClInclude Include="IMouseListener.h" />
     <ClInclude Include="IValidationEvent.h" />
     <ClInclude Include="MouseHandler.h" />
+    <ClInclude Include="MoveEvent.h" />
     <ClInclude Include="RenderBB.h" />
     <ClInclude Include="RenderField.h" />
     <ClInclude Include="ICardContainer.h" />
@@ -71,6 +75,7 @@
   <ItemGroup>
     <ClCompile Include="AbstractCardContainer.cpp" />
     <ClCompile Include="AbstractGamePhase.cpp" />
+    <ClCompile Include="Actions.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardGame.cpp" />
@@ -81,6 +86,8 @@
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="GamePhaseAction.cpp" />
+    <ClCompile Include="GamePhasePlanning.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="ICardContainer.cpp" />

@@ -6,7 +6,6 @@
 #include "PhaseCycle.h"
 #include "AbstractGamePhase.h"
 #include "StandardGamePhases.h"
-#include "StandardGamePhaseData.h"
 
 RulesManager::RulesManager(GameComponents &components, PhaseCycle &cycle) : gameComponents(components), phaseCycle(cycle) {
 	EventHandler::subscribe(this);

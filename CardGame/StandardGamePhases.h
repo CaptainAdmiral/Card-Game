@@ -23,34 +23,6 @@ namespace StandardGamePhases {
 		void doPhase() override;
 	};
 
-	class Planning : public AbstractGamePhase, IMouseListener {
-	public:
-		Planning(GameComponents&, Player*, PhaseCycle*);
-		~Planning();
-
-		Card *draggedCard = nullptr;
-		int draggedReturnX = 0;
-		int draggedReturnY = 0;
-
-		void onPhaseStart() override;
-		void onPhaseEnd() override;
-
-		void doPhase() override;
-
-		virtual void onMousePressed(int x, int y) override;
-		virtual void onMouseReleased(int x, int y) override;
-
-	private:
-		Button<void(AbstractGamePhase::*)(), AbstractGamePhase> button;
-	};
-
-	class Resolution : public AbstractGamePhase {
-	public:
-		Resolution(GameComponents&);
-		~Resolution();
-		void doPhase() override;
-	};
-
 	class End : public AbstractGamePhase {
 	public:
 		End(GameComponents&);
