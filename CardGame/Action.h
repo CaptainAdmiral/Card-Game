@@ -8,6 +8,7 @@ struct Action {
 public:
 	enum Type {
 		MOVE,
+		MOVE_FAIL,
 		ATTACK,
 		SUMMON,
 	};
@@ -23,9 +24,9 @@ public:
 
 	struct Attack {
 		Card &card;
-		Card &target;
+		Slot &target;
 
-		Attack(Card& card, Card &target) : card(card), target(target) {}
+		Attack(Card& card, Slot &target) : card(card), target(target) {}
 	};
 
 	struct Summon {

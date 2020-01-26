@@ -4,8 +4,8 @@
 #include "Field.h"
 
 struct GameComponents {
-	Player player;
-	Player player2;
+	Player player{30, 180, 30};
+	Player player2{180, 30, 30};
 	Opponent opponent;
 	Field field;
 };

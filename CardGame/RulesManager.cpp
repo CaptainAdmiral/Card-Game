@@ -43,14 +43,15 @@ void RulesManager::addBaseRules() {
 	SIEM.priority = Priority::BASE;
 	rules.push_back(SIEM);
 
-	//First row summon
-	Rule FRS(ValidateSummonEvent::TYPE);
-	FRS.payload = [](Event &e) {
+	//Summon on summon tile
+	Rule SOST(ValidateSummonEvent::TYPE);
+	SOST.payload = [](Event &e) {
 		ValidateSummonEvent& summonEvent = static_cast<ValidateSummonEvent&>(e);
-		if(summonEvent.slot.row != 0) summonEvent.invalidate();
+		if(summonEvent.slot.properties.type != Slot::Properties::SUMMON) { summonEvent.invalidate(); return; }
+		if(summonEvent.card.owner && summonEvent.card.owner != summonEvent.slot.properties.getController()) summonEvent.invalidate();
 	};
-	FRS.priority = Priority::BASE;
-	rules.push_back(FRS);
+	SOST.priority = Priority::BASE;
+	rules.push_back(SOST);
 
 	//Limit summons per turn
 	Rule LST(ValidateSummonEvent::TYPE);
@@ -69,10 +70,27 @@ void RulesManager::addBaseRules() {
 		ValidateMoveEvent& moveEvent = static_cast<ValidateMoveEvent&>(e);
 		Slot &slotFrom = *static_cast<Slot*>(moveEvent.card.container);
 		Slot &slotTo = moveEvent.slot;
-		if(abs(slotTo.row-slotFrom.row)!=1 || (slotTo.col != slotFrom.col && slotTo.col != slotFrom.col-2*(slotFrom.row%2)+1)) moveEvent.invalidate();
+		if(slotTo.col - slotFrom.col == 0) {
+			if(abs(slotTo.row - slotFrom.row) > 1) moveEvent.invalidate();
+		}
+		else if(abs(slotTo.col - slotFrom.col) == 1) {
+			if(slotTo.row != slotFrom.row && slotTo.row != slotFrom.row - 2*(slotFrom.col % 2) + 1) moveEvent.invalidate();
+		}
+		else {
+			moveEvent.invalidate();
+		}
 	};
 	LMD.priority = Priority::BASE;
 	rules.push_back(LMD);
+
+	//No move on void tile
+	Rule NMOV(ValidateMoveEvent::TYPE);
+	NMOV.payload = [](Event &e) {
+		ValidateMoveEvent& moveEvent = static_cast<ValidateMoveEvent&>(e);
+		if(moveEvent.slot.properties.type == Slot::Properties::VOID) moveEvent.invalidate();
+	};
+	NMOV.priority = Priority::BASE;
+	rules.push_back(NMOV);
 
 	//Limit moves per card per turn
 	Rule LMCT(ValidateMoveEvent::TYPE);

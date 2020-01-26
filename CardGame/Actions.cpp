@@ -12,14 +12,14 @@ void Actions::move(Card &card, Slot &slot) {
 		//TODO POLICY for card moved into occupied slot by effect
 	}
 
-	assert(e.card.container->giveCardTo(*e.slot));
+	assert(e.card.container->giveCardTo(*e.slot, e.card));
 	//Post card moved event
 }
 
 void Actions::summon(Card &card, Slot &slot) {
-	assert(card.container->giveCardTo(slot));
+	assert(card.container->giveCardTo(slot, card));
 }
 
-void Actions::attack(Card &card, Slot &slot) {
+void Actions::attackSlot(Slot &slot, std::vector<Card*> attackers) {
 
 }

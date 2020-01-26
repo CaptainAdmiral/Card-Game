@@ -8,7 +8,7 @@ void Deck::card_in(CardPtr) {}
 
 CardPtr Deck::card_out() {
 	CardPtr card = std::make_unique<Card>(owner);
-	card.get()->properties.setAtk(10).setCtr(12).setDef(8).setSpeed(1).setRange(1);
+	card.get()->properties.setAtk(10).setCtr(12).setHp(8).setSpeed(1).setRange(1);
 	return std::move(card);
 }
 

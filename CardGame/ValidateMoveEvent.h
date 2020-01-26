@@ -4,6 +4,7 @@
 
 class Card;
 class Slot;
+class Player;
 
 class ValidateMoveEvent : public Event, public IValidationEvent {
 public:

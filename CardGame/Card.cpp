@@ -81,8 +81,8 @@ Card::Properties &Card::Properties::setAtk(int i) {
 	return *this;
 }
 
-Card::Properties &Card::Properties::setDef(int i) {
-	def = i;
+Card::Properties &Card::Properties::setHp(int i) {
+	hp = i;
 	return *this;
 }
 

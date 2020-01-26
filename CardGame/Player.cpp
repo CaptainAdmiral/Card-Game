@@ -1,7 +1,18 @@
 #include "Player.h"
 
 Player::Player() {}
+Player::Player(int r, int g, int b) {
+	color = std::make_tuple(r, g, b);
+}
 Player::~Player() {}
+
+void Player::setColor(int r, int g, int b) {
+	color = std::make_tuple(r, g, b);
+}
+
+std::tuple<int, int, int> Player::getColor() {
+	return color;
+}
 
 void Player::draw() {
 	deck.giveCardTo(hand);

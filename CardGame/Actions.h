@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 class Card;
 class Slot;
@@ -11,6 +12,6 @@ namespace Actions {
 
 	void summon(Card &card, Slot &slot);
 
-	void attack(Card &card, Slot &slot);
+	void attackSlot(Slot &slot, std::vector<Card*> attackers);
 };
 

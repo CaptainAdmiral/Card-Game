@@ -1,5 +1,5 @@
 #include "Slot.h"
-#include "RenderBB.h"
+#include "RenderSlot.h"
 
 Slot::Slot() {
 	updateBoundingBox();
@@ -21,6 +21,24 @@ Slot::~Slot() {}
 
 GameObjectType Slot::getType() {
 	return GameObjectType::SLOT;
+}
+
+float Slot::getHeight() {
+	return height;
+}
+
+float Slot::getWidth() {
+	return width;
+}
+
+void Slot::setWidth(float w) {
+	width = w;
+	updateBoundingBox();
+}
+
+void Slot::setHeight(float h) {
+	height = h;
+	updateBoundingBox();
 }
 
 void Slot::card_in(CardPtr card) {
@@ -57,8 +75,16 @@ bool Slot::contains(Card& card) {
 }
 
 AbstractRender &Slot::getRender() {
-	static RenderBB render;
+	static RenderSlot render;
 	return render;
+}
+
+Player *Slot::Properties::getController() {
+	return controller;
+}
+
+void Slot::Properties::setController(Player *player) {
+	controller = player;
 }
 
 BoundingBox Slot::calculateBoundingBox() {

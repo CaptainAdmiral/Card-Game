@@ -9,6 +9,8 @@ public:
 	//Data to be represented by buffs
 	unsigned int moves = 0;
 	bool justSummoned = false;
+
+	bool isCountering = true;
 	/////////////////////////////////
 
 	ICardContainer *container = nullptr;
@@ -38,22 +40,18 @@ public:
 		Properties() {};
 		~Properties() {};
 
-		enum type{UNIT, SPELL};
+		enum Type{UNIT, SPELL};
 
 		unsigned int atk=0;
-		unsigned int ctr=0; //TODO make sure counter is never lower than defense
-		unsigned int def=0;
+		unsigned int hp = 0;
+		unsigned int ctr=0;
 		unsigned int speed=1;
 		unsigned int range=1;
 
 		Properties &setAtk(int);
-
+		Properties &setHp(int);
 		Properties &setCtr(int);
-
-		Properties &setDef(int);
-
 		Properties &setSpeed(int);
-
 		Properties &setRange(int);
 	};
 

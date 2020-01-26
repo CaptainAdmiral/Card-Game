@@ -71,9 +71,8 @@ void GamePhasePlanning::onMouseReleased(int x, int y) {
 
 			if(e.isValid) {
 				Actions::summon(*draggedCard, slot);
-				draggedCard->setPos(slot.getPosX(), slot.getPosY());
-				draggedReturnX = draggedCard->getPosX();
-				draggedReturnY = draggedCard->getPosY();
+				draggedReturnX = slot.getPosX();
+				draggedReturnY = slot.getPosY();
 
 				player->plannedActions.emplace_back<Action>(Action::Summon(*draggedCard, slot));
 				player->summons++;
@@ -86,9 +85,8 @@ void GamePhasePlanning::onMouseReleased(int x, int y) {
 
 			if(e.isValid) {
 				Actions::move(*draggedCard, slot);
-				draggedCard->setPos(slot.getPosX(), slot.getPosY());
-				draggedReturnX = draggedCard->getPosX();
-				draggedReturnY = draggedCard->getPosY();
+				draggedReturnX = slot.getPosX();
+				draggedReturnY = slot.getPosY();
 
 				player->plannedActions.emplace_back<Action>(Action::Move(*draggedCard, slot));
 				player->moves++;

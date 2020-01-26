@@ -1,5 +1,6 @@
 #pragma once
 #include "ICardContainer.h"
+#include<vector>
 
 class Slot : public ICardContainer, public IRenderable {
 public:
@@ -28,27 +29,37 @@ public:
 
 	virtual GameObjectType getType() override;
 
-	float getHeight() {
-		return height;
-	}
-
-	float getWidth() {
-		return width;
-	}
-
-	void setWidth(float w) {
-		width = w;
-		updateBoundingBox();
-	}
-
-	void setHeight(float h) {
-		height = h;
-		updateBoundingBox();
-	}
+	float getHeight();
+	float getWidth();
+	void setWidth(float w);
+	void setHeight(float h);
 
 	virtual GameObjectType type() override {
 		return TYPE;
 	}
+
+	struct Properties {
+	public:
+		enum Type { VOID, PLAINS, SUMMON, BASE, MANA  };
+
+		Type type = VOID;
+
+		bool canSummon() {
+			return type == SUMMON;
+		}
+
+		Player *getController();
+
+		void setController(Player *player);
+
+		std::vector<Card*> attackers;
+		std::vector<Card*> visitors;
+
+	private:
+		Player *controller = nullptr;
+	};
+
+	Properties properties;
 
 protected:
 	float height = 0;
