@@ -11,7 +11,7 @@ public:
 	bool justSummoned = false;
 
 	bool isCountering = true;
-	//fortificationBuffer = 0;
+	int buffer = 0;
 	/////////////////////////////////
 
 	ICardContainer *container = nullptr;

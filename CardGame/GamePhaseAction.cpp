@@ -54,7 +54,14 @@ void GamePhaseAction::doPhase() {
 	}
 	while(!conflicts.empty());
 
-	
+	if(player1First) {
+		applyActionsToField(p1PlannedActions, gameComponents.field);
+		applyActionsToField(p2PlannedActions, gameComponents.field);
+	}
+	else {
+		applyActionsToField(p2PlannedActions, gameComponents.field);
+		applyActionsToField(p1PlannedActions, gameComponents.field);
+	}
 
 	setFinished();
 }

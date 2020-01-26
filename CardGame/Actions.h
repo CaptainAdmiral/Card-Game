@@ -15,5 +15,6 @@ namespace Actions {
 	void attackSlot(Slot &slot, std::vector<Card*> attackers);
 
 	void attack(Card &attacker, Card &attacked);
+	void counterAttack(Card &attacker, Card &attacked);
 };
 

@@ -24,23 +24,25 @@ void Actions::attackSlot(Slot &slot, std::vector<Card*> attackers) {
 	if(!slot.contents) return;
 	Card& attacked = *slot.contents;
 
-	int buffer = 0;
-
 	if(attacked.isCountering) {
-		buffer = attacked.properties.ctr; //TODO
+		attacked.buffer = attacked.properties.ctr; //TODO move to action phase
 	}
 
-	for(auto&& attacker : attackers) {
-		buffer -= attacker->properties.atk;
+	for(Card *attacker : attackers) {
+		attack(*attacker, attacked);
 	}
 
-	if(buffer > 0) {
-		for(auto&& attacker : attackers) {
-			attack(attacked, *attacker);
+	if(attacked.buffer > 0) {
+		for(Card *attacker : attackers) {
+			counterAttack(attacked, *attacker);
 		}
 	}
 }
 
 void Actions::attack(Card &attacker, Card &attacked) {
 	attacked.properties.setHp(attacked.properties.hp - attacked.properties.atk);
+}
+
+void Actions::counterAttack(Card &counterAttacker, Card &counterAttacked) {
+	counterAttacked.properties.setHp(counterAttacked.properties.hp - counterAttacker.buffer);
 }
