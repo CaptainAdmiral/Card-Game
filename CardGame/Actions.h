@@ -13,5 +13,7 @@ namespace Actions {
 	void summon(Card &card, Slot &slot);
 
 	void attackSlot(Slot &slot, std::vector<Card*> attackers);
+
+	void attack(Card &attacker, Card &attacked);
 };
 

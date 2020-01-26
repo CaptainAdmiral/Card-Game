@@ -11,6 +11,7 @@ public:
 	bool justSummoned = false;
 
 	bool isCountering = true;
+	//fortificationBuffer = 0;
 	/////////////////////////////////
 
 	ICardContainer *container = nullptr;
@@ -42,11 +43,11 @@ public:
 
 		enum Type{UNIT, SPELL};
 
-		unsigned int atk=0;
-		unsigned int hp = 0;
-		unsigned int ctr=0;
-		unsigned int speed=1;
-		unsigned int range=1;
+		int atk=0;
+		int hp = 0;
+		int ctr=0;
+		int speed=1;
+		int range=1;
 
 		Properties &setAtk(int);
 		Properties &setHp(int);

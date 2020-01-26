@@ -22,6 +22,7 @@ private:
 
 	void doBattles(Field &field1, Field &field2);
 
+	void applyActionsToField(ActionList &actions, Field& field);
 
 	Slot &getSlotForField(Slot& slot, Field &field);
 	Card &getCardForField(Card& card, Field &field);

@@ -21,5 +21,26 @@ void Actions::summon(Card &card, Slot &slot) {
 }
 
 void Actions::attackSlot(Slot &slot, std::vector<Card*> attackers) {
+	if(!slot.contents) return;
+	Card& attacked = *slot.contents;
 
+	int buffer = 0;
+
+	if(attacked.isCountering) {
+		buffer = attacked.properties.ctr; //TODO
+	}
+
+	for(auto&& attacker : attackers) {
+		buffer -= attacker->properties.atk;
+	}
+
+	if(buffer > 0) {
+		for(auto&& attacker : attackers) {
+			attack(attacked, *attacker);
+		}
+	}
+}
+
+void Actions::attack(Card &attacker, Card &attacked) {
+	attacked.properties.setHp(attacked.properties.hp - attacked.properties.atk);
 }

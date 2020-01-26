@@ -54,27 +54,16 @@ void GamePhaseAction::doPhase() {
 	}
 	while(!conflicts.empty());
 
+	
+
 	setFinished();
 }
 
 Field GamePhaseAction::getPredictedField(ActionList actions, Player &player) {
 	Field field = gameComponents.field;
 
-	for(Action &action : actions) {
-		switch(action.type) {
-		case Action::MOVE:
-			Actions::move(getCardForField(action.getMove().card, field), getSlotForField(action.getMove().slotTo, field));
-			break;
-			
-		case Action::SUMMON:
-			//doSummon(action.getSummon()); //TODO summon from hand copy
-			break;
+	applyActionsToField(actions, field);
 
-		case Action::ATTACK:
-			action.getAttack().target.properties.attackers.push_back(&action.getAttack().card);
-			break;
-		}
-	}
 	field.for_each_slot([&](Slot& slot) {
 		if(slot.contents && slot.contents->owner != &player) {
 			slot.card_out();
@@ -108,7 +97,7 @@ void GamePhaseAction::doBattles(Field &field1, Field &field2) {
 			if(Field::slotMissing(i, j)) continue;
 			std::vector<Card*> attackers;
 
-			//Share info for slot attack and visitor vectors between prodicted fields
+			//Combine info for slot attack and visitor vectors between prodicted fields
 			std::vector<Card*> &f1AtkVec = field1.slotArray[i][j]->properties.attackers;
 			std::vector<Card*> &f2AtkVec = field2.slotArray[i][j]->properties.attackers;
 			attackers.insert(attackers.end(), f1AtkVec.begin(), f1AtkVec.end());
@@ -123,6 +112,24 @@ void GamePhaseAction::doBattles(Field &field1, Field &field2) {
 
 			Actions::attackSlot(*field1.slotArray[i][j], attackers);
 			Actions::attackSlot(*field2.slotArray[i][j], attackers);
+		}
+	}
+}
+
+void GamePhaseAction::applyActionsToField(ActionList &actions, Field &field) {
+	for(Action &action : actions) {
+		switch(action.type) {
+		case Action::MOVE:
+			Actions::move(getCardForField(action.getMove().card, field), getSlotForField(action.getMove().slotTo, field));
+			break;
+
+		case Action::SUMMON:
+			//doSummon(action.getSummon()); //TODO summon from hand copy
+			break;
+
+		case Action::ATTACK:
+			action.getAttack().target.properties.attackers.push_back(&action.getAttack().card);
+			break;
 		}
 	}
 }
