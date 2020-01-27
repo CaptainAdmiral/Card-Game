@@ -6,4 +6,5 @@ enum GameObjectType {
 	SLOT,
 	HAND,
 	DECK,
+	GRAVEYARD,
 };

@@ -84,5 +84,5 @@ protected:
 
 private:
 	BoundingBox boundingBox;
-	bool visible = true;
+	bool visible = false;
 };

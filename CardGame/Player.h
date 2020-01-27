@@ -3,6 +3,7 @@
 #include "deck.h"
 #include "hand.h"
 #include "field.h"
+#include "graveyard.h"
 #include "action.h"
 #include <tuple>
 
@@ -14,10 +15,11 @@ public:
 
 	Deck deck{*this};
 	Hand hand{Settings::General::DEFAULT_WIDTH/2.0f, Settings::General::DEFAULT_HEIGHT - Settings::UI::handHeight/2};
+	Graveyard graveyard;
 
 	//TODO Refreshed on new turn event
 	Field planningField; //Player specific planning phase field
-	ActionList plannedActions; //Vector of actions the player has taken on the planning field
+	ActionList plannedActions; //Vector of actions the player has taken on the planning field //TODO move to planning phase
 	unsigned int summons; //Player summons this turn
 	unsigned int moves; //Player moves this turn
 

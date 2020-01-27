@@ -348,6 +348,9 @@
     <ClInclude Include="MoveEvent.h">
       <Filter>Header Files\Com\Game\Event\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Graveyard.h">
+      <Filter>Header Files\Com\Game\Card Container</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp">
@@ -460,6 +463,9 @@
     </ClCompile>
     <ClCompile Include="GamePhaseAction.cpp">
       <Filter>Source Files\Com\Game\Game Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="Graveyard.cpp">
+      <Filter>Source Files\Com\Game\Card Container</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

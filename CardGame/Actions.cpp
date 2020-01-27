@@ -12,6 +12,7 @@ void Actions::move(Card &card, Slot &slot) {
 		//TODO POLICY for card moved into occupied slot by effect
 	}
 
+	static_cast<Slot*>(card.container)->properties.visitors.push_back(&card);
 	assert(e.card.container->giveCardTo(*e.slot, e.card));
 	//Post card moved event
 }
@@ -20,10 +21,7 @@ void Actions::summon(Card &card, Slot &slot) {
 	assert(card.container->giveCardTo(slot, card));
 }
 
-void Actions::attackSlot(Slot &slot, std::vector<Card*> attackers) {
-	if(!slot.contents) return;
-	Card& attacked = *slot.contents;
-
+void Actions::attack(Card &attacked, std::vector<Card*> attackers) {
 	if(attacked.isCountering) {
 		attacked.buffer = attacked.properties.ctr; //TODO move to action phase
 	}

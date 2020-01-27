@@ -5,13 +5,13 @@
 #include <time.h>
 #include <algorithm>
 
+//TODO when resolving conflicts for unit with multiple moves resolve conflicts with earlier moves first to determine if later moves still happen
+
 GamePhaseAction::GamePhaseAction(GameComponents &components) : AbstractGamePhase(GamePhase::ACTION, components) {}
 
 GamePhaseAction::~GamePhaseAction() {}
 
 void GamePhaseAction::doPhase() {
-	setFinished();
-	return;
 	const Field &field = gameComponents.field;
 	Field p1Field;
 	Field p2Field;
@@ -32,7 +32,7 @@ void GamePhaseAction::doPhase() {
 		p1Field = getPredictedField(p1PlannedActions, gameComponents.player);
 		p2Field = getPredictedField(p2PlannedActions, gameComponents.player2);
 
-		doBattles(p1Field, p2Field);
+		doBattles(p1Field, p2Field); //TODO do battle after each move rather than at end (remember to do battles once before moves)
 
 		for(size_t i = 0; i < std::size(field.slotArray); i++) {
 			for(size_t j = 0; j < std::size(field.slotArray[i]); j++) {
@@ -54,13 +54,12 @@ void GamePhaseAction::doPhase() {
 	}
 	while(!conflicts.empty());
 
-	if(player1First) {
-		applyActionsToField(p1PlannedActions, gameComponents.field);
-		applyActionsToField(p2PlannedActions, gameComponents.field);
-	}
-	else {
-		applyActionsToField(p2PlannedActions, gameComponents.field);
-		applyActionsToField(p1PlannedActions, gameComponents.field);
+	for(size_t i = 0; i < std::size(gameComponents.field.slotArray); i++) {
+		for(size_t j = 0; j < std::size(gameComponents.field.slotArray[i]); j++) {
+			if(Field::slotMissing(i, j)) continue;
+			if(p1Field.slotArray[i][j]->contents) gameComponents.field.slotArray[i][j]->card_in(std::move(p1Field.slotArray[i][j]->contents));
+			if(p2Field.slotArray[i][j]->contents) gameComponents.field.slotArray[i][j]->card_in(std::move(p2Field.slotArray[i][j]->contents));
+		}
 	}
 
 	setFinished();
@@ -74,6 +73,9 @@ Field GamePhaseAction::getPredictedField(ActionList actions, Player &player) {
 	field.for_each_slot([&](Slot& slot) {
 		if(slot.contents && slot.contents->owner != &player) {
 			slot.card_out();
+		}
+		else if(slot.contents) {
+			slot.properties.visitors.push_back(slot.contents.get());
 		}
 	});
 
@@ -103,6 +105,8 @@ void GamePhaseAction::doBattles(Field &field1, Field &field2) {
 		for(size_t j = 0; j < std::size(gameComponents.field.slotArray[i]); j++) {
 			if(Field::slotMissing(i, j)) continue;
 			std::vector<Card*> attackers;
+			std::vector<Card*> visitors;
+			std::vector<CardPtr> deadCards;
 
 			//Combine info for slot attack and visitor vectors between prodicted fields
 			std::vector<Card*> &f1AtkVec = field1.slotArray[i][j]->properties.attackers;
@@ -112,13 +116,20 @@ void GamePhaseAction::doBattles(Field &field1, Field &field2) {
 
 			std::vector<Card*> &f1VisVec = field1.slotArray[i][j]->properties.visitors;
 			std::vector<Card*> &f2VisVec = field2.slotArray[i][j]->properties.visitors;
-			attackers.insert(attackers.end(), f1VisVec.begin(), f1VisVec.end());
-			attackers.insert(attackers.end(), f2VisVec.begin(), f2VisVec.end());
+			visitors.insert(visitors.end(), f1VisVec.begin(), f1VisVec.end());
+			visitors.insert(visitors.end(), f2VisVec.begin(), f2VisVec.end());
+
+			attackers.insert(attackers.end(), visitors.begin(), visitors.end());
 
 			attackers.erase(std::unique(attackers.begin(), attackers.end()), attackers.end());
+			visitors.erase(std::unique(visitors.begin(), visitors.end()), visitors.end());
 
-			Actions::attackSlot(*field1.slotArray[i][j], attackers);
-			Actions::attackSlot(*field2.slotArray[i][j], attackers);
+			for(Card *card : visitors) {
+				Actions::attack(*card, attackers);
+				if(card->properties.hp < 0) {
+					deadCards.push_back(card->container->card_out());
+				}
+			}
 		}
 	}
 }
@@ -132,6 +143,7 @@ void GamePhaseAction::applyActionsToField(ActionList &actions, Field &field) {
 
 		case Action::SUMMON:
 			//doSummon(action.getSummon()); //TODO summon from hand copy
+			getSlotForField(action.getSummon().slot, field).card_in(std::make_unique<Card>(action.getSummon().card));
 			break;
 
 		case Action::ATTACK:

@@ -37,6 +37,7 @@
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GamePhaseAction.h" />
     <ClInclude Include="GamePhasePlanning.h" />
+    <ClInclude Include="Graveyard.h" />
     <ClInclude Include="IEventListener.h" />
     <ClInclude Include="IMouseListener.h" />
     <ClInclude Include="IValidationEvent.h" />
@@ -89,6 +90,7 @@
     <ClCompile Include="GamePhaseAction.cpp" />
     <ClCompile Include="GamePhasePlanning.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="Graveyard.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="ICardContainer.cpp" />
     <ClCompile Include="IMouseListener.cpp" />

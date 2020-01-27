@@ -14,6 +14,7 @@ GamePhasePlanning::GamePhasePlanning(GameComponents &components, Player* player,
 	button.func = &AbstractGamePhase::setFinished;
 	button.instance = this;
 	button.setPos(Settings::General::DEFAULT_WIDTH / 2, Settings::General::DEFAULT_HEIGHT*0.04);
+	button.setVisible(false);
 }
 
 GamePhasePlanning::~GamePhasePlanning() {}
@@ -30,13 +31,22 @@ void GamePhasePlanning::onPhaseStart() {
 
 	gameComponents.field.displayAsAfterimage(true);
 	player->planningField.bringCardsToFront();
+
+	player->planningField.for_each_card([](Card& card) {card.setVisible(true); });
+	player->planningField.for_each_slot([](Slot& slot) {slot.setVisible(true); });
 	button.setVisible(true);
+	player->setVisible(true);
 }
 
 void GamePhasePlanning::onPhaseEnd() {
-	gameComponents.field = player->planningField;
+	//gameComponents.field = player->planningField;
+
+	player->planningField.for_each_card([](Card& card) {card.setVisible(false); });
+	player->planningField.for_each_slot([](Slot& slot) {slot.setVisible(false); });
+
 	gameComponents.field.displayAsAfterimage(false);
 	button.setVisible(false);
+	player->setVisible(false);
 }
 
 void GamePhasePlanning::doPhase() {
