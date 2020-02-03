@@ -83,11 +83,9 @@ Field GamePhaseAction::getPredictedField(ActionList actions, Player &player) {
 	return field;
 }
 
-//Resolution policies must ensure state change moves towards known state of zero conflict
 ActionList GamePhaseAction::getResolvedConflicts(const ActionList &actions, ConflictsVec conflicts) {
 	ActionList newActions;
 
-	//Edit the actions to add move back to good boy tile if accidentally move into no-no tile
 	for(Action action : actions) {
 		if(action.type == Action::MOVE) {
 			Action::Move move = action.getMove();

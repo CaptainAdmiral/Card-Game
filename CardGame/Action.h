@@ -15,7 +15,13 @@ public:
 		SUMMON,
 	};
 
+	enum Speed {
+		SLOW,
+		FAST,
+	};
+
 	const Type type;
+	const Speed speed;
 
 	struct Move {
 		Coordinate from;
@@ -50,9 +56,9 @@ public:
 		return action.summon;
 	}
 
-	Action(Move action) : type(MOVE), action(action) {}
-	Action(Attack action) : type(ATTACK), action(action) {}
-	Action(Summon action) : type(SUMMON), action(action) {}
+	Action(Move action, Speed speed = SLOW) : type(MOVE), action(action), speed(speed) {}
+	Action(Attack action, Speed speed = SLOW) : type(ATTACK), action(action), speed(speed) {}
+	Action(Summon action, Speed speed = SLOW) : type(SUMMON), action(action), speed(speed) {}
 
 private:
 	union ActionUnion {

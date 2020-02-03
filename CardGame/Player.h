@@ -20,8 +20,7 @@ public:
 	//TODO Refreshed on new turn event
 	Field planningField; //Player specific planning phase field
 	ActionList plannedActions; //Vector of actions the player has taken on the planning field //TODO move to planning phase
-	unsigned int summons; //Player summons this turn
-	unsigned int moves; //Player moves this turn
+	int mana;
 
 	Player();
 	Player(int r, int g, int b);

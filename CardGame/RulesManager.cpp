@@ -53,17 +53,6 @@ void RulesManager::addBaseRules() {
 	SOST.priority = Priority::BASE;
 	rules.push_back(SOST);
 
-	//Limit summons per turn
-	Rule LST(ValidateSummonEvent::TYPE);
-	LST.payload = [&](Event &e) {
-		ValidateSummonEvent& summonEvent = static_cast<ValidateSummonEvent&>(e);
-		if(summonEvent.validatePositionOnly) return;
-		if(summonEvent.card.owner == nullptr) return;
-		if(summonEvent.card.owner->summons > 0) summonEvent.invalidate(); //TODO swap out for buff
-	};
-	LST.priority = Priority::BASE;
-	rules.push_back(LST);
-
 	//Limit move distance
 	Rule LMD(ValidateMoveEvent::TYPE);
 	LMD.payload = [](Event &e) {

@@ -26,8 +26,6 @@ void GamePhasePlanning::onPhaseStart() {
 	player->plannedActions.clear();
 	player->planningField.for_each_card([](Card& card) {card.justSummoned = false; });
 	player->planningField.for_each_card([](Card& card) {card.moves = 0; });
-	player->summons = 0;
-	player->moves = 0;
 
 	gameComponents.field.displayAsAfterimage(true);
 	player->planningField.bringCardsToFront();
@@ -85,7 +83,6 @@ void GamePhasePlanning::onMouseReleased(int x, int y) {
 				draggedReturnY = slot.getPosY();
 
 				player->plannedActions.emplace_back<Action>(Action::Summon(*draggedCard, std::make_pair(slot.row, slot.col)));
-				player->summons++;
 				draggedCard->justSummoned = true;
 			}
 		}
@@ -102,7 +99,6 @@ void GamePhasePlanning::onMouseReleased(int x, int y) {
 
 				player->plannedActions.emplace_back<Action>(Action::Attack(std::make_pair(slotFrom.row, slotFrom.col), std::make_pair(slot.row, slot.col)));
 				player->plannedActions.emplace_back<Action>(Action::Move(std::make_pair(slotFrom.row, slotFrom.col), std::make_pair(slot.row, slot.col)));
-				player->moves++;
 				draggedCard->moves++;
 			}
 		}
