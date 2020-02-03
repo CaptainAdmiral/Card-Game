@@ -52,9 +52,6 @@ public:
 
 		void setController(Player *player);
 
-		std::vector<Card*> attackers;
-		std::vector<Card*> visitors;
-
 	private:
 		Player *controller = nullptr;
 	};

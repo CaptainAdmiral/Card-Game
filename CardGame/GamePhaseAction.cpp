@@ -5,7 +5,6 @@
 #include <time.h>
 #include <algorithm>
 
-//TODO when resolving conflicts for unit with multiple moves resolve conflicts with earlier moves first to determine if later moves still happen
 
 GamePhaseAction::GamePhaseAction(GameComponents &components) : AbstractGamePhase(GamePhase::ACTION, components) {}
 
@@ -28,10 +27,6 @@ void GamePhaseAction::doPhase() {
 
 	do  {
 		conflicts.clear();
-		field.for_each_slot([](Slot &slot) {
-			slot.properties.visitors.clear();
-			slot.properties.attackers.clear();
-		});
 
 		p1Field = getPredictedField(p1PlannedActions, gameComponents.player);
 		p2Field = getPredictedField(p2PlannedActions, gameComponents.player2);
@@ -83,9 +78,6 @@ Field GamePhaseAction::getPredictedField(ActionList actions, Player &player) {
 		if(slot.contents && slot.contents->owner != &player) {
 			slot.card_out();
 		}
-		else if(slot.contents) {
-			slot.properties.visitors.push_back(slot.contents.get());
-		}
 	});
 
 	return field;
@@ -97,53 +89,19 @@ ActionList GamePhaseAction::getResolvedConflicts(const ActionList &actions, Conf
 
 	//Edit the actions to add move back to good boy tile if accidentally move into no-no tile
 	for(Action action : actions) {
-		newActions.push_back(action);
 		if(action.type == Action::MOVE) {
 			Action::Move move = action.getMove();
 			if(std::find(conflicts.begin(), conflicts.end(), move.to) != conflicts.end()) {
-				newActions.push_back(Action::Move(move.to, move.from));
+				continue;
 			}
 		}
+		newActions.push_back(action);
 	}
 
 	return newActions;
 }
 
 void GamePhaseAction::doBattles(Field &field1, Field &field2) {
-	//std::vector<CardPtr> deadCards;
-
-	//for(size_t i = 0; i < std::size(gameComponents.field.slotArray); i++) {
-	//	for(size_t j = 0; j < std::size(gameComponents.field.slotArray[i]); j++) {
-	//		if(Field::slotMissing(i, j)) continue;
-	//		std::vector<Card*> attackers;
-	//		std::vector<Card*> visitors;
-
-	//		//Combine info for slot attack and visitor vectors between prodicted fields
-	//		std::vector<Card*> &f1AtkVec = field1.slotArray[i][j]->properties.attackers;
-	//		std::vector<Card*> &f2AtkVec = field2.slotArray[i][j]->properties.attackers;
-	//		attackers.insert(attackers.end(), f1AtkVec.begin(), f1AtkVec.end());
-	//		attackers.insert(attackers.end(), f2AtkVec.begin(), f2AtkVec.end());
-
-	//		std::vector<Card*> &f1VisVec = field1.slotArray[i][j]->properties.visitors;
-	//		std::vector<Card*> &f2VisVec = field2.slotArray[i][j]->properties.visitors;
-	//		visitors.insert(visitors.end(), f1VisVec.begin(), f1VisVec.end());
-	//		visitors.insert(visitors.end(), f2VisVec.begin(), f2VisVec.end());
-
-	//		attackers.insert(attackers.end(), visitors.begin(), visitors.end());
-
-	//		attackers.erase(std::unique(attackers.begin(), attackers.end()), attackers.end());
-	//		visitors.erase(std::unique(visitors.begin(), visitors.end()), visitors.end());
-
-	//		for(Card *card : visitors) {
-	//			std::vector<Card*> enemyAttackers = attackers;
-	//			enemyAttackers.erase(std::remove_if(enemyAttackers.begin(), enemyAttackers.end(), [&](Card *card1) {return card->owner == card1->owner;}), enemyAttackers.end());
-	//			Actions::attack(*card, enemyAttackers);
-	//			if(card->properties.hp < 0) {
-	//				if(card->container != nullptr) deadCards.push_back(card->container->card_out());
-	//			}
-	//		}
-	//	}
-
 	for(size_t i = 0; i < std::size(gameComponents.field.slotArray); i++) {
 		for(size_t j = 0; j < std::size(gameComponents.field.slotArray[i]); j++) {
 			if(Field::slotMissing(i, j)) continue;
@@ -172,25 +130,18 @@ void GamePhaseAction::applyActionsToField(ActionList &actions, Field &field) {
 			slot = field.slotArray[action.getMove().to.first][action.getMove().to.second].get();
 			if(card == nullptr) continue;
 
+			//post valid move event and check
+
 			Actions::move(*card, *slot);
 			break;
 
 		case Action::SUMMON:
-			//doSummon(action.getSummon()); //TODO summon from hand copy
-			getSlotForField(action.getSummon().slot, field).card_in(std::make_unique<Card>(action.getSummon().card));
+			field.slotArray[action.getSummon().to.first][action.getSummon().to.second]->card_in(std::make_unique<Card>(action.getSummon().card));
 			break;
 
 		case Action::ATTACK:
-			action.getAttack().target.properties.attackers.push_back(&action.getAttack().card);
+			
 			break;
 		}
 	}
-}
-
-Slot &GamePhaseAction::getSlotForField(Slot& slot, Field &field) {
-	return *field.slotArray[slot.row][slot.col];
-}
-
-Card &GamePhaseAction::getCardForField(Card& card, Field &field) {
-	return *field.slotArray[static_cast<Slot*>(card.container)->row][static_cast<Slot*>(card.container)->col]->contents; //TODO 
 }

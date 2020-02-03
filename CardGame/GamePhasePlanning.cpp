@@ -84,7 +84,7 @@ void GamePhasePlanning::onMouseReleased(int x, int y) {
 				draggedReturnX = slot.getPosX();
 				draggedReturnY = slot.getPosY();
 
-				player->plannedActions.emplace_back<Action>(Action::Summon(*draggedCard, slot));
+				player->plannedActions.emplace_back<Action>(Action::Summon(*draggedCard, std::make_pair(slot.row, slot.col)));
 				player->summons++;
 				draggedCard->justSummoned = true;
 			}
@@ -100,6 +100,7 @@ void GamePhasePlanning::onMouseReleased(int x, int y) {
 				draggedReturnX = slot.getPosX();
 				draggedReturnY = slot.getPosY();
 
+				player->plannedActions.emplace_back<Action>(Action::Attack(std::make_pair(slotFrom.row, slotFrom.col), std::make_pair(slot.row, slot.col)));
 				player->plannedActions.emplace_back<Action>(Action::Move(std::make_pair(slotFrom.row, slotFrom.col), std::make_pair(slot.row, slot.col)));
 				player->moves++;
 				draggedCard->moves++;

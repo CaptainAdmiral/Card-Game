@@ -12,7 +12,6 @@ void Actions::move(Card &card, Slot &slot) {
 		//TODO POLICY for card moved into occupied slot by effect
 	}
 
-	static_cast<Slot*>(card.container)->properties.visitors.push_back(&card);
 	assert(e.card.container->giveCardTo(*e.slot, e.card));
 	//TODO Post card moved event
 }

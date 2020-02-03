@@ -25,17 +25,17 @@ public:
 	};
 
 	struct Attack {
-		Card &card;
-		Slot &target;
+		Coordinate attacker;
+		Coordinate attacked;
 
-		Attack(Card& card, Slot &target) : card(card), target(target) {}
+		Attack(Coordinate attacker, Coordinate attacked) : attacker(attacker), attacked(attacked) {}
 	};
 
 	struct Summon {
 		Card &card;
-		Slot &slot;
+		Coordinate to;
 
-		Summon(Card &card, Slot &slot) : card(card), slot(slot) {}
+		Summon(Card &card, Coordinate to) : card(card), to(to) {}
 	};
 
 	const Action::Move getMove() {
