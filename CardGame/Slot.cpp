@@ -46,6 +46,7 @@ void Slot::card_in(CardPtr card) {
 	card->container = this;
 	card->isInSlot = true;
 	contents=std::move(card);
+	contents->setPos(posX, posY);
 }
 
 CardPtr Slot::card_out() {

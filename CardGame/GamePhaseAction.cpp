@@ -12,7 +12,7 @@ GamePhaseAction::GamePhaseAction(GameComponents &components) : AbstractGamePhase
 GamePhaseAction::~GamePhaseAction() {}
 
 void GamePhaseAction::doPhase() {
-	const Field &field = gameComponents.field;
+	Field &field = gameComponents.field;
 	Field p1Field;
 	Field p2Field;
 
@@ -28,6 +28,10 @@ void GamePhaseAction::doPhase() {
 
 	do  {
 		conflicts.clear();
+		field.for_each_slot([](Slot &slot) {
+			slot.properties.visitors.clear();
+			slot.properties.attackers.clear();
+		});
 
 		p1Field = getPredictedField(p1PlannedActions, gameComponents.player);
 		p2Field = getPredictedField(p2PlannedActions, gameComponents.player2);
@@ -37,7 +41,7 @@ void GamePhaseAction::doPhase() {
 		for(size_t i = 0; i < std::size(field.slotArray); i++) {
 			for(size_t j = 0; j < std::size(field.slotArray[i]); j++) {
 				if(Field::slotMissing(i, j)) continue;
-				if(p1Field.slotArray[i][j]->contents && p1Field.slotArray[i][j]->contents) {
+				if(p1Field.slotArray[i][j]->contents && p2Field.slotArray[i][j]->contents) {
 					conflicts.push_back(std::make_pair(i, j));
 				}
 			}
@@ -54,11 +58,16 @@ void GamePhaseAction::doPhase() {
 	}
 	while(!conflicts.empty());
 
+	gameComponents.field.for_each_slot([](Slot& slot) {
+		if(!slot.isEmpty()) slot.card_out();
+	});
+
 	for(size_t i = 0; i < std::size(gameComponents.field.slotArray); i++) {
 		for(size_t j = 0; j < std::size(gameComponents.field.slotArray[i]); j++) {
 			if(Field::slotMissing(i, j)) continue;
 			if(p1Field.slotArray[i][j]->contents) gameComponents.field.slotArray[i][j]->card_in(std::move(p1Field.slotArray[i][j]->contents));
 			if(p2Field.slotArray[i][j]->contents) gameComponents.field.slotArray[i][j]->card_in(std::move(p2Field.slotArray[i][j]->contents));
+
 		}
 	}
 
@@ -91,8 +100,8 @@ ActionList GamePhaseAction::getResolvedConflicts(const ActionList &actions, Conf
 		newActions.push_back(action);
 		if(action.type == Action::MOVE) {
 			Action::Move move = action.getMove();
-			if(std::find(conflicts.begin(), conflicts.end(), std::make_pair((unsigned int)move.slotTo.row, (unsigned int)move.slotTo.col)) != conflicts.end()) {
-				newActions.push_back(Action::Move(move.card, static_cast<Slot&>(*move.card.container)));
+			if(std::find(conflicts.begin(), conflicts.end(), move.to) != conflicts.end()) {
+				newActions.push_back(Action::Move(move.to, move.from));
 			}
 		}
 	}
@@ -101,33 +110,51 @@ ActionList GamePhaseAction::getResolvedConflicts(const ActionList &actions, Conf
 }
 
 void GamePhaseAction::doBattles(Field &field1, Field &field2) {
+	//std::vector<CardPtr> deadCards;
+
+	//for(size_t i = 0; i < std::size(gameComponents.field.slotArray); i++) {
+	//	for(size_t j = 0; j < std::size(gameComponents.field.slotArray[i]); j++) {
+	//		if(Field::slotMissing(i, j)) continue;
+	//		std::vector<Card*> attackers;
+	//		std::vector<Card*> visitors;
+
+	//		//Combine info for slot attack and visitor vectors between prodicted fields
+	//		std::vector<Card*> &f1AtkVec = field1.slotArray[i][j]->properties.attackers;
+	//		std::vector<Card*> &f2AtkVec = field2.slotArray[i][j]->properties.attackers;
+	//		attackers.insert(attackers.end(), f1AtkVec.begin(), f1AtkVec.end());
+	//		attackers.insert(attackers.end(), f2AtkVec.begin(), f2AtkVec.end());
+
+	//		std::vector<Card*> &f1VisVec = field1.slotArray[i][j]->properties.visitors;
+	//		std::vector<Card*> &f2VisVec = field2.slotArray[i][j]->properties.visitors;
+	//		visitors.insert(visitors.end(), f1VisVec.begin(), f1VisVec.end());
+	//		visitors.insert(visitors.end(), f2VisVec.begin(), f2VisVec.end());
+
+	//		attackers.insert(attackers.end(), visitors.begin(), visitors.end());
+
+	//		attackers.erase(std::unique(attackers.begin(), attackers.end()), attackers.end());
+	//		visitors.erase(std::unique(visitors.begin(), visitors.end()), visitors.end());
+
+	//		for(Card *card : visitors) {
+	//			std::vector<Card*> enemyAttackers = attackers;
+	//			enemyAttackers.erase(std::remove_if(enemyAttackers.begin(), enemyAttackers.end(), [&](Card *card1) {return card->owner == card1->owner;}), enemyAttackers.end());
+	//			Actions::attack(*card, enemyAttackers);
+	//			if(card->properties.hp < 0) {
+	//				if(card->container != nullptr) deadCards.push_back(card->container->card_out());
+	//			}
+	//		}
+	//	}
+
 	for(size_t i = 0; i < std::size(gameComponents.field.slotArray); i++) {
 		for(size_t j = 0; j < std::size(gameComponents.field.slotArray[i]); j++) {
 			if(Field::slotMissing(i, j)) continue;
-			std::vector<Card*> attackers;
-			std::vector<Card*> visitors;
-			std::vector<CardPtr> deadCards;
-
-			//Combine info for slot attack and visitor vectors between prodicted fields
-			std::vector<Card*> &f1AtkVec = field1.slotArray[i][j]->properties.attackers;
-			std::vector<Card*> &f2AtkVec = field2.slotArray[i][j]->properties.attackers;
-			attackers.insert(attackers.end(), f1AtkVec.begin(), f1AtkVec.end());
-			attackers.insert(attackers.end(), f2AtkVec.begin(), f2AtkVec.end());
-
-			std::vector<Card*> &f1VisVec = field1.slotArray[i][j]->properties.visitors;
-			std::vector<Card*> &f2VisVec = field2.slotArray[i][j]->properties.visitors;
-			visitors.insert(visitors.end(), f1VisVec.begin(), f1VisVec.end());
-			visitors.insert(visitors.end(), f2VisVec.begin(), f2VisVec.end());
-
-			attackers.insert(attackers.end(), visitors.begin(), visitors.end());
-
-			attackers.erase(std::unique(attackers.begin(), attackers.end()), attackers.end());
-			visitors.erase(std::unique(visitors.begin(), visitors.end()), visitors.end());
-
-			for(Card *card : visitors) {
-				Actions::attack(*card, attackers);
-				if(card->properties.hp < 0) {
-					deadCards.push_back(card->container->card_out());
+			if(field1.slotArray[i][j]->contents && field2.slotArray[i][j]->contents) {
+				Actions::attack(*field1.slotArray[i][j]->contents, *field2.slotArray[i][j]->contents);
+				Actions::attack(*field2.slotArray[i][j]->contents, *field1.slotArray[i][j]->contents);
+				if(field1.slotArray[i][j]->contents->properties.hp < 0) {
+					field1.slotArray[i][j]->card_out();
+				}
+				if(field2.slotArray[i][j]->contents->properties.hp < 0) {
+					field2.slotArray[i][j]->card_out();
 				}
 			}
 		}
@@ -135,10 +162,17 @@ void GamePhaseAction::doBattles(Field &field1, Field &field2) {
 }
 
 void GamePhaseAction::applyActionsToField(ActionList &actions, Field &field) {
+	Card *card;
+	Slot *slot;
+
 	for(Action &action : actions) {
 		switch(action.type) {
 		case Action::MOVE:
-			Actions::move(getCardForField(action.getMove().card, field), getSlotForField(action.getMove().slotTo, field));
+			card = field.slotArray[action.getMove().from.first][action.getMove().from.second]->contents.get();
+			slot = field.slotArray[action.getMove().to.first][action.getMove().to.second].get();
+			if(card == nullptr) continue;
+
+			Actions::move(*card, *slot);
 			break;
 
 		case Action::SUMMON:
@@ -158,5 +192,5 @@ Slot &GamePhaseAction::getSlotForField(Slot& slot, Field &field) {
 }
 
 Card &GamePhaseAction::getCardForField(Card& card, Field &field) {
-	return *field.slotArray[static_cast<Slot*>(card.container)->row][static_cast<Slot*>(card.container)->col]->contents;
+	return *field.slotArray[static_cast<Slot*>(card.container)->row][static_cast<Slot*>(card.container)->col]->contents; //TODO 
 }

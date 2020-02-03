@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 
+typedef std::pair<unsigned int, unsigned int> Coordinate;
+
 class Card;
 class Slot;
 
@@ -16,10 +18,10 @@ public:
 	const Type type;
 
 	struct Move {
-		Card &card;
-		Slot &slotTo;
+		Coordinate from;
+		Coordinate to;
 
-		Move(Card &card, Slot &slotTo) : card(card), slotTo(slotTo) {}
+		Move(Coordinate from, Coordinate to) : from(from), to(to) {}
 	};
 
 	struct Attack {

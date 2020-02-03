@@ -14,7 +14,7 @@ void Actions::move(Card &card, Slot &slot) {
 
 	static_cast<Slot*>(card.container)->properties.visitors.push_back(&card);
 	assert(e.card.container->giveCardTo(*e.slot, e.card));
-	//Post card moved event
+	//TODO Post card moved event
 }
 
 void Actions::summon(Card &card, Slot &slot) {

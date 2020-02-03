@@ -59,7 +59,7 @@ void GamePhasePlanning::onMousePressed(int x, int y) {
 	if(turnCycle->getCurrentPhase().get() != this) return;
 	IRenderable *renderable = RenderManager::instance().getHit(x, y);
 
-	if(renderable != nullptr && renderable->getType() == GameObjectType::CARD) {
+	if(renderable != nullptr && renderable->getType() == GameObjectType::CARD && static_cast<Card*>(renderable)->owner == const_cast<Player*>(player)) {
 		draggedCard = static_cast<Card*>(renderable);
 		RenderManager::instance().bringToFront(draggedCard);
 		draggedReturnX = draggedCard->getPosX();
@@ -94,11 +94,13 @@ void GamePhasePlanning::onMouseReleased(int x, int y) {
 			EventHandler::postEvent(e);
 
 			if(e.isValid) {
+				Slot &slotFrom = *static_cast<Slot*>(draggedCard->container);
+
 				Actions::move(*draggedCard, slot);
 				draggedReturnX = slot.getPosX();
 				draggedReturnY = slot.getPosY();
 
-				player->plannedActions.emplace_back<Action>(Action::Move(*draggedCard, slot));
+				player->plannedActions.emplace_back<Action>(Action::Move(std::make_pair(slotFrom.row, slotFrom.col), std::make_pair(slot.row, slot.col)));
 				player->moves++;
 				draggedCard->moves++;
 			}

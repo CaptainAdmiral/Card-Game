@@ -1,5 +1,6 @@
 #include "RenderCard.h"
 #include "Card.h"
+#include "Player.h"
 
 
 RenderCard::RenderCard() {}
@@ -46,7 +47,7 @@ void RenderCard::render(IRenderable &renderable, RenderWrapper &rw) {
 		i++;
 	});
 
-	color = sf::Color::Magenta;
+	color = card.owner? sf::Color(std::get<0>(card.owner->color), std::get<1>(card.owner->color), std::get<2>(card.owner->color)) : sf::Color(100, 100, 100);
 	color.a = card.isAfterimage ? 170 : 255;
 	convex.setFillColor(color);
 	rw.draw(convex);
