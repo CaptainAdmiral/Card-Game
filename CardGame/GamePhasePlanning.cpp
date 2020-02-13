@@ -91,9 +91,9 @@ void GamePhasePlanning::onMouseReleased(int x, int y) {
 			if(e.isValid) {
 				Slot &slotFrom = *static_cast<Slot*>(draggedCard->container);
 
-				Actions::move(*draggedCard, slot);
 				draggedReturnX = slot.getPosX();
 				draggedReturnY = slot.getPosY();
+				draggedCard->isAfterimage = true;
 
 				player->plannedActions.emplace_back<Action>(Action::Attack(std::make_pair(slotFrom.row, slotFrom.col), std::make_pair(slot.row, slot.col)));
 				player->plannedActions.emplace_back<Action>(Action::Move(std::make_pair(slotFrom.row, slotFrom.col), std::make_pair(slot.row, slot.col)));

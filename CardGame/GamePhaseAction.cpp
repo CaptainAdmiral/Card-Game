@@ -113,6 +113,8 @@ void GamePhaseAction::doContestedBattles(std::vector<Action::Move> &moves) const
 
 				if(attacker && attacked && (attacker->owner != attacked->owner || !attacker->owner && !attacked->owner)) {
 					Actions::attack(*attacker, *attacked);
+					break;
+					//TODO simulate movement to determine which unit takes damage instead of just choosing the first unit attempting to move
 				}
 			}
 		}
