@@ -4,7 +4,7 @@
 
 class Field;
 
-typedef std::vector<std::pair<unsigned int, unsigned int>> ConflictsVec;
+typedef std::vector<std::pair<unsigned int, unsigned int>> CoordinatesVec;
 
 
 class GamePhaseAction : public AbstractGamePhase {
@@ -13,14 +13,12 @@ public:
 	~GamePhaseAction();
 	void doPhase() override;
 
+
 private:
-	//iterates the actions list on a copy of the current field to produce a field with predictive positioning.
-	//reenacts the planning phase with events that might not be known to the player.
-	Field getPredictedField(ActionList actions, Player &player);
+	void doSummons(std::vector<Action::Summon> &summons) const;
+	void doAttacks(std::vector<Action::Attack> &attacks) const;
+	void doContestedBattles(std::vector<Action::Move> &moves) const;
+	void doMoves(std::vector<Action::Move> &moves) const;
 
-	ActionList getResolvedConflicts(const ActionList &actions, ConflictsVec conflicts);
-
-	void doBattles(Field &field1, Field &field2);
-
-	void applyActionsToField(ActionList &actions, Field& field);
+	ActionList mergeActions(ActionList &actions1, ActionList &actions2) const;
 };

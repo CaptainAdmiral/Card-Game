@@ -90,6 +90,8 @@ void CardGame::update() {
 
 //Main Program Loop
 int main() {
+	srand(time(NULL));
+
 	CardGame &instance = CardGame::instance();
 	
 	//Initialization

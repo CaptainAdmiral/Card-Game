@@ -20,7 +20,7 @@ GamePhasePlanning::GamePhasePlanning(GameComponents &components, Player* player,
 GamePhasePlanning::~GamePhasePlanning() {}
 
 void GamePhasePlanning::onPhaseStart() {
-	//TODO move begining of turn cleanup to new turn event in player class
+	//TODO move begining of turn cleanup to buff system using new turn event
 
 	player->planningField = gameComponents.field;
 	player->plannedActions.clear();
@@ -37,8 +37,6 @@ void GamePhasePlanning::onPhaseStart() {
 }
 
 void GamePhasePlanning::onPhaseEnd() {
-	//gameComponents.field = player->planningField;
-
 	player->planningField.for_each_card([](Card& card) {card.setVisible(false); });
 	player->planningField.for_each_slot([](Slot& slot) {slot.setVisible(false); });
 
